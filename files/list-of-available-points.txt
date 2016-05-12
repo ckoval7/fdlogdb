@@ -1,0 +1,27 @@
+Points available:
+Transmitter: 100pts ea, 20 maximum
+phone: 1pt
+dig: 2pt
+cw: 2pt
+<5W and non-motordriven generator: 5*
+<5W with commercial mains or generator: 2*
+<150W 2*
+>150W 1*
+maximum power used applies multiplier to all stations
+100% em power: 100pt/transmitter
+media publicity: 100pts
+public location: 100pts
+public information table: 100pts
+rf message to section manager: 100pts
+formal message relayed/recieved: 10pts ea, maximun 100pts
+satellite qso: 100pts, counted only once, satellite qsos also count toward normal score
+natural power: 100pts
+w1aw bulletin: 100pts
+educational activity: 100pts
+elected government official: 100pts
+visit from rep of agency served by ARES: 100pts
+gota bonus: 20pts/20qso, max 100pts
+double gota bonus points for full time gota coach
+web submission: 50pts
+participant under 18: 20pts ea, max 100pts
+social media: 100pts

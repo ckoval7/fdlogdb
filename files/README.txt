@@ -1,0 +1,1 @@
+This application uses mysql and php. Please install server software such as XAMMP to run the content.
