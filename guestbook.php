@@ -11,15 +11,17 @@
 </head>
 <body>
 	<div id="outer_wrapper" class="grid">
-		<div id="inner_wrapper" class="canvas">
-			<header id="site_header" class="header">
-				<div id="page_top" class="row">
-					<?php include 'header.php';?>
-					<?php include 'navbar.php';?>
-				</div>
-				<hr id="navhr">
-			</header>
-			<div class="row">
+		<header id="site_header" class="header">
+			<div id="page_top" class="row">
+				<?php include 'header.php';?>
+			</div>
+		</header>
+		<hr>
+		<div class="row">
+			<div class="col-2">
+				<?php include 'navbar.php';?>
+			</div>
+			<div id="inner_wrapper" class="col-10">
 				<form action="submitguestbook.php" method="POST">
 					First Name:
 					<input type="text" name="first" /><br>

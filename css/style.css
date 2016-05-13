@@ -1,5 +1,5 @@
 * {
-	border: 1px solid red !important;
+	/*border: 1px solid red !important;*/
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
@@ -99,6 +99,7 @@ hr {
 		background: #428bca;
 		padding-top: 12px;
 		padding-bottom:12px;
+		margin-bottom:5px;
 		width:125px;
 		text-transform: uppercase;
 	}
@@ -121,6 +122,7 @@ hr {
 	  line-height: 24px;
 	  padding-top: 12px;
 	  padding-bottom:12px;
+	  margin-bottom:5px;
 	  width:125px;
 	  text-transform: uppercase;
 	}
@@ -169,7 +171,6 @@ hr {
 
 #datetime {
 	display:inline-block;
-	margin-top:0 auto;
 }
 
 #datetime.row {
