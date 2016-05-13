@@ -112,7 +112,7 @@ try {
 	$sql="CREATE TABLE IF NOT EXISTS users(
 		uuid BIGINT NOT NULL AUTO_INCREMENT primary key,
 		regdate DATETIME,
-		call_sign varchar(12) unique index,
+		call_sign varchar(12) unique,
 		first_name varchar(20),
 		last_name varchar(20),
 		salt VARCHAR(5),
@@ -131,13 +131,14 @@ try {
 	$sql="CREATE TABLE IF NOT EXISTS logbook(
 		logid INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		qso_time TIMESTAMP,
-		logger_id FOREIGN KEY REFERENCES users(uuid),
 		callsign VARCHAR(12),
 		section VARCHAR(3),
 		operating_class VARCHAR(4),
+		logger_id BIGINT,
 		band SMALLINT,
 		mode VARCHAR(3),
-		power SMALLINT)";
+		power SMALLINT,
+		FOREIGN KEY (logger_id) REFERENCES users(uuid))";
 	$conn->exec($sql);
 	echo "Table logbook added!<br>";
 }
@@ -165,11 +166,12 @@ catch(PDOException $e) {
 try {
 	$sql="CREATE TABLE IF NOT EXISTS inventory(
 		item_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-		user_id FOREIGN KEY REFERENCES users(uuid),
+		user_id BIGINT NOT NULL,
 		item_make VARCHAR(100),
 		item_model VARCHAR(100),
 		item_description TEXT,
-		contact_number INT)";
+		contact_number INT,
+		FOREIGN KEY (user_id) REFERENCES users(uuid))";
 	$conn->exec($sql);
 	echo "Table inventory added!<br>";
 }
