@@ -1,5 +1,5 @@
 * {
-	/*border: 1px solid red !important;*/
+	border: 1px solid red !important;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
@@ -53,18 +53,38 @@ hr {
 	.logo {
 		display: none;
 	}
-
-	.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
-		width:100% !important;
+	
+	#datetime {
+		width:100%;
+		display: block;
+		float: center;
+		margin: 0 auto;
 	}
+	
+	#title {
+		display: block;
+		width:100%;
+	}
+	
+	#timeandtitle {
+		width: 100%;
+		margin: 0 auto;
+	}
+
+/*	.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+		width:100% !important;
+	}*/
 }
 	
-@media screen and (max-width: 660px) {
+@media screen and (max-width: 830px) {
 	#drawer {
 		display:none;
 	}
 	#navhr {
 		display:none;
+	}
+	#inner_wrapper {
+		width:100%;
 	}
 	.nav__item {
 		box-sizing: border-box;
@@ -105,7 +125,10 @@ hr {
 	  text-transform: uppercase;
 	}
 	#title h1 {
-	text-align:right;
+		text-align:right;
+		vertical-align:middle;
+		padding:0px;
+		margin-bottom:0px;
 	}
 }
 
@@ -116,6 +139,10 @@ hr {
 
 .logo {
 	max-width:100%;
+}
+
+.nav {
+	width: 150px;
 }
 
 .nav a {
@@ -138,6 +165,11 @@ hr {
     background:#FBF8F8;
     font-family:Arial, Helvetica, sans-serif;
     overflow: hidden;
+}
+
+#datetime {
+	display:inline-block;
+	margin-top:0 auto;
 }
 
 #datetime.row {
@@ -190,6 +222,12 @@ hr {
 	color:green;
 	text-align:center;
 	margin:0 auto;
+	height:auto;
+	display: inline-block;
+}
+
+#inner_wrapper {
+	display: inline-block;
 }
 
 .row {
