@@ -23,7 +23,11 @@
 			</div>
 			<div id="inner_wrapper" class="col-10">
 				<h4>To explore the full funtionality of the site and to log your contacts you will need an account.<br>
+<<<<<<< HEAD
 					All fields are required. Please fill in the information below:</h4>
+=======
+					Please fill in the information below:</h4>
+>>>>>>> origin/master
 				<form method="POST" action=<?php echo $_SERVER["PHP_SELF"];?>>
 					<b>First Name:</b><br>
 					<input type="text" name="first" value="<?php echo $first_name; ?>">
@@ -34,6 +38,7 @@
 					<b>Call Sign:</b><br>
 					<input type="text" name="callsign" value="<?php echo $callsign; ?>" />
 					<span class="error">* <?php echo $callsignErr;?></span><br>
+<<<<<<< HEAD
 					<b>Operating Class:</b><br>
 					<select name="class">
 						<option value="Novice">Novice</option>
@@ -49,6 +54,10 @@
 					<b>Repeat Password:</b><br>
 					<input type="password" name="repeat_password" />
 					</span><br>
+=======
+					Operating Class:
+					(Drop Down Menu Here)<br>					
+>>>>>>> origin/master
 					<input type="submit" /><br>
 				</form>
 			</div>

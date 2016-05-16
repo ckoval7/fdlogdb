@@ -10,7 +10,11 @@ $firstnameErr = $lastnameErr = $callsignErr = "";
 $first_name = $last_name = $callsign = $comments ="";
 $isReady = 0;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+<<<<<<< HEAD
 	if (empty($_POST["first"]) or empty($_POST["last"])) {
+=======
+	if (empty($_POST["first"]) or empty($_POST["last"]) or empty($_POST["callsign"])) {
+>>>>>>> origin/master
 		$isReady = 0;
 	} else {
 		$isReady = 1;
@@ -26,7 +30,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	} else {
 		$last_name = test_input($_POST["last"]);
 	}
+<<<<<<< HEAD
 	$callsign = strtoupper(test_input($_POST["callsign"]));
+=======
+
+	//if (empty($_POST["callsign"])) {
+	//	$callsignErr = "Callsign Required";
+	//} else {
+		$callsign = strtoupper(test_input($_POST["callsign"]));
+	//}
+	
+>>>>>>> origin/master
 	$comments = test_input($_POST["comments"]);
 }		
 	function test_input($data) {
