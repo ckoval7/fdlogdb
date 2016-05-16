@@ -22,16 +22,17 @@
 				<?php include 'navbar.php';?>
 			</div>
 			<div id="inner_wrapper" class="col-10">
+				<h4>To explore the full funtionality of the site and to log your contacts you will need an account.<br>
+					Please fill in the information below:</h4>
 				<form action="submitreg.php" method="POST">
-					First Name:
+					First Name:<br>
 					<input type="text" name="first" /><br>
-					Last Name:
+					Last Name:<br>
 					<input type="text" name="last" /><br>
-					Call Sign:
+					Call Sign:<br>
 					<input type="text" name="callsign" /><br>
 					Operating Class:
-					(Drop Down Menu Here)
-					
+					(Drop Down Menu Here)<br>					
 					<input type="submit" /><br>
 				</form>
 			</div>

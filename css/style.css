@@ -20,6 +20,10 @@ img, embed, object, video {
 	max-width: 100%;
 }
 
+span {
+	display:inline-block;
+}
+
 h1 {
 	font-size:38px;
 }
@@ -40,15 +44,7 @@ hr {
 	border: 1px solid lightgray;
 }
 
-#recent-contacts {
-	
-}
-
-#recent-images {
-	
-}
-
-
+/*Mobile Screens*/
 @media screen and (max-width: 525px) {
 	.logo {
 		display: none;
@@ -66,6 +62,10 @@ hr {
 		width:100%;
 	}
 	
+	#title h1 {
+		text-align:center !important;
+	}
+	
 	#timeandtitle {
 		width: 100%;
 		margin: 0 auto;
@@ -75,7 +75,7 @@ hr {
 		width:100% !important;
 	}*/
 }
-	
+/*Tablets*/	
 @media screen and (max-width: 830px) {
 	#drawer {
 		display:none;
@@ -96,7 +96,6 @@ hr {
 		position: absolute;
 		top: 0;
 		left: -300px;
-		background: #428bca;
 		padding-top: 12px;
 		padding-bottom:12px;
 		margin-bottom:5px;
@@ -113,7 +112,10 @@ hr {
 		transition: .3s ease all;
 	}
 }
-@media screen and (min-width: 661px) {
+
+
+/*Computers*/
+@media screen and (min-width: 831px) {
 	.nav__item {
 	  box-sizing: border-box;
 	  border: 2px solid black;
@@ -125,12 +127,6 @@ hr {
 	  margin-bottom:5px;
 	  width:125px;
 	  text-transform: uppercase;
-	}
-	#title h1 {
-		text-align:right;
-		vertical-align:middle;
-		padding:0px;
-		margin-bottom:0px;
 	}
 }
 
@@ -157,7 +153,12 @@ hr {
 
 .nav a:hover {
   text-decoration: underline;
-  color: #212121;
+  color: #ffffff;
+}
+
+.nav__item:hover {
+	background: #8585ad;
+	transition: background-color 0.55s;
 }
 
 .grid {
@@ -167,6 +168,18 @@ hr {
     background:#FBF8F8;
     font-family:Arial, Helvetica, sans-serif;
     overflow: hidden;
+}
+
+.error {
+	color:red !important;
+}
+
+#recent-contacts {
+	
+}
+
+#recent-images {
+	
 }
 
 #datetime {
@@ -226,6 +239,13 @@ hr {
 	height:auto;
 	display: inline-block;
 }
+
+#title h1 {
+	text-align:right;
+	vertical-align:middle;
+	padding:0px;
+	margin-bottom:0px;
+	}
 
 #inner_wrapper {
 	display: inline-block;

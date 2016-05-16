@@ -22,10 +22,14 @@
 				<?php include 'navbar.php';?>
 			</div>
 			<div id="inner_wrapper" class="col-10">
+				<h4>To submit logs and manage your inventory, please sign in.</h4>
 				<form action="submitsignin.php" method="POST">
-					<input type="text" name="q" /><br>
-					<input type="password" name="p" /><br>
+					Username: <br>
+					<input type="text" name="username" /><br>
+					Password: <br>
+					<input type="password" name="password" /><br>
 					<input type="submit" />
+					<h5>Don't have an account? Create one <a href="register.php">here</a>.</h5>
 				</form>
 			</div>
 		</div>

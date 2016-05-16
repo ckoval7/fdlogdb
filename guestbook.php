@@ -1,3 +1,6 @@
+<?php
+	include 'php/submitguestbook.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,15 +25,31 @@
 				<?php include 'navbar.php';?>
 			</div>
 			<div id="inner_wrapper" class="col-10">
-				<form action="submitguestbook.php" method="POST">
-					First Name:
-					<input type="text" name="first" /><br>
-					Last Name:
-					<input type="text" name="last" /><br>
-					Call Sign:
-					<input type="text" name="callsign" /><br>
-					<input type="submit" /><br>
+			<h4>Thank you for visiting our field day site! Please take a moment to sign the guestbook!</h4><br>
+				<form method="POST" action=<?php echo htmlentities($_SERVER["PHP_SELF"]);?>>
+					<span>
+						<b>First Name:</b><br>
+						<input type="text" name="first" value="<?php echo $first_name?>">
+						<span class="error">* <?php echo $firstnameErr;?></span><br>
+						<b>Last Name:</b><br>
+						<input type="text" name="last" value="<?php echo $last_name?>"/>
+						<span class="error">* <?php echo $lastnameErr;?></span><br>
+						<b>Call Sign:</b><br>
+						<input type="text" name="callsign" value="<?php echo $callsign?>" />
+						<span class="error">* <?php echo $callsignErr;?></span><br>
+					</span>
+					<span style="width: 5%;"></span>
+					<span>
+						Comments:<br>
+						<textarea name="comments" rows="5" cols="22"></textarea><br>
+						<input type="submit" name="submit" /><br>
+					</span>
 				</form>
+				<?php echo $isReady; ?>
+				<hr>
+				<div class="row">
+					<?php include 'php/displayguestbook.php'; ?>
+				</div>
 			</div>
 		</div>
 	</div>

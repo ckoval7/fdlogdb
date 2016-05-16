@@ -22,6 +22,12 @@
 				<?php include 'navbar.php';?>
 			</div>
 			<div id="inner_wrapper" class="col-10">
+				<div id="welcome" class="row">
+					Welcome to our field day site! If you are ust a visitor please take a moment to sign the &nbsp;<a href="guestbook.php">guestbook</a>.
+					<br>
+					If you are an operator please sign in or register to submit logs, add inventory, and submit pictures.
+				</div>
+				<hr>
 				<div class="row">
 					<div id="recent-contacts">
 						Last 20 contacts here

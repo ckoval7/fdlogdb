@@ -1,0 +1,15 @@
+table avaiable_stations
+station_id int not null auto_increment primary key
+radio foreign key references (item_id).inventory
+power_source varchar(255)
+is_vhf bool not null
+is_gota bool not null
+
+table active_stations
+user_id foreign key references (uuid).users
+station_id foreign key references (station_id).available_stations
+time_start datetime
+time_stop datetime
+bandmode varchar(3)
+
+
