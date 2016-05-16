@@ -24,13 +24,16 @@
 			<div id="inner_wrapper" class="col-10">
 				<h4>To explore the full funtionality of the site and to log your contacts you will need an account.<br>
 					Please fill in the information below:</h4>
-				<form action="submitreg.php" method="POST">
-					First Name:<br>
-					<input type="text" name="first" /><br>
-					Last Name:<br>
-					<input type="text" name="last" /><br>
-					Call Sign:<br>
-					<input type="text" name="callsign" /><br>
+				<form method="POST" action=<?php echo $_SERVER["PHP_SELF"];?>>
+					<b>First Name:</b><br>
+					<input type="text" name="first" value="<?php echo $first_name; ?>">
+					<span class="error">* <?php echo $firstnameErr;?></span><br>
+					<b>Last Name:</b><br>
+					<input type="text" name="last" value="<?php echo $last_name; ?>"/>
+					<span class="error">* <?php echo $lastnameErr;?></span><br>
+					<b>Call Sign:</b><br>
+					<input type="text" name="callsign" value="<?php echo $callsign; ?>" />
+					<span class="error">* <?php echo $callsignErr;?></span><br>
 					Operating Class:
 					(Drop Down Menu Here)<br>					
 					<input type="submit" /><br>

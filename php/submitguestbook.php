@@ -7,9 +7,14 @@ $password = "adminpassword";
 
 //log in as fdlogwrite
 $firstnameErr = $lastnameErr = $callsignErr = "";
-$first_name = $last_name = $callsign ="";
+$first_name = $last_name = $callsign = $comments ="";
 $isReady = 0;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	if (empty($_POST["first"]) or empty($_POST["last"]) or empty($_POST["callsign"])) {
+		$isReady = 0;
+	} else {
+		$isReady = 1;
+	}
 	if (empty($_POST["first"])) {
 		$firstnameErr = "First name is required";
 	} else {
@@ -22,24 +27,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$last_name = test_input($_POST["last"]);
 	}
 
-	if (empty($_POST["callsign"])) {
-		$callsignErr = "Callsign Required";
-	} else {
+	//if (empty($_POST["callsign"])) {
+	//	$callsignErr = "Callsign Required";
+	//} else {
 		$callsign = strtoupper(test_input($_POST["callsign"]));
-	}
-	if (empty($_POST["first" or "last" or "callsign"])) {
-		$isReady = 0;
-	} else {
-		$isReady = 1;
-	}
+	//}
+	
+	$comments = test_input($_POST["comments"]);
 }		
 	function test_input($data) {
 	$data = trim($data);
 	$data = htmlspecialchars($data);
 	return $data;
 	}
-
-if ($isReady == 1) {	
+	
+if ($isReady === 1) {	
 	try {
 		$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $username, $password);
 		// set the PDO error mode to exception
@@ -67,5 +69,9 @@ if ($isReady == 1) {
 		}
 	
 $conn=null;
+$first_name = $last_name = $callsign = $comments = "";
+$isReady = 0;
+} else {
+	/*echo '<span class="error"> Enter required fields!</span>';*/
 }
 ?>
