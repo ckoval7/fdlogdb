@@ -10,11 +10,7 @@ $firstnameErr = $lastnameErr = $callsignErr = "";
 $first_name = $last_name = $callsign = $comments ="";
 $isReady = 0;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-<<<<<<< HEAD
 	if (empty($_POST["first"]) or empty($_POST["last"])) {
-=======
-	if (empty($_POST["first"]) or empty($_POST["last"]) or empty($_POST["callsign"])) {
->>>>>>> origin/master
 		$isReady = 0;
 	} else {
 		$isReady = 1;
@@ -30,17 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	} else {
 		$last_name = test_input($_POST["last"]);
 	}
-<<<<<<< HEAD
 	$callsign = strtoupper(test_input($_POST["callsign"]));
-=======
-
-	//if (empty($_POST["callsign"])) {
-	//	$callsignErr = "Callsign Required";
-	//} else {
-		$callsign = strtoupper(test_input($_POST["callsign"]));
-	//}
-	
->>>>>>> origin/master
 	$comments = test_input($_POST["comments"]);
 }		
 	function test_input($data) {
@@ -54,13 +40,6 @@ if ($isReady === 1) {
 		$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $username, $password);
 		// set the PDO error mode to exception
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		//echo "<br>Connected successfully as <b>",$username,"</b><br><br>";
-		/* Somehow this allows SQL Ingection
-		$stmt = $conn->prepare("INSERT INTO guestbook(callsign, first_name, last_name, comments) VALUES ('$callsign', '$first_name', '$last_name', '$comments')");*/
-		
-		/*$first_name = htmlspecialchars($_POST["first"]);
-		$last_name = htmlspecialchars($_POST["last"]);
-		$callsign = htmlspecialchars($_POST["callsign"]);
 		$comments = htmlspecialchars($_POST["comments"]);*/
 		$stmt = $conn->prepare("INSERT INTO guestbook(callsign, first_name, last_name, comments) VALUES (:callsign, :first_name, :last_name, :comments)");
 		$stmt->bindParam(':callsign', $callsign);
