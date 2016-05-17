@@ -1,3 +1,7 @@
+<?php
+	include 'php/submitreg.php';
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +38,6 @@
 					<b>Call Sign:</b><br>
 					<input type="text" name="callsign" value="<?php echo $callsign; ?>" />
 					<span class="error">* <?php echo $callsignErr;?></span><br>
-<<<<<<< HEAD
 					<b>Operating Class:</b><br>
 					<select name="class">
 						<option value="Novice">Novice</option>

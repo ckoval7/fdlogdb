@@ -99,33 +99,22 @@ try {
     $conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $username, $password);
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "<br>Connected successfully as <b>",$username,"</b><br><br>"; 
-    }
-catch(PDOException $e)
-    {
-    echo "Connection failed: " . $e->getMessage();
-    }
+    echo "<br>Connected successfully as <b>",$username,"</b><br><br>";
 	
 //Create table users:
-try {
 	$sql="CREATE TABLE IF NOT EXISTS users(
 		uuid BIGINT NOT NULL AUTO_INCREMENT primary key,
 		regdate DATETIME,
 		call_sign VARCHAR(12) UNIQUE,
 		first_name VARCHAR(20),
 		last_name VARCHAR(20),
-		salt VARCHAR(5),
 		password TEXT,
-		license_class varchar(10))";
+		license_class VARCHAR(10),
+		user_level VARCHAR(5))";
 	$conn->exec($sql);
 	echo "Table users added!<br>";
-}
-catch(PDOException $e) {
-	echo $sql . "<br>" . $e->getMessage();
-}
 
 //Create table logbook:
-try {
 	$sql="CREATE TABLE IF NOT EXISTS logbook(
 		logid INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		qso_time TIMESTAMP,
@@ -139,13 +128,8 @@ try {
 		FOREIGN KEY (logger_id) REFERENCES users(uuid))";
 	$conn->exec($sql);
 	echo "Table logbook added!<br>";
-}
-catch(PDOException $e) {
-	echo $sql . "<br>" . $e->getMessage();
-}
 
 //Create table inventory:
-try {
 	$sql="CREATE TABLE IF NOT EXISTS inventory(
 		item_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		user_id BIGINT NOT NULL,
@@ -156,13 +140,8 @@ try {
 		FOREIGN KEY (user_id) REFERENCES users(uuid))";
 	$conn->exec($sql);
 	echo "Table inventory added!<br>";
-}
-catch(PDOException $e) {
-	echo $sql . "<br>" . $e->getMessage();
-}
 
 //Create table station_list:
-try {
 	$sql="CREATE TABLE IF NOT EXISTS station_list(
 		station_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		radio_id INT NOT NULL UNIQUE,
@@ -172,13 +151,8 @@ try {
 		FOREIGN KEY (radio_id) REFERENCES inventory(item_id))";
 	$conn->exec($sql);
 	echo "Table station_list added!<br>";
-}
-catch(PDOException $e) {
-	echo $sql . "<br>" . $e->getMessage();
-}
 
 //Create table active_stations:
-try {
 	$sql="CREATE TABLE IF NOT EXISTS active_stations(
 		user_id BIGINT NOT NULL,
 		station_id INT NOT NULL,
@@ -190,13 +164,9 @@ try {
 		FOREIGN KEY (station_id) REFERENCES station_list(station_id))";
 	$conn->exec($sql);
 	echo "Table active_stations added!<br>";
-}
-catch(PDOException $e) {
-	echo $sql . "<br>" . $e->getMessage();
-}
 
 //Create table guestbook:
-try {
+
 	$sql="CREATE TABLE IF NOT EXISTS guestbook(
 		guest_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		sign_time TIMESTAMP NOT NULL,
@@ -206,6 +176,13 @@ try {
 		comments TEXT)";
 	$conn->exec($sql);
 	echo "Table guestbook added!<br>";
+	
+//Create admin user:
+	$pass_options = ['cost' => 12];
+	$pass = password_hash("password", PASSWORD_BCRYPT, $pass_options);
+	$sql="INSERT INTO users (call_sign, password, user_level) VALUES ('admin', '$pass', 'admin')";
+	$conn->exec($sql);
+	echo '<br> Account "admin" created with password "password".';
 }
 catch(PDOException $e) {
 	echo $sql . "<br>" . $e->getMessage();

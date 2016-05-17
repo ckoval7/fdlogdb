@@ -6,8 +6,8 @@ $username = "fdlogwrite";
 $password = "adminpassword";
 
 //log in as fdlogwrite
-$firstnameErr = $lastnameErr = $callsignErr = "";
-$first_name = $last_name = $callsign = $comments ="";
+$firstnameErr = $lastnameErr = $callsignErr = $classErr = "";
+$first_name = $last_name = $callsign = $comments =  $license_class = "";
 $isReady = 0;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if (empty($_POST["first"]) or empty($_POST["last"]) or empty($_POST["callsign"])) {
@@ -32,6 +32,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	} else {
 		$callsign = strtoupper(test_input($_POST["callsign"]));
 	}
+	if (empty($_POST["class"])) {
+		$callsignErr = "Class Required";
+	} else {
+		$license_class = strtoupper(test_input($_POST["class"]));
+	}
 	
 	$comments = test_input($_POST["comments"]);
 }		
@@ -46,11 +51,11 @@ if ($isReady === 1) {
 		$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $username, $password);
 		// set the PDO error mode to exception
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$stmt = $conn->prepare("INSERT INTO guestbook(callsign, first_name, last_name, comments) VALUES (:callsign, :first_name, :last_name, :comments)");
+		$stmt = $conn->prepare("INSERT INTO users(callsign, first_name, last_name, license_class, ) VALUES (:callsign, :first_name, :last_name, :license_class)");
 		$stmt->bindParam(':callsign', $callsign);
 		$stmt->bindParam(':first_name', $first_name);
 		$stmt->bindParam(':last_name', $last_name);
-		$stmt->bindParam(':comments', $comments);
+		$stmt->bindParam(':license_class', $license_class);
 		
 		$stmt->execute();
 	}

@@ -40,7 +40,7 @@ if ($isReady === 1) {
 		$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $username, $password);
 		// set the PDO error mode to exception
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$comments = htmlspecialchars($_POST["comments"]);*/
+		$comments = htmlspecialchars($_POST["comments"]);
 		$stmt = $conn->prepare("INSERT INTO guestbook(callsign, first_name, last_name, comments) VALUES (:callsign, :first_name, :last_name, :comments)");
 		$stmt->bindParam(':callsign', $callsign);
 		$stmt->bindParam(':first_name', $first_name);
