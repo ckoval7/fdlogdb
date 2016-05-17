@@ -1,12 +1,28 @@
 <?php
-//Sign-in submission page
-$username = "something";
-$password = "something_else";
+$servername = "localhost";
+$dbusername = "fdlogread";
+$dbpassword = "password";
+$usernameErr = $passErr1 = "";
+$username = $password = "";
+$hash = "";
+$isReady = 0;
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	if (empty($_POST["username"]) or empty($_POST["password"]) {
+		$isReady = 0;
+	} else {
+		$isReady = 1;
+	}
+	if (empty($_POST["username"])) {
+		$usernameErr = "Please Enter your call sign or username.";
+	} else {
+		$first_name = test_input($_POST["first"]);
+	}
 
-//Somehow query the username and password submitted from sign-in.php
-//use crypt() to salt and hash password
-//start a session and redirect to homepage if good
-//error if not good
+	if (empty($_POST["last"])) {
+		$lastnameErr = "Lastname is required";
+	} else {
+		$last_name = test_input($_POST["last"]);
+	}
 
-echo "This will be the php script sign-in data gets processed by";
+
 ?>

@@ -31,6 +31,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$callsignErr = "Callsign Required";
 	} else {
 		$callsign = strtoupper(test_input($_POST["callsign"]));
+		try {
+			$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $username, $dbpassword);
+			// set the PDO error mode to exception
+			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$sql = $conn->prepare("SELECT COUNT(call_sign) FROM users WHERE call_sign = '$callsign'");
+			$sql->execute();
+			$count = $sql->rowCount();
+			if ($count > 0) {
+				$callsignErr = "User already exists";
+				$isReady = 0;
+			}
+		}
+		catch(PDOException $e)
+		{
+		echo "Connection failed: " . $e->getMessage();
+		}
+		
 	}
 	if (empty($_POST["class"])) {
 		$callsignErr = "Class Required";
@@ -68,6 +85,8 @@ if ($isReady === 1) {
 		$stmt->bindParam(':password', $password);
 		
 		$stmt->execute();
+		
+		echo '<META http-equiv="refresh" content="0;URL=sign-in.php">';
 	}
 
 	catch(PDOException $e)
@@ -76,8 +95,6 @@ if ($isReady === 1) {
 		}
 	
 $conn=null;
-$first_name = $last_name = $callsign = $comments = "";
-$isReady = 0;
 } else {
 	/*echo '<span class="error"> Enter required fields!</span>';*/
 }
