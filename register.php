@@ -41,18 +41,21 @@
 					<b>Operating Class:</b><br>
 					<select name="class">
 						<option value="Novice">Novice</option>
-						<option value="Technician">Technician</option>
+						<option value="Technician" selected>Technician</option>
 						<option value="General">General</option>
 						<option value="Advanced">Advanced</option>
 						<option value="Extra">Extra</option>
-					</select><br>
+					</select>
+					<span class="error">* <?php echo $classErr;?></span><br><br>
 					<span>
 					<b>Password:</b><br>
 					<input type="password" name="password" /></span>
 					<span>
 					<b>Repeat Password:</b><br>
 					<input type="password" name="repeat_password" />
-					</span><br>
+					</span>
+					<span class="error">* <?php echo $passErr1;?></span><br>
+					<span class="error"><?php echo $passErr2;?></span><br>
 					<input type="submit" /><br>
 				</form>
 			</div>

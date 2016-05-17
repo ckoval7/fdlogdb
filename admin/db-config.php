@@ -104,7 +104,7 @@ try {
 //Create table users:
 	$sql="CREATE TABLE IF NOT EXISTS users(
 		uuid BIGINT NOT NULL AUTO_INCREMENT primary key,
-		regdate DATETIME,
+		regdate DATETIME DEFAULT CURRENT_TIMESTAMP,
 		call_sign VARCHAR(12) UNIQUE,
 		first_name VARCHAR(20),
 		last_name VARCHAR(20),
@@ -156,7 +156,7 @@ try {
 	$sql="CREATE TABLE IF NOT EXISTS active_stations(
 		user_id BIGINT NOT NULL,
 		station_id INT NOT NULL,
-		start_time DATETIME,
+		start_time DATETIME DEFAULT CURRENT_TIMESTAMP,
 		stop_time DATETIME NULL,
 		band SMALLINT,
 		mode VARCHAR(3),
@@ -173,7 +173,8 @@ try {
 		callsign VARCHAR(12) NOT NULL,
 		first_name VARCHAR(20) NOT NULL,
 		last_name VARCHAR(20) NOT NULL,
-		comments TEXT)";
+		comments TEXT,
+		log_time TIMESTAMP)";
 	$conn->exec($sql);
 	echo "Table guestbook added!<br>";
 	
