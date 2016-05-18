@@ -37,7 +37,7 @@
 					<span class="error">* <?php echo $lastnameErr;?></span><br>
 					<b>Call Sign:</b><br>
 					<input type="text" name="callsign" value="<?php echo $callsign; ?>" />
-					<span class="error">* <?php echo $callsignErr;?></span><br>
+					<span class="error">* <?php echo $callsignErr;?></span><br><br>
 					<b>Operating Class:</b><br>
 					<select name="class">
 						<option value="Novice">Novice</option>
