@@ -1,5 +1,4 @@
 <?php
-session_start();
 $servername = "localhost";
 $dbusername = "fdlogread";
 $dbpassword = "password";
@@ -53,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				$_SESSION['priv'] = $user_priv[0];
 				$_SESSION['username'] = $username;
 				$_SESSION['name'] = $firstname[0];
-				echo '<META http-equiv="refresh" content="0;URL=index.php">';
+				echo '<META http-equiv="refresh" content="0;URL=/index.php">';
 			} else {
 				$passErr2 = 'Username or password incorrect';
 			}

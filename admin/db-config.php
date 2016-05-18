@@ -150,12 +150,14 @@ try {
 	$sql="INSERT INTO users (call_sign, password, user_level) VALUES ('admin', '$pass', 'admin')";
 	$conn->exec($sql);
 	echo '<br> Account "admin" created with password "password".';
+	echo '<br> You will be rediected to the homepage in 5 seconds.';
+	echo '<META http-equiv="refresh" content="5;URL=/index.php">';
 }
 catch(PDOException $e) {
 	echo $sql . "<br>" . $e->getMessage();
 }
 
-echo '<a href="../index.php">Home</a>';
+echo '<br><a href="../index.php">Home</a>';
 
 $conn=null;
 ?>
