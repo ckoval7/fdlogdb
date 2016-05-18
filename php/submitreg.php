@@ -1,4 +1,5 @@
 <?php
+session_start();
 //Collect guestbook submission info
 
 $servername = "localhost";
@@ -37,11 +38,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$sql = $conn->prepare("SELECT COUNT(call_sign) FROM users WHERE call_sign = '$callsign'");
 			$sql->execute();
-			$count = $sql->rowCount();
-			if ($count > 0) {
+			$count = $sql->fetch();
+			if ($count[0] > 0) {
 				$callsignErr = "User already exists";
 				$isReady = 0;
 			}
+			$conn->null;
 		}
 		catch(PDOException $e)
 		{
@@ -61,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$password2 = $_POST["repeat_password"];
 		if ($password1 === $password2) {
 			$pass_options = ['cost' => 12];
-			$password = password_hash("password", PASSWORD_BCRYPT, $pass_options);
+			$password = password_hash($_POST["password"], PASSWORD_BCRYPT, $pass_options);
 		}else {
 			$passErr1 = "Passwords do not match!";
 			}

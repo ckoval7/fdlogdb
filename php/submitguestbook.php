@@ -1,4 +1,5 @@
 <?php
+session_start();
 //Collect guestbook submission info
 
 $servername = "localhost";

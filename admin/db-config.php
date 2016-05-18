@@ -1,4 +1,5 @@
 <?php
+session_start();
 $servername = "localhost";
 $root = "root";
 $rootpass = "";
@@ -9,91 +10,56 @@ $password = "adminpassword";
 try {
 	$conn = new PDO('mysql:host=localhost;', $root, $rootpass);
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connected successfully as root<br>"; 
-}
-catch(PDOException $e)
-    {
-    echo "Connection failed: " . $e->getMessage();
-    }
+    echo "Connected successfully as root<br>";
 	
 //Create datgabase fdlogdb:
-try {
 	$sql="CREATE DATABASE IF NOT EXISTS fdlogdb";
 	$conn->exec($sql);
     //echo "New record created successfully";
 	echo "Database fdlogdb created!<br>";
-}
-catch(PDOException $e) {
-	echo $sql . "<br>" . $e->getMessage();
-}
-
+	
 //Create fdlogadmin user:
-try {
 	$sql="CREATE USER IF NOT EXISTS 'fdlogadmin'@'localhost' IDENTIFIED BY 'adminpassword'"; //Change this to a variable later
 	$conn->exec($sql);
     //echo "New record created successfully";
 	echo "Databse user fdlogadmin added!<br>";
-}
-catch(PDOException $e) {
-	echo $sql . "<br>" . $e->getMessage();
-}
-
+	
 //Create fdlogread user: Read only access for making queries
-try {
 	$sql="CREATE USER IF NOT EXISTS 'fdlogread'@'localhost' IDENTIFIED BY 'password'"; //Change this to a variable later
 	$conn->exec($sql);
 	echo "Read only user added!<br>";
-}
-catch(PDOException $e) {
-	echo $sql . "<br>" . $e->getMessage();
-}
 
 //Create fdlogwrite user:
-try {
 	$sql="CREATE USER IF NOT EXISTS 'fdlogwrite'@'localhost' IDENTIFIED BY 'adminpassword'"; //Change this to a variable later
 	$conn->exec($sql);
     echo "Write user added!<br>";
-}
-catch(PDOException $e) {
-	echo $sql . "<br>" . $e->getMessage();
-}
+	
 //Grant admin all privileges:
-try {
 	$sql="GRANT ALL PRIVILEGES ON fdlogdb.* TO 'fdlogadmin'@'localhost'";
 	$conn->exec($sql);
     echo "Admin privileges granted to fdlogadmin!<br>";
-}
-catch(PDOException $e) {
-	echo $sql . "<br>" . $e->getMessage();
-}
 
 //Grant readonly to fdlogread:
-try {
 	$sql="GRANT SELECT ON fdlogdb.* TO 'fdlogread'@'localhost'";
 	$conn->exec($sql);
     //echo "New record created successfully";
 	echo "Read privileges granted to fdlogread!<br>";
-}
-catch(PDOException $e) {
-	echo $sql . "<br>" . $e->getMessage();
-}
 
 //Grant write access to fdlogwrite:
-try {
 	$sql="GRANT CREATE, INSERT, SELECT, UPDATE ON fdlogdb.* TO 'fdlogwrite'@'localhost'";
 	
 	$conn->exec($sql);
     //echo "New record created successfully";
 	echo "Write access granted to fdlogwrite!<br>";
+
+//Flush privileges and close connection:
+	$sql="FLUSH PRIVILEGES";
+	$conn = NULL;
+	echo "<br>Disconnected from root.<br>";
 }
 catch(PDOException $e) {
 	echo $sql . "<br>" . $e->getMessage();
 }
-//Flush privileges and close connection:
-$sql="FLUSH PRIVILEGES";
-$conn = NULL;
-echo "<br>Disconnected from root.<br>";
-
 //Log in as fdlogadmin:	
 try {
     $conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $username, $password);
@@ -188,6 +154,8 @@ try {
 catch(PDOException $e) {
 	echo $sql . "<br>" . $e->getMessage();
 }
+
+echo '<a href="../index.php">Home</a>';
 
 $conn=null;
 ?>

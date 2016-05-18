@@ -10,7 +10,11 @@ echo
 		</div>
 		<div id="date" class="row">
 			<h2>DD/MM/YYYY</h2>
-		</div>
+		</div>';
+		if (!empty($_SESSION['name'])) {
+			echo '<h5>Welcome, '. $_SESSION['name'].'</h5>';
+		}
+		echo '
 	</div>
 	<div id="title" class="col-6">
 		<h1>KB3ABC/1</h1>

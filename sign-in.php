@@ -24,12 +24,15 @@
 			</div>
 			<div id="inner_wrapper" class="col-10">
 				<h4>To submit logs and manage your inventory, please sign in.</h4>
-				<form action="submitsignin.php" method="POST">
+				<form action=<?php echo $_SERVER["PHP_SELF"];?> method="POST">
 					Username/Call Sign: <br>
-					<input type="text" name="username" /><br>
+					<input type="text" name="username" value="<?php echo $username; ?>" />
+					<span class="error">* <?php echo $usernameErr;?></span><br>
 					Password: <br>
-					<input type="password" name="password" /><br>
-					<input type="submit" />
+					<input type="password" name="password" />
+					<span class="error">* <?php echo $passErr1;?></span><br>
+					<input type="submit" /><br>
+					<span class="error"> <?php echo $passErr2;?></span>
 					<h5>Don't have an account? Create one <a href="register.php">here</a>.</h5>
 					<h5>If you forgot your password, please talk to an on site administrator.</h5>
 				</form>
