@@ -35,7 +35,7 @@
 				} ?>
 				<div class="row">
 					<div id="recent-contacts">
-						Full log output goes here
+						<?php include '/php/displaylog.php'; ?>
 					</div>
 				</div>
 			</div>

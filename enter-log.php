@@ -1,9 +1,53 @@
 <?php session_start(); 
+$servername = "localhost";
+$dbusername = "fdlogwrite";
+$dbpassword = "adminpassword";
+$dupeErr = "";
 if (!empty($_POST['band']) or !empty($_POST['mode'])) {
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$_SESSION['band'] = $_POST["band"];
 		$_SESSION['mode'] = $_POST["mode"];
+		$_SESSION['power'] = $_POST["power"];
 	}
+}
+if (!empty($_POST['exchange'])) {
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		$exchange = explode(" ", $_POST['exchange'], 3);
+		if (!empty($exchange[0])) {$callsign = strtoupper($exchange[0]);}
+		if (!empty($exchange[1])) {$operating_class = strtoupper($exchange[1]);}
+		if (!empty($exchange[2])) {$section = strtoupper($exchange[2]);}
+		try {
+			$band = $_SESSION['band'];
+			$mode = $_SESSION['mode'];
+			$power = $_SESSION['power'];
+			$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $dbusername, $dbpassword);
+			// set the PDO error mode to exception
+			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$sql = $conn->prepare("SELECT * FROM logbook WHERE callsign = '$callsign' and band = '$band' and mode = '$mode'");
+			$sql->execute();
+			$count = $sql->rowCount();
+			if ($count > 0) {
+				$dupeErr = "Error! Dupe!";
+			} elseif (isset($callsign) and isset($operating_class)and isset($section)) {
+				$stmt = $conn->prepare("INSERT INTO logbook(logger_id, callsign, operating_class, section, band, mode, power)VALUES (:loggerid, :callsign, :opclass, :section, :band, :mode, :power)");
+				$stmt->bindParam(':loggerid', $_SESSION['uuid']);
+				$stmt->bindParam(':callsign', $callsign);
+				$stmt->bindParam(':opclass', $operating_class);
+				$stmt->bindParam(':section', $section);
+				$stmt->bindParam(':band', $_SESSION['band']);
+				$stmt->bindParam(':mode', $_SESSION['mode']);
+				$stmt->bindParam(':power', $_SESSION['power']);
+				
+				$stmt->execute();
+				$conn=null;
+			} else {
+				$dupeErr = "Incomplete exchange. Please enter call sign, class, and section.";
+			}
+		} catch(PDOException $e) {
+		echo "Connection failed: " . $e->getMessage();
+	}
+	
+	}	
 }
 ?>
 <!DOCTYPE html>
@@ -30,7 +74,7 @@ if (!empty($_POST['band']) or !empty($_POST['mode'])) {
 				<?php include 'navbar.php';?>
 			</div>
 			<div class="col-10"><br>
-			<form method="POST" action=<?php echo $_SERVER["PHP_SELF"];?>>
+			<form id="sublog" method="POST" action=<?php echo $_SERVER["PHP_SELF"];?>>
 			<?php
 			if (empty($_SESSION['band']) or empty($_SESSION['mode'])) {
 				echo '
@@ -52,6 +96,9 @@ if (!empty($_POST['band']) or !empty($_POST['mode'])) {
 						<option value="Digital">Digital</option>
 					</select>
 				</span><br>
+				<span>
+					<input type="text" name="power"><b>W</b><br>
+				</span>
 					<input type="submit" /><br>';
 			} else {
 				echo '
@@ -59,15 +106,16 @@ if (!empty($_POST['band']) or !empty($_POST['mode'])) {
 					Please enter the whole exchange on one line then press enter. For example:<br>
 					"w3uas 3a mdc"<br>
 					<b>Exchange:</b><br>
-					<input type="text" name="exchange" /><br>
-					<input type="submit" /><br>
-					When you are done with'.$_SESSION['band'].'&nbsp;'.$_SESSION['mode'].'&nbsp; please click <a href="/view-log.php">here.</a>';
-			} ?>
+					<input type="text" id="exchange" name="exchange" autofocus="autofocus"/><span class="error">* '. $dupeErr.'</span><br>
+					<input type="submit" /><br><br>
+					<b>When you are done with '.$_SESSION['band'].'&nbsp;'.$_SESSION['mode'].' please click <a href="/view-log.php">here.</a></b>';
+			}
+			?>
 			</form>
+			<p id="result"></p>
 			</div>
 		</div>
 	</div>
 <?php include '/js/scripthtml.php'; ?>
 </body>
-
 </html>

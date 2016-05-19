@@ -89,7 +89,7 @@ try {
 		operating_class VARCHAR(4),
 		logger_id BIGINT,
 		band SMALLINT,
-		mode VARCHAR(3),
+		mode VARCHAR(10),
 		power SMALLINT,
 		FOREIGN KEY (logger_id) REFERENCES users(uuid))";
 	$conn->exec($sql);

@@ -34,7 +34,7 @@ session_start();
 				<hr>
 				<div class="row">
 					<div id="recent-contacts">
-						Last 20 contacts here
+						<?php include '/php/displayloghome.php'; ?>
 					</div>
 				</div>
 				<hr>
