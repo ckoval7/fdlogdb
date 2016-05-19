@@ -14,11 +14,6 @@ function test_input($data) {
 	}
 	
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	/*if (empty($_POST["username"]) or empty($_POST["password"])) {
-		$isReady = 0;
-	} else {
-		$isReady = 1;
-	}*/
 	if (empty($_POST["username"])) {
 		$usernameErr = "Please Enter your call sign or username.";
 	} else {
@@ -43,15 +38,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$hash = $sql->fetch();
 			if (password_verify($password, $hash[0])) {
 				//echo "Valid password!";
-				$sql = $conn->prepare("SELECT user_level FROM users WHERE call_sign = '$username'");
+				$sql = $conn->prepare("SELECT uuid, first_name, user_level FROM users WHERE call_sign = '$username'");
 				$sql->execute();
-				$user_priv = $sql->fetch();
-				$sql = $conn->prepare("SELECT first_name FROM users WHERE call_sign = '$username'");
-				$sql->execute();
-				$firstname = $sql->fetch();
-				$_SESSION['priv'] = $user_priv[0];
+				$user_array = $sql->fetch();
+				$_SESSION['priv'] = $user_array[2];
 				$_SESSION['username'] = $username;
-				$_SESSION['name'] = $firstname[0];
+				$_SESSION['name'] = $user_array[1];
+				$_SESSION['uuid'] = $user_array[0];
+				$_SESSION['band'] = "";
+				$_SESSION['mode'] = "";
 				echo '<META http-equiv="refresh" content="0;URL=/index.php">';
 			} else {
 				$passErr2 = 'Username or password incorrect';
