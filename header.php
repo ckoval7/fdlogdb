@@ -19,8 +19,9 @@ echo
 	<div id="title" class="col-6">
 		<h1>KB3ABC/1</h1>
 	</div>
-</div>';
-if (!empty($_SESSION['priv']) and $_SESSION['priv'] === "admin") {
+</div>
+<span id="nav_button" onclick="openNav()"><img src="/img/hamburger.svg" alt="Open Menu">&nbsp;Menu</span>';
+if (!empty($_SESSION['username']) and $_SESSION['username'] === "ADMIN") {
 	echo '
 		<div class="row">
 			<h2>Logged in as Admin! Please do not log your contacts as admin.</h2>

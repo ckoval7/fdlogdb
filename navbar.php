@@ -2,9 +2,10 @@
 if (!empty ($_SESSION['priv'])) {
 	if ($_SESSION['priv'] === "user") {
 		echo '
-			<div id="drawer" class="row">
-				<nav class="nav">
-					<ul class="nav__list">
+		<div id="drawer" class="sidenav">
+			<nav class="nav">
+				<ul class="nav__list">
+					<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a><br>
 						<li class="nav__item"><a href="/index.php">Home</a></li>
 						<li class="nav__item"><a href="/enter-log.php">Log</a></li>
 						<li class="nav__item"><a href="/images.php">Images</a></li>
@@ -17,9 +18,10 @@ if (!empty ($_SESSION['priv'])) {
 			</div>';
 	} elseif ($_SESSION['priv'] === "admin"){
 		echo '
-			<div id="drawer" class="row">
-				<nav class="nav">
-					<ul class="nav__list">
+		<div id="drawer" class="sidenav">
+			<nav class="nav">
+				<ul class="nav__list">
+					<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a><br>
 						<li class="nav__item"><a href="/index.php">Home</a></li>
 						<li class="nav__item"><a href="/images.php">Images</a></li>
 						<li class="nav__item"><a href="/view-log.php">Edit Log</a></li>
@@ -35,9 +37,10 @@ if (!empty ($_SESSION['priv'])) {
 	}
 } else {
 	echo '
-		<div id="drawer" class="row">
+		<div id="drawer" class="sidenav">
 			<nav class="nav">
 				<ul class="nav__list">
+					<a id="nav_close" href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a><br>
 					<li class="nav__item"><a href="/index.php">Home</a></li>
 					<li class="nav__item"><a href="/sign-in.php">Sign In</a></li>
 					<li class="nav__item"><a href="/register.php">Register</a></li>

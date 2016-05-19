@@ -52,5 +52,6 @@
 			</div>
 		</div>
 	</div>
+<?php include '/js/scripthtml.php'; ?>
 </body>
 </html>
