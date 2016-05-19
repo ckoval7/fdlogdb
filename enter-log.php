@@ -3,6 +3,12 @@ $servername = "localhost";
 $dbusername = "fdlogwrite";
 $dbpassword = "adminpassword";
 $dupeErr = "";
+function test_input($data) {
+	$data = trim($data);
+	$data = htmlspecialchars($data);
+	$data = strtoupper($data);
+	return $data;
+	}
 if (!empty($_POST['band']) or !empty($_POST['mode'])) {
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$_SESSION['band'] = $_POST["band"];
@@ -13,9 +19,9 @@ if (!empty($_POST['band']) or !empty($_POST['mode'])) {
 if (!empty($_POST['exchange'])) {
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$exchange = explode(" ", $_POST['exchange'], 3);
-		if (!empty($exchange[0])) {$callsign = strtoupper($exchange[0]);}
-		if (!empty($exchange[1])) {$operating_class = strtoupper($exchange[1]);}
-		if (!empty($exchange[2])) {$section = strtoupper($exchange[2]);}
+		if (!empty($exchange[0])) {$callsign = test_input($exchange[0]);}
+		if (!empty($exchange[1])) {$operating_class = test_input($exchange[1]);}
+		if (!empty($exchange[2])) {$section = test_input($exchange[2]);}
 		try {
 			$band = $_SESSION['band'];
 			$mode = $_SESSION['mode'];
