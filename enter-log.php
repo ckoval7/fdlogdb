@@ -1,4 +1,6 @@
 <?php session_start(); 
+
+
 $servername = "localhost";
 $dbusername = "fdlogwrite";
 $dbpassword = "adminpassword";
@@ -13,7 +15,7 @@ if (!empty($_POST['band']) or !empty($_POST['mode'])) {
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$_SESSION['band'] = $_POST["band"];
 		$_SESSION['mode'] = $_POST["mode"];
-		$_SESSION['power'] = $_POST["power"];
+		$_SESSION['power'] = preg_replace('/\D/', '', $_POST["power"]);
 	}
 }
 if (!empty($_POST['exchange'])) {
@@ -80,45 +82,50 @@ if (!empty($_POST['exchange'])) {
 				<?php include 'navbar.php';?>
 			</div>
 			<div class="col-10"><br>
-			<form id="sublog" method="POST" action=<?php echo $_SERVER["PHP_SELF"];?>>
 			<?php
-			if (empty($_SESSION['band']) or empty($_SESSION['mode'])) {
-				echo '
-				<span>Choose a band:
-					<select name="band">
-						<option value="160m">160m</option>
-						<option value="80m">80m</option>
-						<option value="40m">40m</option>
-						<option value="20m">20m</option>
-						<option value="15m">15m</option>
-						<option value="10m">10m</option>
-						<option value="VHF">VHF</option>
-					</select>
-				</span>&nbsp;
-				<span>Choose a Mode:
-					<select name="mode">
-						<option value="CW/Morse">CW/Morse</option>
-						<option value="Phone" selected>Phone</option>
-						<option value="Digital">Digital</option>
-					</select>
-				</span><br>
-				<span>
-					<input type="text" name="power"><b>W</b><br>
-				</span>
-					<input type="submit" /><br>';
+			if (isset($_SESSION['priv'])){
+				echo'
+				<form id="sublog" method="POST" action='.$_SERVER["PHP_SELF"].'>';
+				if (empty($_SESSION['band']) or empty($_SESSION['mode'])) {
+					echo '
+					<span>Choose a band:
+						<select name="band">
+							<option value="160m">160m</option>
+							<option value="80m">80m</option>
+							<option value="40m">40m</option>
+							<option value="20m">20m</option>
+							<option value="15m">15m</option>
+							<option value="10m">10m</option>
+							<option value="VHF">VHF</option>
+						</select>
+					</span>&nbsp;
+					<span>Choose a Mode:
+						<select name="mode">
+							<option value="CW/Morse">CW/Morse</option>
+							<option value="Phone" selected>Phone</option>
+							<option value="Digital">Digital</option>
+						</select>
+					</span><br>
+					<span>Power: 
+						<input type="text" name="power"><b>W</b><br>
+					</span><br>
+						<input type="submit" /><br>';
+				} else {
+					echo '
+						<h2>'.$_SESSION['band'].'&nbsp;'.$_SESSION['mode'].'</h2>
+						Please enter the whole exchange on one line then press enter. For example:<br>
+						"w3uas 3a mdc"<br>
+						<b>Exchange:</b><br>
+						<input type="text" id="exchange" name="exchange" autofocus="autofocus"/><span class="error">* '. $dupeErr.'</span><br>
+						<input type="submit" /><br><br>
+						<b>When you are done with '.$_SESSION['band'].'&nbsp;'.$_SESSION['mode'].' please click <a href="/view-log.php">here.</a></b>';
+				}
+				echo '</form>
+				<hr>';
+				include '/php/displayloguser.php';
 			} else {
-				echo '
-					<h2>'.$_SESSION['band'].'&nbsp;'.$_SESSION['mode'].'</h2>
-					Please enter the whole exchange on one line then press enter. For example:<br>
-					"w3uas 3a mdc"<br>
-					<b>Exchange:</b><br>
-					<input type="text" id="exchange" name="exchange" autofocus="autofocus"/><span class="error">* '. $dupeErr.'</span><br>
-					<input type="submit" /><br><br>
-					<b>When you are done with '.$_SESSION['band'].'&nbsp;'.$_SESSION['mode'].' please click <a href="/view-log.php">here.</a></b>';
-			}
-			?>
-			</form>
-			<p id="result"></p>
+				echo '<h2>Sign in to use this page</h2>';
+			} ?>
 			</div>
 		</div>
 	</div>

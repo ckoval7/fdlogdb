@@ -1,6 +1,6 @@
 <?php
 echo "<table style='border: solid 1px black;'>";
-echo "<tr><th>Call Sign</th><th>Section</th><th>Band</th><th>Mode</th></tr>";
+echo "<tr><th>Call Sign</th><th>Class</th><th>Section</th><th>Band</th><th>Mode</th></tr>";
 
 class TableRows extends RecursiveIteratorIterator { 
     function __construct($it) { 
@@ -24,11 +24,12 @@ $servername = "localhost";
 $username = "fdlogread";
 $password = "password";
 $dbname = "fdlogdb";
+$uuid = $_SESSION['uuid'];
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $conn->prepare("SELECT callsign, section, band, mode FROM logbook ORDER BY logid DESC LIMIT 15"); 
+    $stmt = $conn->prepare("SELECT callsign, operating_class, section, band, mode FROM logbook WHERE logger_id = '$uuid' ORDER BY logid DESC"); 
     $stmt->execute();
 
     // set the resulting array to associative
