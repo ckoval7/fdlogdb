@@ -15,18 +15,13 @@ session_start();
 </head>
 <body>
 	<div id="outer_wrapper" class="grid">
-		<header id="site_header" class="header">
-			<div id="page_top" class="row">
-				<?php include 'header.php';?>
-			</div>
-		</header>
-		<hr>
 		<div class="row">
-			<div class="col-2">
-				<?php include 'navbar.php';?>
+			<div id="menu" class="col-2">
+				<?php include '/navbar.php'; ?>
 			</div>
-			<div id="inner_wrapper" class="col-10">
-				<div id="welcome" class="row">
+			<div id="header2" class="col-10">
+				<?php include '/header2.php'; ?>
+				<div id="content">
 					Not implemented yet.
 				</div>
 			</div>

@@ -144,6 +144,19 @@ try {
 	$conn->exec($sql);
 	echo "Table guestbook added!<br>";
 	
+//Create table images:
+
+	$sql="CREATE TABLE IF NOT EXISTS images(
+		image_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		upload_time TIMESTAMP NOT NULL,
+		user_id BIGINT NOT NULL,
+		file_location TEXT NOT NULL,
+		display_html TEXT NOT NULL,
+		description TEXT,
+		FOREIGN KEY (user_id) REFERENCES users(uuid))";
+	$conn->exec($sql);
+	echo "Table images added!<br>";
+	
 //Create admin user:
 	$pass_options = ['cost' => 12];
 	$pass = password_hash("password", PASSWORD_BCRYPT, $pass_options);

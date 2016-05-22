@@ -1,6 +1,7 @@
 <?php
 // Start the session
 session_start();
+include '/php/imageupload.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,19 +16,38 @@ session_start();
 </head>
 <body>
 	<div id="outer_wrapper" class="grid">
-		<header id="site_header" class="header">
-			<div id="page_top" class="row">
-				<?php include 'header.php';?>
-			</div>
-		</header>
-		<hr>
 		<div class="row">
-			<div class="col-2">
-				<?php include 'navbar.php';?>
+			<div id="menu" class="col-2">
+				<?php include '/navbar.php'; ?>
 			</div>
-			<div id="inner_wrapper" class="col-10">
-				<div id="welcome" class="row">
+			<div id="header2" class="col-10">
+				<?php include '/header2.php'; ?>
+				<div id="content">
 					Not implemented yet.
+					<?php
+						if (isset($_SESSION['priv'])){
+							echo'
+							<div class="row">
+								<form method="POST" action="'.$_SERVER["PHP_SELF"].'" enctype="multipart/form-data">
+									<span>Choose an image to upload:
+										<input type="file" name="imageupload" id="imageupload"><br>
+										Limit: 8MB<br>
+									</span><br>
+									<span>Description:<br>
+										<textarea name="description" rows="5" cols="45"></textarea><br>
+									</span><br>
+									<input type="submit" name="submit" value="Upload Image"/><br>
+								</form>
+								<span class="error">
+									'.$error.'<br>
+									'.$error2.'
+								</span>
+							</div>
+							<hr>';
+						} else {
+							echo '<h2>Sign in to use this page</h2>';
+						} 
+					?>			
 				</div>
 			</div>
 		</div>

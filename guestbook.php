@@ -14,40 +14,37 @@
 </head>
 <body>
 	<div id="outer_wrapper" class="grid">
-		<header id="site_header" class="header">
-			<div id="page_top" class="row">
-				<?php include 'header.php';?>
-			</div>
-		</header>
-		<hr>
 		<div class="row">
-			<div class="col-2">
-				<?php include 'navbar.php';?>
+			<div id="menu" class="col-2">
+				<?php include '/navbar.php'; ?>
 			</div>
-			<div id="inner_wrapper" class="col-10">
-			<h4>Thank you for visiting our field day site! Please take a moment to sign the guestbook!</h4><br>
-				<form method="POST" action=<?php echo $_SERVER["PHP_SELF"];?>>
-					<span>
-						<b>First Name:</b><br>
-						<input type="text" name="first" value="<?php echo $first_name; ?>">
-						<span class="error">* <?php echo $firstnameErr;?></span><br>
-						<b>Last Name:</b><br>
-						<input type="text" name="last" value="<?php echo $last_name; ?>"/>
-						<span class="error">* <?php echo $lastnameErr;?></span><br>
-						Call Sign:<br>
-						<input type="text" name="callsign" value="<?php echo $callsign; ?>" />
-						<br>
-					</span>
-					<span style="width: 5%;"></span>
-					<span>
-						Comments:<br>
-						<textarea name="comments" rows="5" cols="22"><?php echo $comments; ?></textarea><br>
-						<input type="submit" name="submit" /><br>
-					</span>
-				</form>
-				<hr>
-				<div class="row">
-					<?php include 'php/displayguestbook.php'; ?>
+			<div id="header2" class="col-10">
+				<?php include '/header2.php'; ?>
+				<div id="content">
+					<h4>Thank you for visiting our field day site! Please take a moment to sign the guestbook!</h4><br>
+					<form method="POST" action=<?php echo $_SERVER["PHP_SELF"];?>>
+						<span>
+							<b>First Name:</b><br>
+							<input type="text" name="first" value="<?php echo $first_name; ?>">
+							<span class="error">* <?php echo $firstnameErr;?></span><br>
+							<b>Last Name:</b><br>
+							<input type="text" name="last" value="<?php echo $last_name; ?>"/>
+							<span class="error">* <?php echo $lastnameErr;?></span><br>
+							Call Sign:<br>
+							<input type="text" name="callsign" value="<?php echo $callsign; ?>" />
+							<br>
+						</span>
+						<span style="width: 5%;"></span>
+						<span>
+							Comments:<br>
+							<textarea name="comments" rows="5" cols="22"><?php echo $comments; ?></textarea><br>
+							<input type="submit" name="submit" /><br>
+						</span>
+					</form>
+					<hr>
+					<div class="row">
+						<?php include 'php/displayguestbook.php'; ?>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -16,21 +16,16 @@ $callsign = '';
 </head>
 <body>
 	<div id="outer_wrapper" class="grid">
-		<header id="site_header" class="header">
-			<div id="page_top" class="row">
-				<?php include "../header.php";?>
-			</div>
-		</header>
-		<hr>
 		<div class="row">
-			<div class="col-2">
-				<?php include "../navbar.php";?>
+			<div id="menu" class="col-2">
+				<?php include '../navbar.php'; ?>
 			</div>
-<?php
+			<div id="header2" class="col-10">
+				<?php include '../header2.php'; ?>
+				<div id="content">
+					<?php
 if (!empty($_SESSION['priv']) and $_SESSION['priv'] === "admin") {
 	echo '
-
-			<div id="inner_wrapper" class="col-10">
 				<h4>Welcome to the Field Day setup interface.</h4>
 				Here you will enter information about your station prior to the start of field day. If you haven&#39;t already done so, please run the initial configuration script&nbsp;<a href="/admin/db-config.php">here.</a><br><br>
 				<form action='. $_SERVER["PHP_SELF"].' method="POST">
