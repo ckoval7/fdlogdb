@@ -1,7 +1,19 @@
 <?php
+$fd_callsign = "";
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $stmt = $conn->prepare("SELECT config_name, smallsting FROM fd_config WHERE config_name = 'fd_callsign'"); 
+    $stmt->execute();
+	$fd_callsign = $stmt;
+}
+catch(PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
+$conn = null;
 echo'
 <header class="header">
-	<span id="nav_button" onclick="openNav()">&nbsp;<img src="/img/hamburger.svg" alt="Open Menu"><br>Menu</span>
+	<span id="nav_button" onclick="openNav()">&nbsp;&nbsp;<img src="/img/hamburger.svg" alt="Open Menu"><br>Menu</span>
 	<span id="title"><h3>Field Day Logging</h3></span>
 	<div id="timeandtitle" class="col-10">
 		<div id="datetime" class="col-6">
@@ -17,7 +29,7 @@ echo'
 		echo '
 		</div>
 		<div id="title" class="col-6">
-			<h1>KB3ABC/1</h1>
+			<h1>'.$fd_callsign.'</h1>
 		</div>
 	</div>
 </header>';

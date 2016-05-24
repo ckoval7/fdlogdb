@@ -67,9 +67,21 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     echo "<br>Connected successfully as <b>",$username,"</b><br><br>";
 	
+//Create table fd_config:
+	$sql="CREATE TABLE IF NOT EXISTS fd_config(
+		config_name VARCHAR(255) PRIMARY KEY,
+		small_string VARCHAR(255),
+		large_string TEXT,
+		number BIGINT)";
+	$conn->exec($sql);
+	echo "Table fd_config added!<br>";
+	
+	$sql="INSERT INTO fd_config(config_name, small_string) VALUES ('fd_callsign', 'NOCALL')";
+	$conn->exec($sql);
+
 //Create table users:
 	$sql="CREATE TABLE IF NOT EXISTS users(
-		uuid BIGINT NOT NULL AUTO_INCREMENT primary key,
+		uuid BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		regdate DATETIME DEFAULT CURRENT_TIMESTAMP,
 		call_sign VARCHAR(12) UNIQUE,
 		first_name VARCHAR(20),

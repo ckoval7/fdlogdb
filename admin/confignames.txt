@@ -1,0 +1,4 @@
+fd_callsign
+gota_callsign
+fd_section
+fd_class

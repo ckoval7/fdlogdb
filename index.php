@@ -30,7 +30,10 @@ session_start();
 					<hr>
 					<div class="row">
 						<div id="recent-contacts">
-							<?php include '/php/displayloghome.php'; ?>
+							<fieldset>
+								<legend>Last 15 Contacts</legend>
+								<?php include '/php/displayloghome.php'; ?>
+							</fieldset>
 						</div>
 					</div>
 					<hr>

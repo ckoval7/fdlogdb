@@ -16,6 +16,7 @@
 
 body {
 	background:#E7E9EB;
+	margin:0 auto;
 }
 
 img {
@@ -59,6 +60,19 @@ h4 {
 
 hr {
 	border: 1px solid lightgray;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+tr:nth-child(even) {
+	background:#FFFFFF;
+}
+
+tr:nth-child(odd) {
+	background:#C0C0C0;
 }
 
 /*Mobile Screens*/
@@ -116,7 +130,7 @@ hr {
 		z-index: 1; /* Stay on top */
 		top: 0;
 		left: 0;
-		background:#808080;
+		background:#454546;
 		overflow-x: hidden; /* Disable horizontal scroll */
 		padding-top: 60px; /* Place content 60px from the top */
 		transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
@@ -129,7 +143,7 @@ hr {
 	.sidenav {
     position: relative;
     z-index: 1; /* Stay on top */
-	background:#F9F9F9;
+	/*background:#454546;*/
 	width: 100%;
 	top: 0;
 	bottom: 0;
@@ -140,11 +154,13 @@ hr {
 	.closebtn {
 		display:none;
 	}
-	.nav {
+	/*.nav {
 		background: #E7E9EB;
-	}
+	}*/
 	#menu.col-2 {
 		border-right: 2px solid black;
+		background:#454546;
+		max-width: 200px;
 	}
 	
 }
@@ -197,9 +213,10 @@ hr {
 
 .grid {
     margin: 0 auto;
-    max-width: 1280px;
+	padding: 0;
+    /*max-width: 1280px;
     width: 100%;
-    /*background:#E7E9EB;*/
+    background:#E7E9EB;*/
     font-family:Arial, Helvetica, sans-serif;
     overflow: hidden;
 }
@@ -303,9 +320,11 @@ hr {
 #content a {
 	text-decoration:none;
 	color: #2AA7CF;
+	max-height: 1em;
 }
 
 #welcome{
+	display:block;
 	margin-left: 5px;
 }
 

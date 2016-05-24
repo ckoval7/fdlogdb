@@ -1,7 +1,6 @@
 <?php 
 session_start();
-include '../php/submitsignin.php';
-$callsign = '';
+include '/submitsetup.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,14 +28,22 @@ if (!empty($_SESSION['priv']) and $_SESSION['priv'] === "admin") {
 				<h4>Welcome to the Field Day setup interface.</h4>
 				Here you will enter information about your station prior to the start of field day. If you haven&#39;t already done so, please run the initial configuration script&nbsp;<a href="/admin/db-config.php">here.</a><br><br>
 				<form action='. $_SERVER["PHP_SELF"].' method="POST">
-					Field Day Call Sign: <br>
-					<input type="text" name="callsign" value="'.$callsign. '" />
-					<span class="error">* <?php echo $callsignErr;?></span><br>
-					New admin password: <br>
-					<input type="password" name="password" />
-					<span class="error">* <?php echo $passErr1;?></span><br>
+					<b>Field Day Call Sign:</b> <br>
+					<input type="text" name="fd_callsign" value="'.$fd_callsign.'" />
+					<span class="error">* '.$fd_callErr.'</span><br>
+					<b>Section:</b><br>
+					<input type="text" name="fd_section" value="'.$fd_section.'" />
+					<span class="error">* '.$fd_sectionErr.'</span><br>
+					<b>Class:</b><br>
+					<input type="text" name="fd_class" value="'.$fd_section.'" />
+					<span class="error">* '.$fd_classErr.'</span><br>
+					GOTA Callsign:<br>
+					<input type="text" name="gota_callsign" value="'.$gota_callsign.'" />
+					<br><br>
+					<b>New admin password:</b> <br>
+					<input type="password" name="admin_password" />
+					<span class="error">* '.$admin_passErr.'</span><br>
 					<input type="submit" /><br>
-					<span class="error"> <?php echo $passErr2;?></span>
 					
 				</form>
 			</div>';
