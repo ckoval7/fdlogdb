@@ -35,14 +35,21 @@ if (!empty($_SESSION['priv']) and $_SESSION['priv'] === "admin") {
 					<input type="text" name="fd_section" value="'.$fd_section.'" />
 					<span class="error">* '.$fd_sectionErr.'</span><br>
 					<b>Class:</b><br>
-					<input type="text" name="fd_class" value="'.$fd_section.'" />
+					<input type="text" name="fd_class" value="'.$fd_class.'" />
 					<span class="error">* '.$fd_classErr.'</span><br>
 					GOTA Callsign:<br>
 					<input type="text" name="gota_callsign" value="'.$gota_callsign.'" />
 					<br><br>
-					<b>New admin password:</b> <br>
-					<input type="password" name="admin_password" />
-					<span class="error">* '.$admin_passErr.'</span><br>
+					<span>
+						<b>New admin password:</b> <br>
+						<input type="password" name="admin_password" />
+					</span>
+					<span>
+						<b>Repeat Password:</b><br>
+						<input type="password" name="repeat_password" />
+						</span>
+					<span class="error">* '.$admin_passErr1.'</span><br>
+					<span class="error">'.$admin_passErr2.'</span><br>
 					<input type="submit" /><br>
 					
 				</form>

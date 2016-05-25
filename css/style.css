@@ -9,9 +9,13 @@
 
 .header {
 	background: #2696BA; /* For browsers that do not support gradients */
-	background: -o-linear-gradient(bottom right, #2696BA, #17FFED); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(bottom right, #2696BA, #17FFED); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(to bottom right, #2696BA, #17FFED); /* Standard syntax (must be last) */
+    background: -webkit-linear-gradient(#2696BA, #E7E9EB); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#2696BA, #E7E9EB); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#2696BA, #E7E9EB); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#2696BA, #E7E9EB); /* Standard syntax */
+	color: #454546;
+	padding-top: 15px;
+	padding-bottom: 15px;
 }
 
 body {
@@ -94,6 +98,9 @@ tr:nth-child(odd) {
 		text-align:center !important;
 	}
 	
+	#prog_name {
+		display:none;
+	}
 	/*#timeandtitle {
 		width: 100%;
 		margin: 0 auto;
@@ -160,10 +167,12 @@ tr:nth-child(odd) {
 	#menu.col-2 {
 		border-right: 2px solid black;
 		background:#454546;
-		max-width: 200px;
+		max-width: 250px;
+		float:left;
 	}
-	
 }
+
+
 .nav__item {
 	  display: block;
 	  text-align: center;
@@ -225,12 +234,14 @@ tr:nth-child(odd) {
 	color:red !important;
 }
 
-/*#outer_wrapper {
-	display:inline-block;
-}*/
+#outer_wrapper {
+	max-width:1480px;
+}
 
 #content {
-	margin: 5px;
+	max-width: 700px;
+	margin: 0 auto;
+	float:center;
 }
 
 #recent-contacts {
@@ -246,6 +257,8 @@ tr:nth-child(odd) {
 }
 #datetime {
 	display:inline-block;
+	float: right;
+	margin-right: 5px;
 }
 
 #datetime.row {
@@ -308,13 +321,30 @@ tr:nth-child(odd) {
 	padding:0px;
 	margin-bottom:0px;
 	}
-
-#fdcallsign {
-	color:#19327A;
+#fd_callsign {
+	float:center;
 }
 
+#prog_name {
+	float:left;
+	margin-left:5px;
+}
+
+#greeting {
+	float:left;
+	margin-left:5px;
+}
+
+/*#fdcallsign {
+	color:#19327A;
+}*/
+
 #inner_wrapper {
-	display: inline-block;
+	margin: 0 auto;
+}
+
+#nav_button {
+	float: left;
 }
 
 #content a {

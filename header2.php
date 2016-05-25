@@ -1,11 +1,11 @@
 <?php
 $servername = "localhost";
-$username = "fdlogread";
-$password = "password";
+$db_username = "fdlogread";
+$db_password = "password";
 $dbname = "fdlogdb";
 $fd_callsign = "";
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $db_username, $db_password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $conn->prepare("SELECT small_string FROM fd_config WHERE config_name = 'fd_callsign' LIMIT 1"); 
     $stmt->execute();
@@ -20,12 +20,19 @@ $conn = null;
 echo'
 <header class="header">
 <div class="row">
-	<span class="col-1" id="nav_button" onclick="openNav()">&nbsp;<img src="/img/hamburger.svg" alt="Open Menu"><br>Menu</span>
-	<span class="col-11" id="timeandtitle">
-		<h3>Field Day Logging</h3>
-		<h4>DD/MM/YYYY</h4>
-		<h4>HH:mm:ss</h4>
-		<h2 id="fdcallsign">'.$fd_callsign.'</h2>';
+	<span class="col-12" id="timeandtitle">
+	<span id="nav_button" onclick="openNav()">&nbsp;<img src="/img/hamburger.svg" alt="Open Menu"><br>Menu</span>
+		<span id="prog_name">
+			<h3>Field Day Logging</h3>
+		</span>
+		<span id="fd_callsign">
+			<h1 id="fdcallsign">'.$fd_callsign.'</h1>
+		</span>
+		<span id="datetime">
+			<h4>DD/MM/YYYY</h4>
+			<h4>HH:mm:ss</h4>
+		</span>';
+		
 		if (!empty($_SESSION['name'])) {
 			echo '<h5>Welcome, '. $_SESSION['name'].'</h5>';
 		}
