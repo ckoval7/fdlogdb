@@ -12,12 +12,14 @@ When you first install it please run **/admin/db-config.php** to setup the datab
 After creating the database, goto /admin/setup.php to set the field day site information. 
 
 Currently working:
-	* User accounts
-	* non-GOTA contact logging
-	* Image Upload (no display)
-	* Guestbook
+
+	- User accounts
+	- non-GOTA contact logging
+	- Image Upload (no display)
+	- Guestbook
 	
 Not working/to-do:
+
 	* Inventory
 	* Table of point values
 	* List of acceptable sections
