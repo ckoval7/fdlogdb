@@ -29,8 +29,8 @@ echo'
 			<h1 id="fdcallsign">'.$fd_callsign.'</h1>
 		</span>
 		<span id="datetime">
-			<h4>DD/MM/YYYY</h4>
-			<h4>HH:mm:ss</h4>
+			<h4>'.gmdate("m/d/Y").'</h4>
+			<h4 id="time"></h4>
 		</span>';
 		
 		if (!empty($_SESSION['name'])) {

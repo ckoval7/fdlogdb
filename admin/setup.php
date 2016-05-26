@@ -13,7 +13,7 @@ include '/submitsetup.php';
 	<meta name="application-name" content="Field Day Logging Database" />
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
-<body>
+<body  onload="startTime()">
 	<div id="outer_wrapper" class="grid">
 		<div class="row">
 			<div id="menu" class="col-2">
@@ -59,7 +59,9 @@ if (!empty($_SESSION['priv']) and $_SESSION['priv'] === "admin") {
 }
 echo '
 		</div>
-	</div>
+	</div>';
+	include '../js/scripthtml.php';
+	echo '	
 </body>
 </html>';
 ?>

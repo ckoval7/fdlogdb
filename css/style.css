@@ -13,7 +13,7 @@
     background: -o-linear-gradient(#2696BA, #E7E9EB); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(#2696BA, #E7E9EB); /* For Firefox 3.6 to 15 */
     background: linear-gradient(#2696BA, #E7E9EB); /* Standard syntax */
-	color: #454546;
+	/*color: #454546;*/
 	padding-top: 15px;
 	padding-bottom: 15px;
 }
@@ -66,6 +66,10 @@ hr {
 	border: 1px solid lightgray;
 }
 
+th {
+	background: #2696BA;
+}
+
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
@@ -77,6 +81,10 @@ tr:nth-child(even) {
 
 tr:nth-child(odd) {
 	background:#C0C0C0;
+}
+
+fieldset {
+	border: solid 1px;
 }
 
 /*Mobile Screens*/

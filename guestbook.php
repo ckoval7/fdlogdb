@@ -12,7 +12,7 @@
 	<meta name="application-name" content="Field Day Logging Database" />
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body>
+<body  onload="startTime()">
 	<div id="outer_wrapper" class="grid">
 		<div class="row">
 			<div id="menu" class="col-2">
