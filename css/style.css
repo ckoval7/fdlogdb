@@ -68,11 +68,13 @@ hr {
 
 th {
 	background: #2696BA;
+	text-align:center;
 }
 
-table, th, td {
+table, td {
     border: 1px solid black;
     border-collapse: collapse;
+	text-align:center;
 }
 
 tr:nth-child(even) {
@@ -85,6 +87,9 @@ tr:nth-child(odd) {
 
 fieldset {
 	border: solid 1px;
+	-moz-border-radius:8px;  
+	border-radius: 8px;  
+	-webkit-border-radius: 8px;
 }
 
 /*Mobile Screens*/
@@ -173,7 +178,6 @@ fieldset {
 		background: #E7E9EB;
 	}*/
 	#menu.col-2 {
-		border-right: 2px solid black;
 		background:#454546;
 		max-width: 250px;
 		float:left;
@@ -249,7 +253,8 @@ fieldset {
 #content {
 	max-width: 700px;
 	margin: 0 auto;
-	float:center;
+	float:center;	
+	padding-left: 5px;
 }
 
 #recent-contacts {

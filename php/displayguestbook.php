@@ -1,6 +1,12 @@
 <?php
 echo "<table style='border: solid 1px black;'>";
-echo "<tr><th>First Name</th><th>Last Name</th><th>Call Sign</th></tr>";
+echo '<tr><th>First Name</th><th>Last Name</th><th>Call Sign</th>';
+if (!empty($_SESSION['priv'])) {
+	if ($_SESSION['priv'] === "admin") {
+		echo '<th>Delete</th>';
+	}
+}
+echo '</tr>';
 
 class TableRows extends RecursiveIteratorIterator { 
     function __construct($it) { 
@@ -15,8 +21,14 @@ class TableRows extends RecursiveIteratorIterator {
         echo "<tr>"; 
     } 
 
-    function endChildren() { 
-        echo "</tr>" . "\n";
+    function endChildren() {
+		if (!empty($_SESSION['priv'])) {
+			if ($_SESSION['priv'] === "admin") {
+				echo '<td style=\'width:75px;border:1px solid black;text-align:center;\'><input type="checkbox" name="delete" />&nbsp;</td></tr>'."\n";
+			}
+		} else {
+			echo "</tr>" . "\n";
+		}
     } 
 } 
 
