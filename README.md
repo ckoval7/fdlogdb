@@ -20,6 +20,7 @@ Currently working:
 	- non-GOTA contact logging
 	- Image Upload (no display)
 	- Guestbook
+	- The ability to delete contacts from the GUI
 	
 Not working/to-do:
 
@@ -30,7 +31,6 @@ Not working/to-do:
 	* Image display
 	* GOTA logging
 	* FD post processing
-	* The ability to delete contacts from the GUI
 	* Create a logo
 	* Come up with a name
 	* more to come!

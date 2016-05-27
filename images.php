@@ -22,8 +22,7 @@ include '/php/imageupload.php';
 			</div>
 			<div id="header2" class="col-10">
 				<?php include '/header2.php'; ?>
-				<div id="content">
-					Not implemented yet.
+				<div id="imgcontent">
 					<?php
 						if (isset($_SESSION['priv'])){
 							echo'
@@ -44,6 +43,7 @@ include '/php/imageupload.php';
 								</span>
 							</div>
 							<hr>';
+							include '/php/displayimages.php';
 						} else {
 							echo '<h2>Sign in to use this page</h2>';
 						} 

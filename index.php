@@ -39,7 +39,10 @@ session_start();
 					<hr>
 					<div class="row">
 						<div id="recent-images">
-							Last 5 images here
+							<fieldset>
+								<legend>Last 6 Image Uploads</legend>
+								<?php include '/php/displayimageshome.php'; ?>
+							</fieldset>
 						</div>
 					</div>
 				</div>
