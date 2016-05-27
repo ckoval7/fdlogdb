@@ -47,7 +47,7 @@ class TableRows extends RecursiveIteratorIterator {
     function endChildren() {
 		if (!empty($_SESSION['priv']) && $_SESSION['priv'] === "admin") {
 			/*if ($_SESSION['priv'] === "admin") {*/
-				echo '<td style=\'width:75px;border:1px solid black;text-align:center;\'><input type="checkbox" name="delete[]" value="'.$guest_id.'" />&nbsp;</td></tr>'."\n";
+				echo '<td style=\'width:75px;border:1px solid black;text-align:center;\'><input type="checkbox" name="delete[]" value="'./*.$guest_id.*/'" />&nbsp;</td></tr>'."\n";
 			//}
 		} else {
 			echo "</tr>" . "\n";
