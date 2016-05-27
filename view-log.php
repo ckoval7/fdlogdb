@@ -23,7 +23,7 @@
 				<?php include '/header2.php'; ?>
 				<div id="content">
 					<?php
-					if (!empty($_SESSION['priv'])) {
+					if (!empty($_SESSION['priv']) && $_SESSION['priv'] === "user") {
 						echo '
 						<div class="row">
 							<a href="/enter-log.php"><h3>Click here to submit logs</h3></a>

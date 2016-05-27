@@ -1,9 +1,9 @@
 <?php
 echo "<table style='border: solid 1px black;'>";
-echo '<tr><th>First Name</th><th>Last Name</th><th>Call Sign</th>';
+echo '<form id="guestbook" enctype="multipart/form-data" action="/php/delete.php" method="post"><tr><th>First Name</th><th>Last Name</th><th>Call Sign</th>';
 if (!empty($_SESSION['priv'])) {
 	if ($_SESSION['priv'] === "admin") {
-		echo '<th>Delete</th>';
+		echo '<th><input type="submit" value="Delete" /></th>';
 	}
 }
 echo '</tr>';
@@ -29,7 +29,7 @@ try {
     	
         if (!empty($_SESSION['priv'])) {
         	if ($_SESSION['priv'] === "admin") {
-        		echo '<td style=\'width:75px;border:1px solid black;text-align:center;\'><input type="checkbox" name="delete" value="'.$row['guest_id'].'" />&nbsp;</td></tr>'."\n";
+        		echo '<td style=\'width:75px;border:1px solid black;text-align:center;\'><input type="checkbox" name="delete[]" value="'.$row['guest_id'].'" />&nbsp;</td></tr>'."\n";
         	}
         } else {
         	echo "</tr>" . "\n";
@@ -41,5 +41,11 @@ catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
 $conn = null;
+
+echo '
+<input type="hidden" name="key" value="guest_id">
+<input type="hidden" name="table" value="guestbook">
+<input type="hidden" name="page" value="/guestbook.php">
+</form>';
 echo "</table>";
 ?>

@@ -29,9 +29,12 @@ if (!empty($_POST['exchange'])) {
 			$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $dbusername, $dbpassword);
 			// set the PDO error mode to exception
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$sql = $conn->prepare("SELECT * FROM logbook WHERE callsign = '$callsign' and band = '$band' and mode = '$mode'");
-			$sql->execute();
-			$count = $sql->rowCount();
+			$stmt = $conn->prepare("SELECT * FROM logbook WHERE callsign = :callsign and band = :band and mode = :mode");
+			$stmt->bindParam(':callsign', $callsign);
+			$stmt->bindParam(':band', $band);
+			$stmt->bindParam(':mode', $mode);
+			$stmt->execute();
+			$count = $stmt->rowCount();
 			if ($count > 0) {
 				$dupeErr = "Error! Dupe!";
 			} elseif (isset($callsign) and isset($operating_class)and isset($section)) {

@@ -34,7 +34,8 @@ include '/php/submitlog.php';?>
 							<option value="20m">20m</option>
 							<option value="15m">15m</option>
 							<option value="10m">10m</option>
-							<option value="VHF">VHF</option>
+							<option value="2m">VHF</option>
+							<option value="440">UHF</option>
 						</select>
 					</span>&nbsp;
 					<span>Choose a Mode:
@@ -56,7 +57,7 @@ include '/php/submitlog.php';?>
 						<b>Exchange:</b><br>
 						<input type="text" id="exchange" name="exchange" autofocus="autofocus"/><span class="error">* '. $dupeErr.'</span><br>
 						<input type="submit" /><br><br>
-						<b>When you are done with '.$_SESSION['band'].'&nbsp;'.$_SESSION['mode'].' please click <a href="/view-log.php">here.</a></b>';
+						<b>When you are done with '.$_SESSION['band'].'&nbsp;'.$_SESSION['mode'].' please click <a href="/php/enterlog.php">here.</a></b>';
 				}
 				echo '</form>
 				<hr>';
