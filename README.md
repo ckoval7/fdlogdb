@@ -7,7 +7,10 @@ To run and display content, install a web server application such as XAMMP and p
 
 Alternatively you can install Apache, PHP, and MySQL individually.
 
-When you first install it please run **/admin/db-config.php** to setup the database tables and make an admin account.
+Set the following property in the PHP settings file: php.ini
+upload_max_filesize=8M
+
+When you first install it please run **http://localhost/admin/db-config.php** to setup the database tables and make an admin account.
 
 After creating the database, goto /admin/setup.php to set the field day site information. 
 
