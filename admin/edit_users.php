@@ -15,6 +15,7 @@ $dbname = "fdlogdb";
 	<meta name="author" content="Corey Koval, K3CPK">
 	<meta name="application-name" content="Field Day Logging Database" />
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<script type="text/javascript" src="../js/fdlog.js"></script>
 </head>
 <body  onload="startTime()">
 	<div id="outer_wrapper" class="grid">
@@ -28,19 +29,20 @@ $dbname = "fdlogdb";
 					<?php
 						if (!empty($_SESSION['priv']) && $_SESSION['priv'] === 'admin') {
 							echo "<table style='border: solid 1px black;'>";
-							echo '<form enctype="multipart/form-data" action="/php/mod-users.php" method="post"><tr><th>Call Sign</th><th>Class</th><th>First Name</th><th>Last Name</th><th>Reset Password</th><th>Disable Account</th></tr>';
+							echo '<form enctype="multipart/form-data" action="/php/mod-users.php" method="post"><tr><th>Privilege</th><th>Call Sign</th><th>Class</th><th>First Name</th><th>Last Name</th><th>Reset Password</th><th>Disable Account</th></tr>';
 							try {
 								$conn = new PDO("mysql:host=$servername;dbname=$dbname", $dbusername, $dbpassword);
 								$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 								$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-								$stmt = $conn->prepare("SELECT call_sign, license_class, first_name, last_name, uuid FROM users ORDER BY uuid");
+								$stmt = $conn->prepare("SELECT call_sign, license_class, first_name, last_name, user_level, uuid FROM users ORDER BY uuid");
 								$stmt->execute();
 
 								// set the resulting array to associative
 								foreach($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
 									echo "<tr>";
+									echo "<td style='width:75px;border:1px solid black;'>".$row['user_level']."</td>";
 									echo "<td style='width:150px;border:1px solid black;'>".$row['call_sign']."</td>";
-									echo "<td style='width:150px;border:1px solid black;'>".$row['license_class']."</td>";
+									echo "<td style='width:120px;border:1px solid black;'>".$row['license_class']."</td>";
 									echo "<td style='width:150px;border:1px solid black;'>".$row['first_name']."</td>";
 									echo "<td style='width:150px;border:1px solid black;'>".$row['last_name']."</td>";
 									echo '<td style=\'width:150px;border:1px solid black;text-align:center;\'><input type="checkbox" name="reset[]" value="'.$row['uuid'].'" />&nbsp;</td>';
@@ -56,6 +58,7 @@ $dbname = "fdlogdb";
 							<input type="hidden" name="key" value="uuid">
 							<input type="hidden" name="table" value="users">
 							<input type="hidden" name="page" value="../admin/edit_users.php">
+							<span><h4>Resetting a user\'s password will set their password to "password".</h4></span>
 							<span style="float:right; margin:5px;"><input style="height:25px; width: 100px;" type="submit" /></span>
 							</form>';
 						} else {

@@ -254,6 +254,10 @@ fieldset {
     overflow: hidden;
 }
 
+.error.row {
+	margin-left: 5px;
+}
+
 .error {
 	color:red !important;
 }
@@ -387,6 +391,24 @@ fieldset {
 #welcome {
 	display:block;
 	margin-left: 5px;
+}
+
+#home_images {
+	margin: 10px;
+	float: center;
+	width: 200px;
+	line-height: 200px;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	vertical-align: middle;
+}
+
+#home_images img {
+	margin: 0 auto;
+	max-height: 250px;
+	vertical-align: middle;
+	float: center;
+	border-radius: 10px;
 }
 
 .uploads {

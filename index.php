@@ -12,6 +12,7 @@ session_start();
 	<meta name="author" content="Corey Koval, K3CPK">
 	<meta name="application-name" content="Field Day Logging Database" />
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="/js/fdlog.js"></script>
 </head>
 <body  onload="startTime()">
 	<div id="outer_wrapper" class="grid">
@@ -39,16 +40,13 @@ session_start();
 					<hr>
 					<div class="row">
 						<div id="recent-images">
-							<fieldset>
-								<legend>Last 6 Image Uploads</legend>
-								<?php include 'php/displayimageshome.php'; ?>
-							</fieldset>
+							<h4> Last 6 Image Uploads: </h4>
+							<?php include 'php/displayimageshome.php'; ?>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-<?php include 'js/scripthtml.php'; ?>
 </body>
 </html>

@@ -88,7 +88,7 @@ try {
 		last_name VARCHAR(20),
 		password TEXT,
 		license_class VARCHAR(10),
-		user_level VARCHAR(5))";
+		user_level VARCHAR(6))";
 	$conn->exec($sql);
 	echo "Table users added!<br>";
 

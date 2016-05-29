@@ -46,12 +46,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				$sql->execute();
 				$user_array = $sql->fetch();
 				$_SESSION['priv'] = $user_array[2];
-				$_SESSION['username'] = $username;
-				$_SESSION['name'] = $user_array[1];
-				$_SESSION['uuid'] = $user_array[0];
-				$_SESSION['band'] = "";
-				$_SESSION['mode'] = "";
-				echo '<META http-equiv="refresh" content="0;URL=/index.php">';
+				if ($_SESSION['priv'] === 'locked') {
+					$passErr2 = "Sorry, your account has been locked. Please see an administrator.";
+					session_unset();
+					session_destroy();
+				} else {
+					$_SESSION['username'] = $username;
+					$_SESSION['name'] = $user_array[1];
+					$_SESSION['uuid'] = $user_array[0];
+					$_SESSION['band'] = "";
+					$_SESSION['mode'] = "";
+					echo '<META http-equiv="refresh" content="0;URL=/index.php">';
+				}
 			} else {
 				$passErr2 = 'Username or password incorrect';
 			}

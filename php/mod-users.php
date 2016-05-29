@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $username, $password);
 			// set the PDO error mode to exception
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$stmt = $conn->prepare("UPDATE users SET user_level = '' WHERE uuid IN ($del_ids)");
+			$stmt = $conn->prepare("UPDATE users SET user_level = 'locked' WHERE uuid IN ($del_ids)");
 			$stmt->execute();
 			echo "Success!";
 			echo '<META http-equiv="refresh" content="0;URL='.$_POST["page"].'">';		
