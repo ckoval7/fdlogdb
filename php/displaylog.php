@@ -29,14 +29,11 @@ try {
 		echo "<td style='width:150px;border:1px solid black;'>".$row['band']."</td>";
 		echo "<td style='width:150px;border:1px solid black;'>".$row['mode']."</td>";
     	
-        if (!empty($_SESSION['priv'])) {
-        	if ($_SESSION['priv'] === "admin") {
+        if (!empty($_SESSION['priv']) && $_SESSION['priv'] === "admin") {
         		echo '<td style=\'width:75px;border:1px solid black;text-align:center;\'><input type="checkbox" name="delete[]" value="'.$row['logid'].'" />&nbsp;</td></tr>'."\n";
-        	}
-        } else {
+		} else {
         	echo "</tr>" . "\n";
         }
-    	
     }
 }
 catch(PDOException $e) {

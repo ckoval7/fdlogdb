@@ -166,12 +166,15 @@ fieldset {
 /*Computers*/
 @media screen and (min-width: 831px) {
 	.sidenav {
-    position: relative;
-    z-index: 1; /* Stay on top */
-	/*background:#454546;*/
-	width: 100%;
-	top: 0;
-	bottom: 0;
+		position: fixed;
+		z-index: 1; /* Stay on top */
+		/*background:#454546;*/
+		width: 16.66%;
+		max-width: 250px;
+		top: 0;
+		bottom: 0;
+		background:#454546;
+		overflow-y: auto;
 	}
 	#nav_button {
 		display:none;
@@ -183,9 +186,12 @@ fieldset {
 		background: #E7E9EB;
 	}*/
 	#menu.col-2 {
+		position: relative;
+		z-index: 2;
 		background:#454546;
 		max-width: 250px;
 		float:left;
+		height: 100%;
 	}
 }
 
@@ -217,6 +223,7 @@ fieldset {
 	max-width:100%;
 	border-radius: 50%;
 	margin: auto;
+	padding-top: 10px;
 }
 
 

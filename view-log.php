@@ -17,10 +17,10 @@
 	<div id="outer_wrapper" class="grid">
 		<div class="row">
 			<div id="menu" class="col-2">
-				<?php include '/navbar.php'; ?>
+				<?php include 'navbar.php'; ?>
 			</div>
 			<div id="header2" class="col-10">
-				<?php include '/header2.php'; ?>
+				<?php include 'header.php'; ?>
 				<div id="content">
 					<?php
 					if (!empty($_SESSION['priv']) && $_SESSION['priv'] === "user") {
@@ -31,13 +31,13 @@
 					} ?>
 					<div class="row">
 						<div id="recent-contacts">
-							<?php include '/php/displaylog.php'; ?>
+							<?php include 'php/displaylog.php'; ?>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-<?php include '/js/scripthtml.php'; ?>
+<?php include 'js/scripthtml.php'; ?>
 </body>
 </html>

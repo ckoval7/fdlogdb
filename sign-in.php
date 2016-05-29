@@ -16,14 +16,14 @@ include 'php/submitsignin.php' ?>
 	<div id="outer_wrapper" class="grid">
 		<div class="row">
 			<div id="menu" class="col-2">
-				<?php include '/navbar.php'; ?>
+				<?php include 'navbar.php'; ?>
 			</div>
 			<div id="header2" class="col-10">
-				<?php include '/header2.php'; ?>
+				<?php include 'header.php'; ?>
 				<div id="content">
 					<h4>To submit logs and manage your inventory, please sign in.</h4>
 					<form action=<?php echo $_SERVER["PHP_SELF"];?> method="POST">
-						Username/Call Sign: <br>
+						Call Sign: <br>
 						<input type="text" name="username" value="<?php echo $username; ?>" />
 						<span class="error">* <?php echo $usernameErr;?></span><br>
 						Password: <br>
@@ -38,6 +38,6 @@ include 'php/submitsignin.php' ?>
 			</div>
 		</div>
 	</div>
-<?php include '/js/scripthtml.php'; ?>
+<?php include 'js/scripthtml.php'; ?>
 </body>
 </html>

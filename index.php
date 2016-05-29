@@ -17,10 +17,10 @@ session_start();
 	<div id="outer_wrapper" class="grid">
 		<div class="row">
 			<div id="menu" class="col-2">
-				<?php include '/navbar.php'; ?>
+				<?php include 'navbar.php'; ?>
 			</div>
 			<div id="header2" class="col-10">
-				<?php include '/header2.php'; ?>
+				<?php include 'header.php'; ?>
 				<div id="content">
 					<div id="welcome" class="row">
 						Welcome to our field day site! If you are just a visitor please take a moment to sign the&nbsp;<a href="/guestbook.php">guestbook.</a>
@@ -32,7 +32,7 @@ session_start();
 						<div id="recent-contacts">
 							<fieldset>
 								<legend>Last 15 Contacts</legend>
-								<?php include '/php/displayloghome.php'; ?>
+								<?php include 'php/displayloghome.php'; ?>
 							</fieldset>
 						</div>
 					</div>
@@ -41,7 +41,7 @@ session_start();
 						<div id="recent-images">
 							<fieldset>
 								<legend>Last 6 Image Uploads</legend>
-								<?php include '/php/displayimageshome.php'; ?>
+								<?php include 'php/displayimageshome.php'; ?>
 							</fieldset>
 						</div>
 					</div>
@@ -49,6 +49,6 @@ session_start();
 			</div>
 		</div>
 	</div>
-<?php include '/js/scripthtml.php'; ?>
+<?php include 'js/scripthtml.php'; ?>
 </body>
 </html>

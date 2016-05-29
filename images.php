@@ -1,7 +1,7 @@
 <?php
 // Start the session
 session_start();
-include '/php/imageupload.php';
+include 'php/imageupload.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,10 +18,10 @@ include '/php/imageupload.php';
 	<div id="outer_wrapper" class="grid">
 		<div class="row">
 			<div id="menu" class="col-2">
-				<?php include '/navbar.php'; ?>
+				<?php include 'navbar.php'; ?>
 			</div>
 			<div id="header2" class="col-10">
-				<?php include '/header2.php'; ?>
+				<?php include 'header.php'; ?>
 				<div id="imgcontent">
 					<?php
 						if (isset($_SESSION['priv'])){
@@ -43,7 +43,7 @@ include '/php/imageupload.php';
 								</span>
 							</div>
 							<hr>';
-							include '/php/displayimages.php';
+							include 'php/displayimages.php';
 						} else {
 							echo '<h2>Sign in to use this page</h2>';
 						} 
@@ -52,6 +52,6 @@ include '/php/imageupload.php';
 			</div>
 		</div>
 	</div>
-<?php include '/js/scripthtml.php'; ?>
+<?php include 'js/scripthtml.php'; ?>
 </body>
 </html>

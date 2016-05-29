@@ -1,11 +1,17 @@
 <?php
+$servername = "localhost";
+$db_username = "fdlogread";
+$db_password = "password";
+$dbname = "fdlogdb";
 $fd_callsign = "";
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $db_username, $db_password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $conn->prepare("SELECT config_name, smallsting FROM fd_config WHERE config_name = 'fd_callsign'"); 
+    $stmt = $conn->prepare("SELECT small_string FROM fd_config WHERE config_name = 'fd_callsign' LIMIT 1"); 
     $stmt->execute();
-	$fd_callsign = $stmt;
+	$stmt->setFetchMode(PDO::FETCH_ASSOC);
+	$fd_callsign = $stmt->fetch();
+	$fd_callsign = implode("", $fd_callsign);
 }
 catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
@@ -13,31 +19,31 @@ catch(PDOException $e) {
 $conn = null;
 echo'
 <header class="header">
-	<span id="nav_button" onclick="openNav()">&nbsp;&nbsp;<img src="/img/hamburger.svg" alt="Open Menu"><br>Menu</span>
-	<span id="title"><h3>Field Day Logging</h3></span>
-	<div id="timeandtitle" class="col-10">
-		<div id="datetime" class="col-6">
-			<div id="date" class="row">
-				<h2>DD/MM/YYYY</h2>
-			</div>
-			<div id="clock" class="row">
-				<h2>HH:mm:ss</h2>
-			</div>';
+<div class="row">
+	<span class="col-12" id="timeandtitle">
+	<span id="nav_button" onclick="openNav()">&nbsp;<img src="/img/hamburger.svg" alt="Open Menu"><br>Menu</span>
+		<span id="prog_name">
+			<h3>Field Day Logging</h3>
+		</span>
+		<span id="fd_callsign">
+			<h1 id="fdcallsign">'.$fd_callsign.'</h1>
+		</span>
+		<span id="datetime">
+			<h4>'.gmdate("m/d/Y").'</h4>
+			<h4 id="time"></h4>
+		</span>';
+		
 		if (!empty($_SESSION['name'])) {
 			echo '<h5>Welcome, '. $_SESSION['name'].'</h5>';
 		}
 		echo '
-		</div>
-		<div id="title" class="col-6">
-			<h1>'.$fd_callsign.'</h1>
-		</div>
-	</div>
+	</span>
+</div>
 </header>';
 if (!empty($_SESSION['username']) and $_SESSION['username'] === "ADMIN") {
 	echo '
-		<div class="row">
+		<div class="error row">
 			<h2>Logged in as Admin! Please do not log your contacts as admin.</h2>
 		</div>';
 }
-echo '</header>';
 ?>

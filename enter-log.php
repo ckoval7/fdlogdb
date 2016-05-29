@@ -1,5 +1,5 @@
 <?php session_start();
-include '/php/submitlog.php';?>
+include 'php/submitlog.php';?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,13 +15,13 @@ include '/php/submitlog.php';?>
 	<div id="outer_wrapper" class="grid">
 		<div class="row">
 			<div id="menu" class="col-2">
-				<?php include '/navbar.php'; ?>
+				<?php include 'navbar.php'; ?>
 			</div>
 			<div id="header2" class="col-10">
-				<?php include '/header2.php'; ?>
+				<?php include 'header.php'; ?>
 				<div id="content">
 					<?php
-			if (isset($_SESSION['priv'])){
+			if (!empty($_SESSION['priv'])){
 				echo'
 				<form id="sublog" method="POST" action='.$_SERVER["PHP_SELF"].'>';
 				if (empty($_SESSION['band']) or empty($_SESSION['mode'])) {
@@ -61,7 +61,7 @@ include '/php/submitlog.php';?>
 				}
 				echo '</form>
 				<hr>';
-				include '/php/displayloguser.php';
+				include 'php/displayloguser.php';
 			} else {
 				echo '<h2>Sign in to use this page</h2>';
 			} ?>
@@ -69,6 +69,6 @@ include '/php/submitlog.php';?>
 			</div>
 		</div>
 	</div>
-<?php include '/js/scripthtml.php'; ?>
+<?php include 'js/scripthtml.php'; ?>
 </body>
 </html>

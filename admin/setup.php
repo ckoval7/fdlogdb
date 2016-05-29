@@ -1,6 +1,6 @@
 <?php 
 session_start();
-include '/submitsetup.php';
+include 'submitsetup.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,8 +19,8 @@ include '/submitsetup.php';
 			<div id="menu" class="col-2">
 				<?php include '../navbar.php'; ?>
 			</div>
-			<div id="header2" class="col-10">
-				<?php include '../header2.php'; ?>
+			<div id="header" class="col-10">
+				<?php include '../header.php'; ?>
 				<div id="content">
 					<?php
 if (!empty($_SESSION['priv']) and $_SESSION['priv'] === "admin") {

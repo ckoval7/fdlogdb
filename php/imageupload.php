@@ -1,7 +1,8 @@
 <?php
 $error="";
 $error2="";
-$target_dir = "img/user-uploads/";
+$target_dir = "/img/user-uploads/";
+$currentdir = getcwd();
 $displayhtml = "";
 $servername = "localhost";
 $dbusername = "fdlogwrite";
@@ -39,7 +40,7 @@ if (isset($_POST["submit"])) {
 		if ($uploadOk == 0) {
 			$error2="Error! Image upload failed.";
 		} else {
-			if (move_uploaded_file($_FILES["imageupload"]["tmp_name"],$target_file)) {
+			if (move_uploaded_file($_FILES["imageupload"]["tmp_name"],$currentdir . $target_file)) {
 				$error2="The file ".basename($_FILES["imageupload"]["name"])." has been uploaded. ";
 				$displayhtml = '<a href="'.$target_file.'"><img src="'.$target_file.'" alt="user image" height="200" width="200"></a>';
 				try {
