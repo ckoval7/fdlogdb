@@ -66,8 +66,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$password = password_hash($_POST["password"], PASSWORD_BCRYPT, $pass_options);
 		}else {
 			$passErr1 = "Passwords do not match!";
-			}
 		}
+	}
 }
 	function test_input($data) {
 	$data = trim($data);

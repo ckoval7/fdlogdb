@@ -41,9 +41,9 @@ catch(PDOException $e) {
 }
 $conn = null;
 echo '
-<input type="hidden" name="key" value="logid">
-<input type="hidden" name="table" value="logbook">
-<input type="hidden" name="page" value="/view-log.php">
-</form>';
-echo "</table>";
+</form>
+</table>';
+$_SESSION["key"] = "logid";
+$_SESSION["table"] = "logbook";
+$_SESSION["page"] = "/view-log.php";
 ?>

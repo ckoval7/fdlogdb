@@ -1,8 +1,12 @@
 <?php
+session_start();
 $servername = "localhost";
 $username = "fdlogadmin";
 $password = "adminpassword";
 $del_ids = $res_ids = $pass = "";
+$table = $_SESSION["table"];
+$key = $_SESSION["key"];
+$page = $_SESSION["page"];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if (!empty($_POST["disable"])) {
@@ -14,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$stmt = $conn->prepare("UPDATE users SET user_level = 'locked' WHERE uuid IN ($del_ids)");
 			$stmt->execute();
 			echo "Success!";
-			echo '<META http-equiv="refresh" content="0;URL='.$_POST["page"].'">';		
+			echo '<META http-equiv="refresh" content="0;URL='.$page.'">';		
 		}
 
 		catch(PDOException $e)

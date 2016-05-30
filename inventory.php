@@ -9,7 +9,7 @@ include 'php/submitinventory.php';
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Field Day</title>
+	<title>My Inventory</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -47,7 +47,7 @@ include 'php/submitinventory.php';
 							<input type="text" name="phone" value="'.$_SESSION['phone'].'"><span class="error">* '. $phoneErr.'</span><br>
 							<b>Description:</b><br>
 							<textarea name="description" rows="5" cols="45"></textarea><br>
-							<input type="submit" /><br><br>
+							<input type="submit" value="Submit" /><br><br>
 						</form>
 						<hr>';
 						include 'php/displayinventory.php';

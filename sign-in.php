@@ -30,7 +30,7 @@ include 'php/submitsignin.php' ?>
 						Password: <br>
 						<input type="password" name="password" />
 						<span class="error">* <?php echo $passErr1;?></span><br>
-						<input type="submit" /><br>
+						<input type="submit" value="Sign In"/><br>
 						<span class="error"> <?php echo $passErr2;?></span>
 						<h5>Don't have an account? Create one <a href="/register.php">here</a>.</h5>
 						<h5>If you forgot your password, please talk to an on site administrator.</h5>

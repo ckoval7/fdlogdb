@@ -53,7 +53,7 @@
 						</span>
 						<span class="error">* <?php echo $passErr1;?></span><br>
 						<span class="error"><?php echo $passErr2;?></span><br>
-						<input type="submit" /><br>
+						<input type="submit" value="Submit" /><br>
 					</form>
 				</div>
 			</div>

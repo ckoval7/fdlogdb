@@ -49,7 +49,7 @@ include 'php/submitlog.php';?>
 					<span>Power: 
 						<input type="text" name="power"><b>W</b><br>
 					</span><br>
-						<input type="submit" /><br>';
+						<input type="submit" value="Begin Session" /><br>';
 				} else {
 					echo '
 						<h2>'.$_SESSION['band'].'&nbsp;'.$_SESSION['mode'].'</h2>
@@ -57,7 +57,7 @@ include 'php/submitlog.php';?>
 						"w3uas 3a mdc"<br>
 						<b>Exchange:</b><br>
 						<input type="text" id="exchange" name="exchange" autofocus="autofocus"/><span class="error">* '. $dupeErr.'</span><br>
-						<input type="submit" /><br><br>
+						<input type="submit" value="Submit" /><br><br>
 						<b>When you are done with '.$_SESSION['band'].'&nbsp;'.$_SESSION['mode'].' please click <a href="/php/enterlog.php">here.</a></b>';
 				}
 				echo '</form>

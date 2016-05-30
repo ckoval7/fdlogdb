@@ -55,12 +55,12 @@ $dbname = "fdlogdb";
 							$conn = null;
 							echo '
 							</table>
-							<input type="hidden" name="key" value="uuid">
-							<input type="hidden" name="table" value="users">
-							<input type="hidden" name="page" value="../admin/edit_users.php">
 							<span><h4>Resetting a user\'s password will set their password to "password".</h4></span>
-							<span style="float:right; margin:5px;"><input style="height:25px; width: 100px;" type="submit" /></span>
+							<span style="float:right; margin:5px;"><input style="height:25px; width: 100px;" type="submit" value="submit" /></span>
 							</form>';
+							$_SESSION["key"] = "uuid";
+							$_SESSION["table"] = "users";
+							$_SESSION["page"] = "../admin/edit_users.php";
 						} else {
 							echo '<h1>You do not belong here!</h1>';
 						}

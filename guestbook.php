@@ -39,7 +39,7 @@
 						<span>
 							Comments:<br>
 							<textarea name="comments" rows="5" cols="22"><?php echo $comments; ?></textarea><br>
-							<input type="submit" name="submit" /><br>
+							<input type="submit" name="submit" value="Submit" /><br>
 						</span>
 					</form>
 					<hr>

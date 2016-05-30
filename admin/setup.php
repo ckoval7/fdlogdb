@@ -51,7 +51,7 @@ if (!empty($_SESSION['priv']) and $_SESSION['priv'] === "admin") {
 						</span>
 					<span class="error">* '.$admin_passErr1.'</span><br>
 					<span class="error">'.$admin_passErr2.'</span><br>
-					<input type="submit" /><br>
+					<input type="submit" value="Submit" /><br>
 					
 				</form>
 			</div>';
@@ -60,9 +60,7 @@ if (!empty($_SESSION['priv']) and $_SESSION['priv'] === "admin") {
 }
 echo '
 		</div>
-	</div>';
-	include '../js/scripthtml.php';
-	echo '	
+	</div>
 </body>
 </html>';
 ?>
