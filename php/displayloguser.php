@@ -1,6 +1,7 @@
 <?php
 echo "<table style='border: solid 1px black;'>";
-echo '<form id="guestbook" enctype="multipart/form-data" action="/php/delete.php" method="post"><tr><th>Call Sign</th><th>Class</th><th>Section</th><th>Band</th><th>Mode</th>';
+echo '<form id="guestbook" enctype="multipart/form-data" action="/php/delete.php" method="post">
+<tr><th>Call Sign</th><th>Class</th><th>Section</th><th>Band</th><th>Mode</th>';
 if (!empty($_SESSION['priv'])) {
 		echo '<th><input type="submit" value="Delete" /></th>';
 }
@@ -41,9 +42,9 @@ catch(PDOException $e) {
 }
 $conn = null;
 echo '
-<input type="hidden" name="key" value="logid">
-<input type="hidden" name="table" value="logbook">
-<input type="hidden" name="page" value="/enter-log.php">
-</form>';
-echo "</table>";
+</form>
+</table>';
+$_SESSION["key"] = "logid";
+$_SESSION["table"] = "logbook";
+$_SESSION["page"] = "/enter-log.php";
 ?>

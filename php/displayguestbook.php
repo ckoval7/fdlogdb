@@ -17,7 +17,7 @@ try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-    $stmt = $conn->prepare("SELECT guest_id, first_name, last_name, callsign FROM guestbook ORDER BY guest_id DESC LIMIT 25"); 
+    $stmt = $conn->prepare("SELECT guest_id, first_name, last_name, callsign FROM guestbook ORDER BY guest_id DESC"); 
     $stmt->execute();
 
     // set the resulting array to associative

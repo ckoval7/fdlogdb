@@ -1,12 +1,14 @@
 <?php
+session_start();
 $servername = "localhost";
 $username = "fdlogadmin";
 $password = "adminpassword";
-$table = $del_ids = $key = "";
+$del_ids = "";
+$table = $_SESSION["table"];
+$key = $_SESSION["key"];
+$page = $_SESSION["page"];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST["delete"])) {
-	$table = $_POST["table"];
-	$key = $_POST["key"];
 	$del_ids = join(', ', $_POST["delete"]);
 	echo 'Deleting rows '.$del_ids.'.';
 
@@ -17,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST["delete"])) {
 		$stmt = $conn->prepare("DELETE FROM $table WHERE $key IN ($del_ids)");$stmt->execute();
 		$stmt->execute();
 		echo "Success!";
-		echo '<META http-equiv="refresh" content="0;URL='.$_POST["page"].'">';		
+		echo '<META http-equiv="refresh" content="0;URL='.$page.'">';		
 	}
 
 	catch(PDOException $e)

@@ -113,6 +113,7 @@ try {
 		user_id BIGINT NOT NULL,
 		item_make VARCHAR(100),
 		item_model VARCHAR(100),
+		item_type VARCHAR(10),
 		item_description TEXT,
 		contact_number INT,
 		FOREIGN KEY (user_id) REFERENCES users(uuid))";

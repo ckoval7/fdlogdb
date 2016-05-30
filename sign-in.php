@@ -11,7 +11,7 @@ include 'php/submitsignin.php' ?>
 	<meta name="author" content="Corey Koval, K3CPK">
 	<meta name="application-name" content="Field Day Logging Database" />
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<script type="text/javascript" src="/js/fdlog.js"></script>
+	<script type="text/javascript" src="js/fdlog.js"></script>
 </head>
 <body  onload="startTime()">
 	<div id="outer_wrapper" class="grid">
