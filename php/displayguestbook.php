@@ -4,7 +4,7 @@ $_SESSION["table"] = "guestbook";
 $_SESSION["page"] = "/guestbook.php";
 
 include 'paginate.php';
-
+page_buttons();
 echo "<table style='border: solid 1px black;'>";
 echo '<form id="guestbook" enctype="multipart/form-data" action="/php/delete.php" method="post"><tr><th>First Name</th><th>Last Name</th><th>Call Sign</th>';
 if (!empty($_SESSION['priv'])) {

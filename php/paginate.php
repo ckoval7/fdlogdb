@@ -7,9 +7,11 @@ function getPage($table) {
 	if ($_SERVER["REQUEST_METHOD"] == "GET" && !empty($_GET["page"])) {
 		$page = preg_replace('/\D/', '', $_GET["page"]);
 		$offset = ($page * $limit) - $limit;
+	} else {
+		$page = 1;
 	}
-	if ($offset > $pages) {
-		$offset = $pages;
+	if ($page > $pages) {
+		$offset = ($pages * $limit) - $limit;
 	}
 	return max($offset, 0);
 }
@@ -59,7 +61,7 @@ function page_buttons() {
 	//Number of pages
 	echo '<span id="page_count">'.$pages.' Page(s)<br>Page: '.max($page, 1).'</span> ';
 	//Next Button
-	if (!empty($pages) && $pages > 1) {
+	if (!empty($pages) && $pages > 1 && $pages > $page) {
 			if (!empty($pages) && $pages > 1) {
 				$page_next = $page + 1;
 				echo '<span id="next"><a href="'.$link.'?page='.$page_next.'"> Next &gt; </a></span>';
