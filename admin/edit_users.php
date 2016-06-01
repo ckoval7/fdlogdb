@@ -55,7 +55,10 @@ $dbname = "fdlogdb";
 							$conn = null;
 							echo '
 							</table>
-							<span><h4>Resetting a user\'s password will set their password to "password".</h4></span>
+							<span>
+								<h4>Resetting a user\'s password will set their password to "password".</h4>
+								<h4>Resetting a user\'s password will also unlock their account.</h4>
+							</span>
 							<span style="float:right; margin:5px;"><input style="height:25px; width: 100px;" type="submit" value="submit" /></span>
 							</form>';
 							$_SESSION["key"] = "uuid";
