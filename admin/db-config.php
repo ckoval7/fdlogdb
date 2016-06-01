@@ -152,8 +152,7 @@ try {
 		callsign VARCHAR(12) NOT NULL,
 		first_name VARCHAR(20) NOT NULL,
 		last_name VARCHAR(20) NOT NULL,
-		comments TEXT,
-		log_time TIMESTAMP)";
+		comments TEXT)";
 	$conn->exec($sql);
 	echo "Table guestbook added!<br>";
 	

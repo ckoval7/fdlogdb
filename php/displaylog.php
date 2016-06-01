@@ -1,4 +1,17 @@
 <?php
+include 'paginate.php';
+
+$servername = "localhost";
+$username = "fdlogread";
+$password = "password";
+$dbname = "fdlogdb";
+$_SESSION["key"] = "logid";
+$_SESSION["table"] = "logbook";
+$_SESSION["page"] = "/view-log.php";
+$table = $_SESSION["table"];
+
+$pages = paginate($table);
+
 echo "<table style='border: solid 1px black;'>";
 echo '<form id="guestbook" enctype="multipart/form-data" action="/php/delete.php" method="post"><tr><th>Call Sign</th><th>Class</th><th>Section</th><th>Band</th><th>Mode</th>';
 if (!empty($_SESSION['priv'])) {
@@ -8,16 +21,12 @@ if (!empty($_SESSION['priv'])) {
 }
 echo '</tr>';
 
-$servername = "localhost";
-$username = "fdlogread";
-$password = "password";
-$dbname = "fdlogdb";
-
 try {
+	$offset = getPage($table);
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-	$stmt = $conn->prepare("SELECT callsign, operating_class, section, band, mode, logid FROM logbook ORDER BY logid DESC");
+	$stmt = $conn->prepare("SELECT callsign, operating_class, section, band, mode, logid FROM logbook ORDER BY logid DESC LIMIT $offset, $limit");
     $stmt->execute();
 
     // set the resulting array to associative
@@ -43,7 +52,5 @@ $conn = null;
 echo '
 </form>
 </table>';
-$_SESSION["key"] = "logid";
-$_SESSION["table"] = "logbook";
-$_SESSION["page"] = "/view-log.php";
+page_buttons();
 ?>

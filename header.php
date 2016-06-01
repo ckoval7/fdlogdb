@@ -34,7 +34,7 @@ echo'
 		</span>';
 		
 		if (!empty($_SESSION['name'])) {
-			echo '<h5>Welcome, '. $_SESSION['name'].'</h5>';
+			echo '<h5 id="name">Welcome, '. $_SESSION['name'].'. If this is not you <a style="color:black;" href="sign-out.php">click here</a> to sign out.</h5>';
 		}
 		echo '
 	</span>

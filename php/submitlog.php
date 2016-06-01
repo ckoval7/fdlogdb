@@ -2,13 +2,17 @@
 $servername = "localhost";
 $dbusername = "fdlogwrite";
 $dbpassword = "adminpassword";
-$dupeErr = "";
+$dupeErr = $sectionErr = "";
+
+$valid_sections = array('CT', 'EMA', 'ME', 'NH', 'RI', 'VT', 'WMA', 'ENY', 'NLI', 'NNJ', 'NNY', 'SNJ', 'WNY', 'DE', 'EPA', 'MDC', 'WPA', 'AL', 'GA', 'KY', 'NC', 'NFL', 'SC', 'SFL', 'WCF', 'TN', 'VA', 'PR', 'VI', 'AR', 'LA', 'MS', 'NM', 'NTX', 'OK', 'STX', 'WTX', 'EB', 'LAX', 'ORG', 'SB', 'SCV', 'SDG', 'SF', 'SJV', 'SV', 'PAC', 'AZ', 'EWA', 'ID', 'MT', 'NV', 'OR', 'UT', 'WWA', 'WY', 'AK', 'MI', 'OH', 'WV', 'IL', 'IN', 'WI', 'CO', 'IA', 'KS', 'MN', 'MO', 'NE', 'ND', 'SD', 'MAR', 'NL', 'QC', 'ONE', 'ONN', 'ONS', 'GTA', 'MB', 'SK', 'AB', 'BC', 'NT', 'DX');
+
 function test_input($data) {
 	$data = trim($data);
 	$data = htmlspecialchars($data);
 	$data = strtoupper($data);
 	return $data;
 	}
+
 if (!empty($_POST['band']) or !empty($_POST['mode'])) {
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$_SESSION['band'] = $_POST["band"];
@@ -37,6 +41,8 @@ if (!empty($_POST['exchange'])) {
 			$count = $stmt->rowCount();
 			if ($count > 0) {
 				$dupeErr = "Error! Dupe!";
+			} elseif (!in_array($section, $valid_sections)){
+				$sectionErr = "That is not a valid section!";
 			} elseif (isset($callsign) and isset($operating_class)and isset($section)) {
 				$stmt = $conn->prepare("INSERT INTO logbook(logger_id, callsign, operating_class, section, band, mode, power)VALUES (:loggerid, :callsign, :opclass, :section, :band, :mode, :power)");
 				$stmt->bindParam(':loggerid', $_SESSION['uuid']);
@@ -54,8 +60,7 @@ if (!empty($_POST['exchange'])) {
 			}
 		} catch(PDOException $e) {
 		echo "Connection failed: " . $e->getMessage();
+		}
 	}
-	
-	}	
 }
 ?>

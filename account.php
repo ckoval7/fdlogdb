@@ -69,8 +69,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 										<h4>Manage your account</h4>
 										<br>
 										<form action='. $_SERVER["PHP_SELF"].' method="POST">
-											<b>Call Sign:</b><br>
-											<input type="text" name="callsign" value="'.$_SESSION["username"].'" /><br><br>
 											<b>Operating Class:</b><br>
 											<select name="class">
 												<option value="" selected>--</option>
@@ -79,7 +77,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 												<option value="General">General</option>
 												<option value="Advanced">Advanced</option>
 												<option value="Extra">Extra</option>
-											</select><br><br>
+											</select>
+											
+											<br><br>
 											<span>
 												<b>New password:</b> <br>
 												<input type="password" name="password" />
@@ -90,14 +90,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 												</span>
 											<span class="error">'.$passErr1.'</span><br>
 											<input type="submit" value="Submit" /><br>
-										</form>
-									</div>';
+										</form>';
 						}else {
 							echo '<h2>Sign in to use this page.</h2>';
 						}
-	echo '
+						?>
+				</div>
 			</div>
 		</div>	
 	</body>
-</html>';
-?>
+</html>

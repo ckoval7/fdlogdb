@@ -56,7 +56,7 @@ include 'php/submitlog.php';?>
 						Please enter the whole exchange on one line then press enter. For example:<br>
 						"w3uas 3a mdc"<br>
 						<b>Exchange:</b><br>
-						<input type="text" id="exchange" name="exchange" autofocus="autofocus"/><span class="error">* '. $dupeErr.'</span><br>
+						<input type="text" id="exchange" name="exchange" autofocus="autofocus"/><span class="error">* '. $dupeErr.'</span><span class="error">'.$sectionErr.'</span><br>
 						<input type="submit" value="Submit" /><br><br>
 						<b>When you are done with '.$_SESSION['band'].'&nbsp;'.$_SESSION['mode'].' please click <a href="/php/enterlog.php">here.</a></b>';
 				}

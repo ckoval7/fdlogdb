@@ -71,6 +71,10 @@ th {
 	text-align:center;
 }
 
+table {
+	margin: 0 auto;
+}
+
 table, td {
     border: 1px solid black;
     border-collapse: collapse;
@@ -411,6 +415,32 @@ fieldset {
 	vertical-align: middle;
 	float: center;
 	border-radius: 10px;
+}
+
+#name {
+	text-align: left;
+	margin-left: 8px;
+}
+
+#next {
+	text-align: right;
+	float: right;
+	width: 33%
+}
+#back {
+	text-align: left;
+	float: left;
+	width: 33%;
+}
+#page_count {
+	text-align: center;
+	width: 34%;
+}
+#pages{
+	font-size: 18px;
+	display:table;
+	width: 99%;
+	margin: 0 auto;
 }
 
 .uploads {
