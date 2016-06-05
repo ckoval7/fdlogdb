@@ -40,6 +40,10 @@ $dbname = "fdlogdb";
 								// set the resulting array to associative
 								foreach($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
 									echo "<tr>";
+									$disabled_account = '';
+									if ($row['user_level']=='locked'){$disabled_account = "disabled checked";}
+									$greyed_account = '';
+									if ($row['user_level']=='admin'){$greyed_account = "disabled";}	
 									if ($row['user_level'] === 'locked') {
 										echo "<td style='width:75px;border:1px solid black;font-weight:bold;background:red;'>".$row['user_level']."</td>";
 									} else {
@@ -49,8 +53,8 @@ $dbname = "fdlogdb";
 									echo "<td style='width:120px;border:1px solid black;'>".$row['license_class']."</td>";
 									echo "<td style='width:150px;border:1px solid black;'>".$row['first_name']."</td>";
 									echo "<td style='width:150px;border:1px solid black;'>".$row['last_name']."</td>";
-									echo '<td style=\'width:150px;border:1px solid black;text-align:center;\'><input type="checkbox" name="reset[]" value="'.$row['uuid'].'" />&nbsp;</td>';
-									echo '<td style=\'width:75px;border:1px solid black;text-align:center;\'><input type="checkbox" name="disable[]" value="'.$row['uuid'].'" />&nbsp;</td>';
+									echo '<td style=\'width:150px;border:1px solid black;text-align:center;\'><input type="checkbox" ' .$greyed_account. ' name="reset[]" value="'.$row['uuid'].'" />&nbsp;</td>';
+									echo '<td style=\'width:75px;border:1px solid black;text-align:center;\'><input type="checkbox" ' .$greyed_account. ' ' .$disabled_account. ' name="disable[]" value="'.$row['uuid'].'" />&nbsp;</td>';
 									echo "</tr>" . "\n";																		
 								}
 							} catch(PDOException $e) {

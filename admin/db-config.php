@@ -69,15 +69,13 @@ try {
 	
 //Create table fd_config:
 	$sql="CREATE TABLE IF NOT EXISTS fd_config(
+		category VARCHAR(25),
 		config_name VARCHAR(255) PRIMARY KEY,
 		small_string VARCHAR(255),
 		large_string TEXT,
 		number BIGINT)";
 	$conn->exec($sql);
 	echo "Table fd_config added!<br>";
-	
-	$sql="INSERT INTO fd_config(config_name, small_string) VALUES ('fd_callsign', 'NOCALL')";
-	$conn->exec($sql);
 
 //Create table users:
 	$sql="CREATE TABLE IF NOT EXISTS users(
@@ -176,11 +174,13 @@ try {
 	$sql="INSERT INTO users (call_sign, password, user_level) VALUES ('admin', '$pass', 'admin')";
 	$conn->exec($sql);
 	echo '<br> Account "admin" created with password "password".';
-	$sql="INSERT INTO fd_config (config_name, number) VALUES ('participants', '0'), ('safety_officer', '0'), ('media', '0'), ('social_media', '0'), ('public_place', '0'), ('info_booth', '0'), ('arrl_sm_mesg', '0'), ('w1aw_mesg', '0'), ('formal_mesgs', '0'), ('elected_official', '0'), ('agency_official', '0'), ('educational_activity', '0'), ('gota_coach', '0'), ('youth_participation', '0'), ('youth_qso', '0'), ('commercial', '0'), ('generator', '0'), ('battery', '0'), ('solar', '0'), ('wind', '0'), ('water', '0'), ('methane', '0')";
+	
+//setup config values
+	$sql="INSERT INTO fd_config(category, config_name, small_string) VALUES ('fd_setup', 'fd_callsign', 'NOCALL'), ('fd_setup', 'fd_class', 'NONE'), ('fd_setup', 'fd_section', 'NONE'), ('fd_setup', 'club_name', NULL), ('gota', 'gota_callsign', NULL)";
 	$conn->exec($sql);
-	$sql = "INSERT INTO fd_config (config_name) VALUES ('club_name')";
+	$sql="INSERT INTO fd_config (category, config_name, number) VALUES ('bonus', 'participants', '0'), ('bonus', 'safety_officer', '0'), ('bonus', 'media', '0'), ('bonus', 'social_media', '0'), ('bonus', 'public_place', '0'), ('bonus', 'info_booth', '0'), ('bonus', 'arrl_sm_mesg', '0'), ('bonus', 'w1aw_mesg', '0'), ('bonus', 'formal_mesgs', '0'), ('bonus', 'elected_official', '0'), ('bonus', 'agency_official', '0'), ('bonus', 'educational_activity', '0'), ('gota', 'gota_coach', '0'), ('bonus', 'youth_participation', '0'), ('bonus', 'youth_qso', '0'), ('power', 'commercial', '0'), ('power', 'generator', '0'), ('power', 'battery', '0'), ('power', 'solar', '0'), ('power', 'wind', '0'), ('power', 'water', '0'), ('power', 'methane', '0')";
 	$conn->exec($sql);
-	$sql = "INSERT INTO fd_config (config_name) VALUES ('other_power')";
+	$sql = "INSERT INTO fd_config (category, config_name) VALUES ('power', 'other_power')";
 	$conn->exec($sql);
 	echo 'Configuration table loaded';
 	echo '<br> You will be rediected to the homepage in 5 seconds.';
