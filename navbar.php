@@ -1,4 +1,4 @@
-<?php 
+<?php
 if (!empty ($_SESSION['priv'])) {
 	if ($_SESSION['priv'] === "user") {
 		echo '

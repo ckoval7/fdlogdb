@@ -448,6 +448,10 @@ fieldset {
 }
 
 .uploads {
+	/*display:flex;
+	flex-wrap:wrap;
+	align-content:space-around;*/
+	display:inline-block;
 	text-align:center;
 	margin: 10px;
 	float: center;

@@ -3,7 +3,7 @@ $servername = "localhost";
 $rd_username = "fdlogread";
 $rd_password = "password";
 $dbname = "fdlogdb";
-
+echo '<div class="row">';
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $rd_username, $rd_password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -13,12 +13,13 @@ try {
 
     // set the resulting array to associative
     foreach($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
-		echo '<span class="uploads"><a href="'.$row['file_location'].'"><img src="'.$row['file_location'].'" alt="user image" height="200" width="200"></a><br>
-		'.$row['description'].'</span>';
+		echo '<div class="uploads"><a href="'.$row['file_location'].'"><img src="'.$row['file_location'].'" alt="user image" height="200" width="200"></a><br>
+		'.$row['description'].'</div>';
     }
 }
 catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
+echo '</div>';
 $conn = null;
 ?>
