@@ -29,6 +29,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$number_youth = $_POST["number_youth"];
 			$stmt = $conn->prepare("UPDATE fd_config SET number = '$number_youth' WHERE config_name = 'youth_participation'");
 			$stmt->execute();
+			if (!empty($_POST["number_youth_qso"])) {
+				$number_youth_qso = $_POST["number_youth_qso"];
+				$stmt = $conn->prepare("UPDATE fd_config SET number = '$number_youth_qso' WHERE config_name = 'youth_qso'");
+				$stmt->execute();
+			}	
 		}
 		if (!empty($_POST["messages"]) && !empty($_POST["number_messages"])) {
 			$number_messages = $_POST["number_messages"];
