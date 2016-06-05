@@ -1,14 +1,17 @@
 <?php
-$fd_callsign = $fd_section = $fd_class = $gota_callsign = $admin_password = $repeat_password = $password = $count = '';
+$fd_callsign = $fd_section = $fd_class = $gota_callsign = $admin_password = $club_name = $repeat_password = $password = $count = '';
 $fd_callErr = $fd_sectionErr = $fd_classErr = $admin_passErr1 = $admin_passErr2 = '';
 $servername = "localhost";
 $username_wr = "fdlogwrite";
 $dbpassword_wr = "adminpassword";
 
+$valid_sections = array('CT', 'EMA', 'ME', 'NH', 'RI', 'VT', 'WMA', 'ENY', 'NLI', 'NNJ', 'NNY', 'SNJ', 'WNY', 'DE', 'EPA', 'MDC', 'WPA', 'AL', 'GA', 'KY', 'NC', 'NFL', 'SC', 'SFL', 'WCF', 'TN', 'VA', 'PR', 'VI', 'AR', 'LA', 'MS', 'NM', 'NTX', 'OK', 'STX', 'WTX', 'EB', 'LAX', 'ORG', 'SB', 'SCV', 'SDG', 'SF', 'SJV', 'SV', 'PAC', 'AZ', 'EWA', 'ID', 'MT', 'NV', 'OR', 'UT', 'WWA', 'WY', 'AK', 'MI', 'OH', 'WV', 'IL', 'IN', 'WI', 'CO', 'IA', 'KS', 'MN', 'MO', 'NE', 'ND', 'SD', 'MAR', 'NL', 'QC', 'ONE', 'ONN', 'ONS', 'GTA', 'MB', 'SK', 'AB', 'BC', 'NT', 'DX');
+
 //log in as fdlogwrite
 $isReady = 0;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$gota_callsign = $_POST["gota_callsign"];
+	$gota_callsign = test_input($_POST["gota_callsign"]);
+	$club_name = test_input($_POST["club_name"]);
 	if (empty($_POST["fd_callsign"]) or empty($_POST["fd_section"]) or empty($_POST["fd_class"]) or empty($_POST["admin_password"]) or ($_POST["repeat_password"] !== $_POST["admin_password"])) {
 		$isReady = 0;
 	} else {
@@ -22,7 +25,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	if (empty($_POST["fd_section"])) {
 		$fd_sectionErr = "Section is required";
-	} else {
+	}elseif (!in_array(strtoupper($_POST["fd_section"]), $valid_sections)){
+		$fd_sectionErr = "That is not a valid section!";
+	}else {
 		$fd_section = strtoupper(test_input($_POST["fd_section"]));
 	}
 
@@ -45,11 +50,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			}
 		}
 }
-	function test_input($data) {
-	$data = trim($data);
-	$data = htmlspecialchars($data);
-	return $data;
-	}
+function test_input($data) {
+$data = trim($data);
+$data = htmlspecialchars($data);
+return $data;
+}
 if ($isReady === 1) {	
 	try {
 		$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $username_wr, $dbpassword_wr);
@@ -91,6 +96,9 @@ if ($isReady === 1) {
 			$stmt = $conn->prepare("INSERT INTO fd_config (config_name, small_string) VALUES ('gota_callsign', '$gota_callsign')");
 			$stmt->execute();
 		}
+		//Club Name:
+		$stmt = $conn->prepare("UPDATE fd_config SET small_string='$club_name' WHERE config_name='club_name'");
+		$stmt->execute();
 		//Update Admin Password
 		$stmt = $conn->prepare("UPDATE users SET password='$password' WHERE uuid=1");
 		$stmt->execute();

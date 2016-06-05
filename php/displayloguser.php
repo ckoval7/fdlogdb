@@ -8,7 +8,7 @@ $uuid = $_SESSION['uuid'];
 $_SESSION["key"] = "logid";
 $_SESSION["table"] = "logbook";
 $_SESSION["page"] = "/enter-log.php";
-$table = $_SESSION["table"]." WHERE logger_id = '$uuid'";
+$table = "logbook WHERE logger_id = '$uuid'";
 
 $pages = paginate($table);
 
@@ -30,11 +30,18 @@ try {
 
     // set the resulting array to associative
     foreach($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
+		if (!empty($row['band']) && $row['band'] == 125) {
+			$band = "1.25m";
+		} elseif (!empty($row['band']) && $row['band'] == 247) {
+			$band = "Satellite";
+		} else{
+			$band = $row['band']."m";
+		}
     	echo "<tr>";
         echo "<td style='width:150px;border:1px solid black;'>".$row['callsign']."</td>";
         echo "<td style='width:150px;border:1px solid black;'>".$row['operating_class']."</td>";
         echo "<td style='width:150px;border:1px solid black;'>".$row['section']."</td>";
-		echo "<td style='width:150px;border:1px solid black;'>".$row['band']."</td>";
+		echo "<td style='width:150px;border:1px solid black;'>".$band."</td>";
 		echo "<td style='width:150px;border:1px solid black;'>".$row['mode']."</td>";
     	
         if (!empty($_SESSION['priv'])) {
@@ -52,5 +59,5 @@ $conn = null;
 echo '
 </form>
 </table>';
-page_buttons();
+page_buttons($table);
 ?>

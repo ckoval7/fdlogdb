@@ -33,10 +33,11 @@ function paginate($table) {
 		echo "Error: " . $e->getMessage();
 	}
 	$pages = ceil($count[0] / $limit);
+	//echo $count[0]."<br>".$limit."<br>".$pages;
 	return $pages;
 }
 
-function page_buttons() {
+function page_buttons($table) {
 	if (!empty($_GET["page"])) {
 		$page = $_GET["page"];
 	} else {
@@ -47,7 +48,7 @@ function page_buttons() {
 	} else {
 		$link = "#";
 	}
-	$table = $_SESSION['table'];
+	//$table = $_SESSION['table'];
 	$pages = paginate($table);
 	echo '<div id="pages">';
 
@@ -59,7 +60,7 @@ function page_buttons() {
 		echo '<span id="back">&nbsp;</span>';
 	}
 	//Number of pages
-	echo '<span id="page_count">'.$pages.' Page(s)<br>Page: '.max($page, 1).'</span> ';
+	if ($pages > 1) {echo '<span id="page_count">'.$pages.' Pages<br>Page: '.max($page, 1).'</span> ';}
 	//Next Button
 	if (!empty($pages) && $pages > 1 && $pages > $page) {
 			if (!empty($pages) && $pages > 1) {

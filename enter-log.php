@@ -35,24 +35,27 @@ include 'php/submitlog.php';?>
 							<option value="20m">20m</option>
 							<option value="15m">15m</option>
 							<option value="10m">10m</option>
-							<option value="2m">VHF</option>
-							<option value="440">UHF</option>
+							<option value="6m">6m</option>
+							<option value="2m">2m</option>
+							<option value="125">1.25m</option>
+							<option value="247">Satellite</option>
 						</select>
 					</span>&nbsp;
 					<span>Choose a Mode:
 						<select name="mode">
-							<option value="CW/Morse">CW/Morse</option>
+							<option value="CW">CW/Morse</option>
 							<option value="Phone" selected>Phone</option>
 							<option value="Digital">Digital</option>
 						</select>
 					</span><br>
 					<span>Power: 
-						<input type="text" name="power"><b>W</b><br>
+						<input type="text" name="power"><b>W</b>&nbsp;
+						<input type="checkbox" name="natural_power" value="natural_power">Natural Power<br>
 					</span><br>
 						<input type="submit" value="Begin Session" /><br>';
 				} else {
 					echo '
-						<h2>'.$_SESSION['band'].'&nbsp;'.$_SESSION['mode'].'</h2>
+						<h2>'.$_SESSION['band'].'&nbsp;-&nbsp;'.$_SESSION['mode'].'</h2>
 						Please enter the whole exchange on one line then press enter. For example:<br>
 						"w3uas 3a mdc"<br>
 						<b>Exchange:</b><br>

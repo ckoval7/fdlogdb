@@ -32,6 +32,8 @@ if (!empty($_SESSION['priv']) and $_SESSION['priv'] === "admin") {
 					<b>Field Day Call Sign:</b> <br>
 					<input type="text" name="fd_callsign" value="'.$fd_callsign.'" />
 					<span class="error">* '.$fd_callErr.'</span><br>
+					<b>Club Name:</b> <br>
+					<input type="text" name="club_name" value="'.$club_name.'" /><br>
 					<b>Section:</b><br>
 					<input type="text" name="fd_section" value="'.$fd_section.'" />
 					<span class="error">* '.$fd_sectionErr.'</span><br>

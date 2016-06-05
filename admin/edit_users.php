@@ -40,7 +40,11 @@ $dbname = "fdlogdb";
 								// set the resulting array to associative
 								foreach($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
 									echo "<tr>";
-									echo "<td style='width:75px;border:1px solid black;'>".$row['user_level']."</td>";
+									if ($row['user_level'] === 'locked') {
+										echo "<td style='width:75px;border:1px solid black;font-weight:bold;background:red;'>".$row['user_level']."</td>";
+									} else {
+										echo "<td style='width:75px;border:1px solid black;'>".$row['user_level']."</td>";
+									}
 									echo "<td style='width:150px;border:1px solid black;'>".$row['call_sign']."</td>";
 									echo "<td style='width:120px;border:1px solid black;'>".$row['license_class']."</td>";
 									echo "<td style='width:150px;border:1px solid black;'>".$row['first_name']."</td>";

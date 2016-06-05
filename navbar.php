@@ -32,7 +32,7 @@ if (!empty ($_SESSION['priv'])) {
 						<li class="nav__item"><a href="/guestbook.php">Edit Guestbook</a></li>
 						<li class="nav__item"><a href="/inventory.php">Edit Inventory</a></li>
 						<li class="nav__item"><a href="/admin/setup.php">Setup</a></li>
-						<li class="nav__item"><a href="/admin/postfd.php">Post-FD</a></li>
+						<li class="nav__item"><a href="/admin/post_fd.php">Post-FD</a></li>
 						<li class="nav__item"><a href="/admin/edit_users.php">Users</a></li>
 						<li class="nav__item"><a href="/sign-out.php">Sign Out</a></li>
 						<li class="nav__item"><a target="_blank" href="/files/2016 Rules.pdf">2016 Rules</a></li>

@@ -103,6 +103,7 @@ try {
 		band SMALLINT,
 		mode VARCHAR(10),
 		power SMALLINT,
+		natural_power BOOL,
 		FOREIGN KEY (logger_id) REFERENCES users(uuid))";
 	$conn->exec($sql);
 	echo "Table logbook added!<br>";
@@ -175,6 +176,13 @@ try {
 	$sql="INSERT INTO users (call_sign, password, user_level) VALUES ('admin', '$pass', 'admin')";
 	$conn->exec($sql);
 	echo '<br> Account "admin" created with password "password".';
+	$sql="INSERT INTO fd_config (config_name, number) VALUES ('participants', '0'), ('safety_officer', '0'), ('media', '0'), ('social_media', '0'), ('public_place', '0'), ('info_booth', '0'), ('arrl_sm_mesg', '0'), ('w1aw_mesg', '0'), ('formal_mesgs', '0'), ('elected_official', '0'), ('agency_official', '0'), ('educational_activity', '0'), ('gota_coach', '0'), ('youth_participation', '0'), ('commercial', '0'), ('generator', '0'), ('battery', '0'), ('solar', '0'), ('wind', '0'), ('water', '0'), ('methane', '0')";
+	$conn->exec($sql);
+	$sql = "INSERT INTO fd_config (config_name) VALUES ('club_name')";
+	$conn->exec($sql);
+	$sql = "INSERT INTO fd_config (config_name) VALUES ('other_power')";
+	$conn->exec($sql);
+	echo 'Configuration table loaded';
 	echo '<br> You will be rediected to the homepage in 5 seconds.';
 	echo '<META http-equiv="refresh" content="5;URL=/index.php">';
 }

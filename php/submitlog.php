@@ -15,19 +15,32 @@ function test_input($data) {
 
 if (!empty($_POST['band']) or !empty($_POST['mode'])) {
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		$_SESSION['band'] = $_POST["band"];
+		$_SESSION['dbband'] = $_POST["band"];
+		if (!empty($_POST["band"]) && $_POST["band"] == 125) {
+			$band = "1.25m";
+		} elseif (!empty($_POST["band"]) && $_POST["band"] == 247) {
+			$band = "Satellite";
+		} else{
+			$band = $_POST["band"];
+		}
+		$_SESSION['band'] = $band;
 		$_SESSION['mode'] = $_POST["mode"];
 		$_SESSION['power'] = preg_replace('/\D/', '', $_POST["power"]);
+		if (!empty($_POST['natural_power'])) {
+			$_SESSION['natural_power'] = 1;
+		} else {
+			$_SESSION['natural_power'] = '';
+		}
 	}
 }
 if (!empty($_POST['exchange'])) {
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$exchange = explode(" ", $_POST['exchange'], 3);
-		if (!empty($exchange[0])) {$callsign = test_input($exchange[0]);}
-		if (!empty($exchange[1])) {$operating_class = test_input($exchange[1]);}
-		if (!empty($exchange[2])) {$section = test_input($exchange[2]);}
+		if (!empty($exchange[0])) {$callsign = test_input($exchange[0]);} else {$callsign = '';}
+		if (!empty($exchange[1])) {$operating_class = test_input($exchange[1]);} else {$operating_class = '';}
+		if (!empty($exchange[2])) {$section = test_input($exchange[2]);} else {$section = '';}
 		try {
-			$band = $_SESSION['band'];
+			$dbband = $_SESSION['dbband'];
 			$mode = $_SESSION['mode'];
 			$power = $_SESSION['power'];
 			$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $dbusername, $dbpassword);
@@ -43,15 +56,18 @@ if (!empty($_POST['exchange'])) {
 				$dupeErr = "Error! Dupe!";
 			} elseif (!in_array($section, $valid_sections)){
 				$sectionErr = "That is not a valid section!";
+			} elseif (!preg_match('/\d{1,2}+[abcdefABCDEF]/', $operating_class)) {
+				$sectionErr = "That is not a valid class!";
 			} elseif (isset($callsign) and isset($operating_class)and isset($section)) {
-				$stmt = $conn->prepare("INSERT INTO logbook(logger_id, callsign, operating_class, section, band, mode, power)VALUES (:loggerid, :callsign, :opclass, :section, :band, :mode, :power)");
+				$stmt = $conn->prepare("INSERT INTO logbook(logger_id, callsign, operating_class, section, band, mode, power, natural_power) VALUES (:loggerid, :callsign, :opclass, :section, :band, :mode, :power, :natural_power)");
 				$stmt->bindParam(':loggerid', $_SESSION['uuid']);
 				$stmt->bindParam(':callsign', $callsign);
 				$stmt->bindParam(':opclass', $operating_class);
 				$stmt->bindParam(':section', $section);
-				$stmt->bindParam(':band', $_SESSION['band']);
+				$stmt->bindParam(':band', $_SESSION['dbband']);
 				$stmt->bindParam(':mode', $_SESSION['mode']);
 				$stmt->bindParam(':power', $_SESSION['power']);
+				$stmt->bindParam(':natural_power', $_SESSION['natural_power']);
 				
 				$stmt->execute();
 				$conn=null;

@@ -443,6 +443,10 @@ fieldset {
 	margin: 0 auto;
 }
 
+#postfd input {
+	margin: 5px;
+}
+
 .uploads {
 	text-align:center;
 	margin: 10px;

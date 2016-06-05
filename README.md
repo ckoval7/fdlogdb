@@ -21,14 +21,14 @@ Currently working:
 	- Image Upload (no display)
 	- Guestbook
 	- The ability to delete contacts from the GUI
+	- Inventory
+	- List of acceptable sections
+	- Image display
+	- regex to check class
 	
 Not working/to-do:
 
-	* Inventory
 	* Table of point values
-	* List of acceptable sections
-	* regex to check class
-	* Image display
 	* GOTA logging
 	* FD post processing
 	* Create a logo

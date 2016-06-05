@@ -1,10 +1,17 @@
 <?php
+include 'paginate.php';
 $_SESSION["key"] = "guest_id";
 $_SESSION["table"] = "guestbook";
 $_SESSION["page"] = "/guestbook.php";
+$servername = "localhost";
+$dbusername = "fdlogread";
+$dbpassword = "password";
+$dbname = "fdlogdb";
+$table = $_SESSION["table"];
 
-include 'paginate.php';
-page_buttons();
+$pages = paginate($table);
+
+page_buttons($table);
 echo "<table style='border: solid 1px black;'>";
 echo '<form id="guestbook" enctype="multipart/form-data" action="/php/delete.php" method="post"><tr><th>First Name</th><th>Last Name</th><th>Call Sign</th>';
 if (!empty($_SESSION['priv'])) {
@@ -13,14 +20,6 @@ if (!empty($_SESSION['priv'])) {
 	}
 }
 echo '</tr>';
-
-$servername = "localhost";
-$dbusername = "fdlogread";
-$dbpassword = "password";
-$dbname = "fdlogdb";
-$table = $_SESSION["table"];
-
-$pages = paginate($table);
 
 try {
 	$offset = getPage($table);
@@ -54,5 +53,5 @@ $conn = null;
 echo '
 </form>
 </table>';
-page_buttons();
+page_buttons($table);
 ?>
