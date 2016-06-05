@@ -66,48 +66,71 @@ catch(PDOException $e) {
 $conn = null;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	try {
-		$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $username, $dbpassword);
-		// set the PDO error mode to exception
-		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		if (!empty($_POST["bonus"])) {
-			$bonus = join('\', \'', $_POST["bonus"]);
-			$stmt = $conn->prepare("UPDATE fd_config SET number = '1' WHERE config_name IN ('$bonus')");
-			$stmt->execute();
-		}
-		if (!empty($_POST["power"])) {
-			$power = join('\', \'', $_POST["power"]);
-			$stmt = $conn->prepare("UPDATE fd_config SET number = '1' WHERE config_name IN ('$power')");
-			$stmt->execute();
-		}
-		if (!empty($_POST["other_power"])) {
-			$other_power = $_POST["other_power"];
-			$stmt = $conn->prepare("UPDATE fd_config SET large_string = '$other_power' WHERE config_name = 'other_power'");
-			$stmt->execute();
-		}
-		if (!empty($_POST["youth"]) && !empty($_POST["number_youth"])) {
-			$number_youth = $_POST["number_youth"];
-			$stmt = $conn->prepare("UPDATE fd_config SET number = '$number_youth' WHERE config_name = 'youth_participation'");
-			$stmt->execute();
-			if (!empty($_POST["number_youth_qso"])) {
-				$number_youth_qso = $_POST["number_youth_qso"];
-				$stmt = $conn->prepare("UPDATE fd_config SET number = '$number_youth_qso' WHERE config_name = 'youth_qso'");
+	if (!empty($_REQUEST['submit'])) {
+		try {
+			$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $username, $dbpassword);
+			// set the PDO error mode to exception
+			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			if (!empty($_POST["bonus"])) {
+				$bonus = join('\', \'', $_POST["bonus"]);
+				$stmt = $conn->prepare("UPDATE fd_config SET number = '1' WHERE config_name IN ('$bonus')");
 				$stmt->execute();
-			}	
+			}
+			if (!empty($_POST["power"])) {
+				$power = join('\', \'', $_POST["power"]);
+				$stmt = $conn->prepare("UPDATE fd_config SET number = '1' WHERE config_name IN ('$power')");
+				$stmt->execute();
+			}
+			if (!empty($_POST["other_power"])) {
+				$other_power = $_POST["other_power"];
+				$stmt = $conn->prepare("UPDATE fd_config SET large_string = '$other_power' WHERE config_name = 'other_power'");
+				$stmt->execute();
+			}
+			if (!empty($_POST["youth"]) && !empty($_POST["number_youth"])) {
+				$number_youth = $_POST["number_youth"];
+				$stmt = $conn->prepare("UPDATE fd_config SET number = '$number_youth' WHERE config_name = 'youth_participation'");
+				$stmt->execute();
+				if (!empty($_POST["number_youth_qso"])) {
+					$number_youth_qso = $_POST["number_youth_qso"];
+					$stmt = $conn->prepare("UPDATE fd_config SET number = '$number_youth_qso' WHERE config_name = 'youth_qso'");
+					$stmt->execute();
+				}	
+			}
+			if (!empty($_POST["messages"]) && !empty($_POST["number_messages"])) {
+				$number_messages = $_POST["number_messages"];
+				$stmt = $conn->prepare("UPDATE fd_config SET number = '$number_messages' WHERE config_name = 'formal_mesgs'");
+				$stmt->execute();
+			}
+			if (!empty($_POST["participants"])) {
+				$participants = $_POST["participants"];
+				$stmt = $conn->prepare("UPDATE fd_config SET number = '$participants' WHERE config_name = 'participants'");
+				$stmt->execute();
+			}
+		} catch(PDOException $e) {
+			echo "Connection failed: " . $e->getMessage();
 		}
-		if (!empty($_POST["messages"]) && !empty($_POST["number_messages"])) {
-			$number_messages = $_POST["number_messages"];
-			$stmt = $conn->prepare("UPDATE fd_config SET number = '$number_messages' WHERE config_name = 'formal_mesgs'");
+	} elseif (!empty($_REQUEST['power_reset'])) {
+		try {
+			$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $username, $dbpassword);
+			// set the PDO error mode to exception
+			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$stmt = $conn->prepare("UPDATE fd_config SET number = '0' WHERE category = 'power'");
 			$stmt->execute();
+		} catch(PDOException $e) {
+			echo "Connection failed: " . $e->getMessage();
 		}
-		if (!empty($_POST["participants"])) {
-			$participants = $_POST["participants"];
-			$stmt = $conn->prepare("UPDATE fd_config SET number = '$participants' WHERE config_name = 'participants'");
+	} elseif (!empty($_REQUEST['bonus_reset'])) {
+		try {
+			$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $username, $dbpassword);
+			// set the PDO error mode to exception
+			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$stmt = $conn->prepare("UPDATE fd_config SET number = '0' WHERE category = 'bonus'");
 			$stmt->execute();
+		} catch(PDOException $e) {
+			echo "Connection failed: " . $e->getMessage();
 		}
-	} catch(PDOException $e) {
-		echo "Connection failed: " . $e->getMessage();
 	}
+	echo '<META http-equiv="refresh" content="0;URL=post_fd.php">';
 	$conn=null;
 }
 ?>
@@ -146,7 +169,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<input type="checkbox" name="power[]" value="wind">Wind  
 							<input type="checkbox" name="power[]" value="methane">Methane 
 							<input type="checkbox" name="power[]" value="water">Water<br>
-							Other power (Comma separated list):<input type="text" name="other_power">
+							Other power (Comma separated list):<input type="text" name="other_power"><br>
+							<input type="submit" name="power_reset" value="Reset Power Sources">
 						</fieldset>
 						<br>
 						<fieldset>
@@ -164,11 +188,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<input type="checkbox" name="bonus[]" value="educational_activity">Site hosted an educational activity<br>
 							<input type="checkbox" name="youth" value="youth_participation">Youth Participation. Number of youth at site:
 							<input type="number" style="width:45px;text-align:right;" name="number_youth"><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Number of youth that completed at least 1 QSO:<input type="number" style="width:45px;text-align:right;" name="number_youth_qso">
-							
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Number of youth that completed at least 1 QSO:<input type="number" style="width:45px;text-align:right;" name="number_youth_qso"><br>
+							<input type="submit" name="bonus_reset" value="Reset Bonuses">
 						</fieldset>
 						<span style="float: right">
-							<input type="submit" value="Submit">
+							<input type="submit" name="submit" value="Submit">
 						</span>
 						</form>';
 						echo '<br>Formatted output to go here soon.';
