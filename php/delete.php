@@ -28,6 +28,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST["delete"])) {
 		}
 	
 	$conn=null;
+} else {
+	echo '<META http-equiv="refresh" content="0;URL='.$page.'">';
 }
 
 

@@ -98,7 +98,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<input type="checkbox" name="bonus[]" value="agency_official">Site visited by an invited served agency official<br>
 							<input type="checkbox" name="bonus[]" value="educational_activity">Site hosted an educational activity<br>
 							<input type="checkbox" name="youth" value="youth_participation">Youth Participation. Number of youth at site:
-							<input type="number" style="width:45px;text-align:right;" name="number_youth">
+							<input type="number" style="width:45px;text-align:right;" name="number_youth"><br>
+							Number of youth that completed at least 1 QSO:<input type="number" style="width:45px;text-align:right;" name="number_youth_qso">
+							
 						</fieldset>
 						<span style="float: right">
 							<input type="submit" value="Submit">
