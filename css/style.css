@@ -241,8 +241,8 @@ fieldset {
 
 .logo {
 	display:block;
-	max-width:100%;
-	border-radius: 50%;
+	max-width:120px;
+	/*border-radius: 50%;*/
 	margin: auto;
 	padding-top: 10px;
 }
@@ -286,38 +286,43 @@ fieldset {
 	color:red !important;
 }
 
-#frame {
-	background:white;
-	max-width: 90%;
-	max-height:95%;
-	float:center;
-	margin: 0 auto;
-}
-
 #lightbox {
     position:fixed; /* keeps the lightbox window in the current viewport */
 	z-index: 1;
     top:0; 
     left:0; 
     width:100%; 
-    height:100%; 
-   /* background:url(overlay.png) repeat; */
+    height:100%;
 	background: rgba(0,0,0,.7);
     text-align:center;
+	overflow-y: auto;
 }
 
 #lightbox p {
+	position:fixed;
+	right:2%;
     text-align:right; 
     color:#fff; 
     margin-right:20px; 
-    font-size:12px; 
+    font-size:14px;
+	font-weight:bold;
+	mix-blend-mode: difference;
 }
 
-#lightbox img {
+#frame {
+	display:inline-block;
+	background:white;
+	margin: 0 auto;
+	border-radius:10px;
+	/*max-width: 90%;*/
+}
+
+#frame img {
+	max-width:80%;
+	margin: 25px;
     box-shadow:0 0 25px #111;
     -webkit-box-shadow:0 0 25px #111;
     -moz-box-shadow:0 0 25px #111;
-    max-width:90%;
 }
 
 #outer_wrapper {
@@ -452,6 +457,7 @@ fieldset {
 }
 
 #home_images {
+	display:inline-block;
 	margin: 10px;
 	float: center;
 	width: 200px;

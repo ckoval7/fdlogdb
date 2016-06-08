@@ -24,19 +24,19 @@ include 'php/submitlog.php';?>
 					<?php
 			if (!empty($_SESSION['priv'])){
 				echo'
-				<form id="sublog" method="POST" action='.$_SERVER["PHP_SELF"].'>';
+				<form id="sublog" method="POST" action='.$_SERVER["PHP_SELF"].' autocomplete="off">';
 				if (empty($_SESSION['band']) or empty($_SESSION['mode'])) {
 					echo '
 					<span>Choose a band:
 						<select name="band">
-							<option value="160m">160m</option>
-							<option value="80m">80m</option>
-							<option value="40m">40m</option>
-							<option value="20m">20m</option>
-							<option value="15m">15m</option>
-							<option value="10m">10m</option>
-							<option value="6m">6m</option>
-							<option value="2m">2m</option>
+							<option value="160">160m</option>
+							<option value="80">80m</option>
+							<option value="40">40m</option>
+							<option value="20">20m</option>
+							<option value="15">15m</option>
+							<option value="10">10m</option>
+							<option value="6">6m</option>
+							<option value="2">2m</option>
 							<option value="125">1.25m</option>
 							<option value="247">Satellite</option>
 						</select>
