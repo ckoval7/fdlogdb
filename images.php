@@ -14,6 +14,7 @@ include 'php/imageupload.php';
 	<meta name="application-name" content="Field Day Logging Database" />
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<script type="text/javascript" src="/js/fdlog.js"></script>
+	<script type="text/javascript" src="js/jquery.js"></script>
 </head>
 <body  onload="startTime()">
 	<div id="outer_wrapper" class="grid">
@@ -53,5 +54,55 @@ include 'php/imageupload.php';
 			</div>
 		</div>
 	</div>
+	
+<script>
+	console.log("Sigh");
+	console.log("Loading");
+	jQuery(document).ready(function($) {
+		console.log("jQuery Loading");
+		$(".lightbox_trigger").click(function(e) {
+			//prevent default action (hyperlink)
+			e.preventDefault();
+			//Get clicked link href
+			var image_href = $(this).attr("href");
+			/* 	
+			If the lightbox window HTML already exists in document, 
+			change the img src to to match the href of whatever link was clicked
+			
+			If the lightbox window HTML doesn't exists, create it and insert it.
+			(This will only happen the first time around)
+			*/
+			if ($('#lightbox').length > 0) { // #lightbox exists
+				
+				//place href as img src value
+				$('#frame').html('<img src="' + image_href + '" />');
+				
+				//show lightbox window - you could use .show('fast') for a transition
+				$('#lightbox').show();
+			}
+			
+			else { //#lightbox does not exist - create and insert (runs 1st time only)
+				
+				//create HTML markup for lightbox window
+				var lightbox = 
+				'<div id="lightbox">' +
+					'<p>Click to close</p>' +
+					'<div id="frame">' + //insert clicked link's href into img src
+						'<img src="' + image_href +'" />' +
+					'</div>' +	
+				'</div>';
+					
+				//insert lightbox HTML into page
+				$('body').append(lightbox);
+			}
+		});
+		
+		//Click anywhere on the page to get rid of lightbox window
+		$('body').on('click', '#lightbox', function(){ //must use live, as the lightbox element is inserted into the DOM
+			$('#lightbox').hide();
+		});
+
+	});
+</script>
 </body>
 </html>

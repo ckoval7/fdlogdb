@@ -13,8 +13,9 @@ try {
 
     // set the resulting array to associative
     foreach($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
-		echo '<div class="uploads"><a href="'.$row['file_location'].'"><img src="'.$row['file_location'].'" alt="user image" height="200" width="200"></a><br>
-		'.$row['description'].'</div>';
+		echo '<div class="uploads"><a class="lightbox_trigger" href="'.$row['file_location'].'"><img src="'.$row['file_location'].'" alt="user image" height="200" width="200"></a><br>
+		'.$row['description'].'</div>
+		';
     }
 }
 catch(PDOException $e) {

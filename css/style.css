@@ -171,7 +171,7 @@ fieldset {
 @media screen and (min-width: 831px) {
 	.sidenav {
 		position: fixed;
-		z-index: 1; /* Stay on top */
+		/*z-index: 2; /* Stay on top */
 		/*background:#454546;*/
 		width: 16.66%;
 		max-width: 250px;
@@ -191,7 +191,7 @@ fieldset {
 	}*/
 	#menu.col-2 {
 		position: relative;
-		z-index: 2;
+		/*z-index: 3;*/
 		background:#454546;
 		max-width: 250px;
 		float:left;
@@ -199,17 +199,34 @@ fieldset {
 	}
 }
 
+.nav_list {
+		font-size: 16px;
+	}
 
-.nav__item {
+.nav_item {
 	  display: block;
 	  text-align: center;
-	  line-height: 24px;
-	  padding-top: 12px;
-	  padding-bottom:12px;
+	  line-height: 20px;
+	  padding-top: 10px;
+	  padding-bottom:10px;
 	  margin-bottom:5px;
 	  width:125px;
 	  text-transform: uppercase;
 	  background: #2696BA;
+	  float:center;
+	  margin: 3px auto;
+	}
+
+.nav_item_users {
+	  display: block;
+	  text-align: center;
+	  line-height: 20px;
+	  padding-top: 10px;
+	  padding-bottom:10px;
+	  margin-bottom:5px;
+	  width:125px;
+	  text-transform: uppercase;
+	  background: #186C89;
 	  float:center;
 	  margin: 3px auto;
 	}
@@ -232,11 +249,12 @@ fieldset {
 
 
 .nav a {
-  text-decoration: none;
-  min-height: 48px;
-  min-width: 48px;
-  padding: 10px;
-  color: #ffffff;
+	text-decoration: none;
+	min-height: 48px;
+	min-width: 48px;
+	/*padding: 10px;
+	/*background:#2696BA;*/
+	color: #ffffff;
 }
 
 .nav a:hover {
@@ -244,12 +262,18 @@ fieldset {
   color: #ffffff;
 }
 
-.nav__item:hover {
+.nav_item:hover {
+}
+
+.nav_item_admin:hover {
 }
 
 .grid {
     margin: 0 auto;
 	padding: 0;
+    /*max-width: 1280px;
+    width: 100%;
+    background:#E7E9EB;*/
     font-family:Arial, Helvetica, sans-serif;
     overflow: hidden;
 }
@@ -260,6 +284,40 @@ fieldset {
 
 .error {
 	color:red !important;
+}
+
+#frame {
+	background:white;
+	max-width: 90%;
+	max-height:95%;
+	float:center;
+	margin: 0 auto;
+}
+
+#lightbox {
+    position:fixed; /* keeps the lightbox window in the current viewport */
+	z-index: 1;
+    top:0; 
+    left:0; 
+    width:100%; 
+    height:100%; 
+   /* background:url(overlay.png) repeat; */
+	background: rgba(0,0,0,.7);
+    text-align:center;
+}
+
+#lightbox p {
+    text-align:right; 
+    color:#fff; 
+    margin-right:20px; 
+    font-size:12px; 
+}
+
+#lightbox img {
+    box-shadow:0 0 25px #111;
+    -webkit-box-shadow:0 0 25px #111;
+    -moz-box-shadow:0 0 25px #111;
+    max-width:90%;
 }
 
 #outer_wrapper {
