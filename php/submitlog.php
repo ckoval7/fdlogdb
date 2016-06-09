@@ -31,6 +31,23 @@ if (!empty($_POST['band']) or !empty($_POST['mode'])) {
 		} else {
 			$_SESSION['natural_power'] = '';
 		}
+		try {
+			$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $dbusername, $dbpassword);
+			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+			$stmt = $conn->prepare("INSERT INTO active_stations (user_id, band, mode, station_id) VALUES (:uuid, :band, :mode, 2)");
+			$stmt->bindParam(':uuid', $_SESSION['uuid']);
+			$stmt->bindParam(':band', $_POST["band"]);
+			$stmt->bindParam(':mode', $_POST["mode"]);
+			$stmt->execute();
+			$stmt = $conn->prepare("SELECT session_id FROM active_stations ORDER BY session_id DESC LIMIT 1");
+			$stmt->execute();
+			$session_id = $stmt->fetch();
+			$_SESSION['session_id']= $session_id[0];
+		} catch(PDOException $e) {
+			echo "Error: " . $e->getMessage();
+		}
+		$conn=null;
 	}
 }
 if (!empty($_POST['exchange'])) {
@@ -59,7 +76,7 @@ if (!empty($_POST['exchange'])) {
 			} elseif (!preg_match('/\d{1,2}+[abcdefABCDEF]/', $operating_class)) {
 				$sectionErr = "That is not a valid class!";
 			} elseif (isset($callsign) and isset($operating_class)and isset($section)) {
-				$stmt = $conn->prepare("INSERT INTO logbook(logger_id, callsign, operating_class, section, band, mode, power, natural_power) VALUES (:loggerid, :callsign, :opclass, :section, :band, :mode, :power, :natural_power)");
+				$stmt = $conn->prepare("INSERT INTO logbook(logger_id, callsign, operating_class, section, band, mode, power, natural_power, session_id) VALUES (:loggerid, :callsign, :opclass, :section, :band, :mode, :power, :natural_power, :session_id)");
 				$stmt->bindParam(':loggerid', $_SESSION['uuid']);
 				$stmt->bindParam(':callsign', $callsign);
 				$stmt->bindParam(':opclass', $operating_class);
@@ -68,6 +85,7 @@ if (!empty($_POST['exchange'])) {
 				$stmt->bindParam(':mode', $_SESSION['mode']);
 				$stmt->bindParam(':power', $_SESSION['power']);
 				$stmt->bindParam(':natural_power', $_SESSION['natural_power']);
+				$stmt->bindParam(':session_id', $_SESSION['session_id']);
 				
 				$stmt->execute();
 				$conn=null;
@@ -75,7 +93,7 @@ if (!empty($_POST['exchange'])) {
 				$dupeErr = "Incomplete exchange. Please enter call sign, class, and section.";
 			}
 		} catch(PDOException $e) {
-		echo "Connection failed: " . $e->getMessage();
+			echo "Connection failed: " . $e->getMessage();
 		}
 	}
 }

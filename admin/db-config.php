@@ -89,10 +89,25 @@ try {
 		user_level VARCHAR(6))";
 	$conn->exec($sql);
 	echo "Table users added!<br>";
+	
+//Create table active_stations:
+	$sql="CREATE TABLE IF NOT EXISTS active_stations(
+		session_id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		user_id BIGINT NOT NULL,
+		station_id INT NOT NULL,
+		start_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+		stop_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+		band SMALLINT,
+		mode VARCHAR(10),
+		FOREIGN KEY (user_id) REFERENCES users(uuid),
+		FOREIGN KEY (station_id) REFERENCES station_list(station_id))";
+	$conn->exec($sql);
+	echo "Table active_stations added!<br>";
 
 //Create table logbook:
 	$sql="CREATE TABLE IF NOT EXISTS logbook(
 		logid INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		session_id BIGINT NOT NULL,
 		qso_time TIMESTAMP,
 		callsign VARCHAR(12),
 		section VARCHAR(3),
@@ -102,7 +117,8 @@ try {
 		mode VARCHAR(10),
 		power SMALLINT,
 		natural_power BOOL,
-		FOREIGN KEY (logger_id) REFERENCES users(uuid))";
+		FOREIGN KEY (logger_id) REFERENCES users(uuid),
+		FOREIGN KEY (session_id) REFERENCES active_stations(session_id))";
 	$conn->exec($sql);
 	echo "Table logbook added!<br>";
 
@@ -129,19 +145,6 @@ try {
 		FOREIGN KEY (radio_id) REFERENCES inventory(item_id))";
 	$conn->exec($sql);
 	echo "Table station_list added!<br>";
-
-//Create table active_stations:
-	$sql="CREATE TABLE IF NOT EXISTS active_stations(
-		user_id BIGINT NOT NULL,
-		station_id INT NOT NULL,
-		start_time DATETIME DEFAULT CURRENT_TIMESTAMP,
-		stop_time DATETIME NULL,
-		band SMALLINT,
-		mode VARCHAR(3),
-		FOREIGN KEY (user_id) REFERENCES users(uuid),
-		FOREIGN KEY (station_id) REFERENCES station_list(station_id))";
-	$conn->exec($sql);
-	echo "Table active_stations added!<br>";
 
 //Create table guestbook:
 
