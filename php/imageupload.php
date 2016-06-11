@@ -42,12 +42,11 @@ if (isset($_POST["submit"])) {
 		} else {
 			if (move_uploaded_file($_FILES["imageupload"]["tmp_name"],$currentdir . $target_file)) {
 				$error2="The file ".basename($_FILES["imageupload"]["name"])." has been uploaded. ";
-				$displayhtml = '<a href="'.$target_file.'"><img src="'.$target_file.'" alt="user image" height="200" width="200"></a>';
 				try {
 					$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $dbusername, $dbpassword);
 					// set the PDO error mode to exception
 					$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-					$sql = $conn->prepare("INSERT INTO images (user_id, file_location, display_html, description) VALUES (:userid, '$target_file', '$displayhtml', :description)");
+					$sql = $conn->prepare("INSERT INTO images (user_id, file_location, description) VALUES (:userid, '$target_file', :description)");
 					$sql->bindParam(':userid', $_SESSION['uuid']);
 					$sql->bindParam(':description', $_POST['description']);
 					$sql->execute();

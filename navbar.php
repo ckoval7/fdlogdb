@@ -51,7 +51,7 @@ if ($priv === "user") {
 if ($priv === "admin"){
   echo '
 			<li onclick="self.location.href=\'/images.php\';" class="nav_item"><a href="/images.php">Images</a></li>
-			<li onclick="self.location.href=\'/admin/setup.php\';" class="nav_item"><a href="/admin/setup.php">DB Config</a></li>
+			<li onclick="self.location.href=\'/admin/setup.php\';" class="nav_item"><a href="/admin/setup.php">FD Config</a></li>
 			<li onclick="self.location.href=\'/admin/post_fd.php\';" class="nav_item"><a href="/admin/post_fd.php">FD Config</a></li>
 			<li onclick="self.location.href=\'/admin/edit_users.php\';" class="nav_item"><a href="/admin/edit_users.php">FD User Accounts</a></li>
 ';

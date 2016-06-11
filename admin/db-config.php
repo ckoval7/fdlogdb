@@ -90,6 +90,30 @@ try {
 	$conn->exec($sql);
 	echo "Table users added!<br>";
 	
+//Create table inventory:
+	$sql="CREATE TABLE IF NOT EXISTS inventory(
+		item_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		user_id BIGINT NOT NULL,
+		item_make VARCHAR(100),
+		item_model VARCHAR(100),
+		item_type VARCHAR(10),
+		item_description TEXT,
+		contact_number INT,
+		FOREIGN KEY (user_id) REFERENCES users(uuid))";
+	$conn->exec($sql);
+	echo "Table inventory added!<br>";
+
+//Create table station_list:
+	$sql="CREATE TABLE IF NOT EXISTS station_list(
+		station_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		radio_id INT NOT NULL UNIQUE,
+		power_source VARCHAR(255),
+		is_vhf BOOL NOT NULL,
+		is_gota BOOL NOT NULL,
+		FOREIGN KEY (radio_id) REFERENCES inventory(item_id))";
+	$conn->exec($sql);
+	echo "Table station_list added!<br>";
+	
 //Create table active_stations:
 	$sql="CREATE TABLE IF NOT EXISTS active_stations(
 		session_id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -122,30 +146,6 @@ try {
 	$conn->exec($sql);
 	echo "Table logbook added!<br>";
 
-//Create table inventory:
-	$sql="CREATE TABLE IF NOT EXISTS inventory(
-		item_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-		user_id BIGINT NOT NULL,
-		item_make VARCHAR(100),
-		item_model VARCHAR(100),
-		item_type VARCHAR(10),
-		item_description TEXT,
-		contact_number INT,
-		FOREIGN KEY (user_id) REFERENCES users(uuid))";
-	$conn->exec($sql);
-	echo "Table inventory added!<br>";
-
-//Create table station_list:
-	$sql="CREATE TABLE IF NOT EXISTS station_list(
-		station_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-		radio_id INT NOT NULL UNIQUE,
-		power_source VARCHAR(255),
-		is_vhf BOOL NOT NULL,
-		is_gota BOOL NOT NULL,
-		FOREIGN KEY (radio_id) REFERENCES inventory(item_id))";
-	$conn->exec($sql);
-	echo "Table station_list added!<br>";
-
 //Create table guestbook:
 
 	$sql="CREATE TABLE IF NOT EXISTS guestbook(
@@ -165,7 +165,6 @@ try {
 		upload_time TIMESTAMP NOT NULL,
 		user_id BIGINT NOT NULL,
 		file_location TEXT NOT NULL,
-		display_html TEXT NOT NULL,
 		description TEXT,
 		FOREIGN KEY (user_id) REFERENCES users(uuid))";
 	$conn->exec($sql);
