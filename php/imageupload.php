@@ -7,6 +7,11 @@ $displayhtml = "";
 $servername = "localhost";
 $dbusername = "fdlogwrite";
 $dbpassword = "adminpassword";
+function test_input($data) {
+	$data = trim($data);
+	$data = htmlspecialchars($data);
+	return $data;
+	}
 if (isset($_POST["submit"])) {
 	$target_file = $target_dir.basename($_FILES["imageupload"]["name"]);
 	$uploadOk = 1;
@@ -42,13 +47,15 @@ if (isset($_POST["submit"])) {
 		} else {
 			if (move_uploaded_file($_FILES["imageupload"]["tmp_name"],$currentdir . $target_file)) {
 				$error2="The file ".basename($_FILES["imageupload"]["name"])." has been uploaded. ";
+				$description = $_POST['description'];
+				$description = test_input($description);
 				try {
 					$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $dbusername, $dbpassword);
 					// set the PDO error mode to exception
 					$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 					$sql = $conn->prepare("INSERT INTO images (user_id, file_location, description) VALUES (:userid, '$target_file', :description)");
 					$sql->bindParam(':userid', $_SESSION['uuid']);
-					$sql->bindParam(':description', $_POST['description']);
+					$sql->bindParam(':description', $description);
 					$sql->execute();
 				} catch(PDOException $e) {
 					echo "Connection failed: " . $e->getMessage();

@@ -98,7 +98,7 @@ try {
 		item_model VARCHAR(100),
 		item_type VARCHAR(10),
 		item_description TEXT,
-		contact_number INT,
+		contact_number BIGINT,
 		FOREIGN KEY (user_id) REFERENCES users(uuid))";
 	$conn->exec($sql);
 	echo "Table inventory added!<br>";

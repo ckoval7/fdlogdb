@@ -11,6 +11,9 @@ $username = "fdlogread";
 $password = "password";
 $dbname = "fdlogdb";
 $uuid = $_SESSION['uuid'];
+$_SESSION["key"] = "item_id";
+$_SESSION["table"] = "inventory";
+$_SESSION["page"] = "/inventory.php";
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -42,7 +45,4 @@ $conn = null;
 echo '
 </form>
 </table>';
-$_SESSION["key"] = "item_id";
-$_SESSION["table"] = "inventory";
-$_SESSION["page"] = "/inventory.php";
 ?>

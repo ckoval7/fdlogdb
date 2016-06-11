@@ -23,7 +23,7 @@ if (!empty($_POST['band']) or !empty($_POST['mode'])) {
 		} else{
 			$band = $_POST["band"];
 		}
-		$_SESSION['band'] = $band;
+		$_SESSION['band'] = $_POST['band'];
 		$_SESSION['mode'] = $_POST["mode"];
 		$_SESSION['power'] = preg_replace('/\D/', '', $_POST["power"]);
 		if (!empty($_POST['natural_power'])) {
@@ -63,13 +63,13 @@ if (!empty($_POST['exchange'])) {
 			$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $dbusername, $dbpassword);
 			// set the PDO error mode to exception
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$stmt = $conn->prepare("SELECT * FROM logbook WHERE callsign = :callsign and band = :band and mode = :mode");
+			$stmt = $conn->prepare("SELECT COUNT(*) FROM logbook WHERE callsign = :callsign and band = :band and mode = :mode");
 			$stmt->bindParam(':callsign', $callsign);
-			$stmt->bindParam(':band', $band);
+			$stmt->bindParam(':band', $dbband);
 			$stmt->bindParam(':mode', $mode);
 			$stmt->execute();
-			$count = $stmt->rowCount();
-			if ($count > 0) {
+			$count = $stmt->fetch();
+			if ($count[0] > 0) {
 				$dupeErr = "Error! Dupe!";
 			} elseif (!in_array($section, $valid_sections)){
 				$sectionErr = "That is not a valid section!";
