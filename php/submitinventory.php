@@ -1,9 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "fdlogwrite";
-$password = "adminpassword";
-
-//log in as fdlogwrite
+include 'db_passwords.php';
 $makeErr = $modelErr = $phoneErr = '';
 $phone = $model = $make = $description = $type = '';
 $isReady = 0;
@@ -39,7 +35,7 @@ return $data;
 
 if ($isReady === 1) {	
 	try {
-		$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $username, $password);
+		$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $wr_username, $wr_password);
 		// set the PDO error mode to exception
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$description = htmlspecialchars($_POST["description"]);

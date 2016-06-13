@@ -1,12 +1,13 @@
 <?php 
 session_start();
-$servername = "localhost";
+/*$servername = "localhost";
 $dbusername = "fdlogwrite";
-$dbpassword = "adminpassword";
+$dbpassword = "adminpassword";*/
+include 'db_passwords.php';
 $session_id = $_SESSION['session_id'];
 
 	try {
-		$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $dbusername, $dbpassword);
+		$conn = new PDO("mysql:host=$servername;dbname=$dbname", $wr_username, $wr_password);
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 		$stmt = $conn->prepare("UPDATE active_stations SET stop_time=NOW() WHERE session_id = '$session_id'");

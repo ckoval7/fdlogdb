@@ -23,7 +23,7 @@ echo'
 	<span class="col-12" id="timeandtitle">
 	<span id="nav_button" onclick="openNav()">&nbsp;<img src="/img/hamburger.svg" alt="Open Menu"><br>Menu</span>
 		<span id="prog_name">
-			<h3>Field Day Logging</h3>
+			<h3>Loggie McLogface</h3>
 		</span>
 		<span id="fd_callsign">
 			<h1 id="fdcallsign">'.$fd_callsign.'</h1>

@@ -2,7 +2,7 @@
 echo "<table style='border: solid 1px black;'>";
 echo '<form id="guestbook" enctype="multipart/form-data" action="/php/delete.php" method="post">
 <tr><th>User</th><th>Phone</th><th>Category</th><th>Brand</th><th>Model</th><th>Description</th>';
-echo '<th><input type="submit" name="delete" value="Delete" /></th><th><input type="submit" name="station" value="Station" /></th>';
+echo '<th><input type="submit" name="delete" value="Delete" /></th>';//<th><input type="submit" name="station" value="Station" /></th>';
 echo '</tr>';
 
 $servername = "localhost";
@@ -31,7 +31,7 @@ try {
         echo "<td style='width:150px;border:1px solid black;'>".$row['item_model']."</td>";
 		echo "<td style='width:150px;border:1px solid black;'>".$row['item_description']."</td>";
         echo '<td style=\'width:75px;border:1px solid black;text-align:center;\'><input type="checkbox" name="delete[]" value="'.$row['item_id'].'" />&nbsp;</td>'."\n";
-		echo '<td style=\'width:75px;border:1px solid black;text-align:center;\'><input type="checkbox" name="station[]" value="'.$row['item_id'].'" />&nbsp;</td>'."\n";
+		//echo '<td style=\'width:75px;border:1px solid black;text-align:center;\'><input type="checkbox" name="station[]" value="'.$row['item_id'].'" />&nbsp;</td>'."\n";
         echo "</tr>" . "\n";
     }
 }

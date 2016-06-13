@@ -3,10 +3,10 @@ $error="";
 $error2="";
 $target_dir = "/img/user-uploads/";
 $currentdir = getcwd();
-$displayhtml = "";
-$servername = "localhost";
+/*$servername = "localhost";
 $dbusername = "fdlogwrite";
-$dbpassword = "adminpassword";
+$dbpassword = "adminpassword";*/
+include 'db_passwords.php';
 function test_input($data) {
 	$data = trim($data);
 	$data = htmlspecialchars($data);
@@ -14,6 +14,7 @@ function test_input($data) {
 	}
 if (isset($_POST["submit"])) {
 	$target_file = $target_dir.basename($_FILES["imageupload"]["name"]);
+	echo $target_file.'<br>'.$currentdir;
 	$uploadOk = 1;
 	$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 	if (!empty($_FILES["imageupload"]["tmp_name"])) {
@@ -34,6 +35,7 @@ if (isset($_POST["submit"])) {
 						$error="Error! Sorry, file already exists.";
 						$uploadOk = 0;
 					} else {
+						echo '<br>:D<br>';
 						$uploadOk = 1;
 					}
 				}
@@ -50,7 +52,7 @@ if (isset($_POST["submit"])) {
 				$description = $_POST['description'];
 				$description = test_input($description);
 				try {
-					$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $dbusername, $dbpassword);
+					$conn = new PDO("mysql:host=$servername;dbname=$dbname", $wr_username, $wr_password);
 					// set the PDO error mode to exception
 					$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 					$sql = $conn->prepare("INSERT INTO images (user_id, file_location, description) VALUES (:userid, '$target_file', :description)");

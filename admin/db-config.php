@@ -108,8 +108,8 @@ try {
 		station_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		radio_id INT NOT NULL UNIQUE,
 		power_source VARCHAR(255),
-		is_vhf BOOL NOT NULL,
-		is_gota BOOL NOT NULL,
+		is_vhf BOOL NOT NULL DEFAULT 0,
+		is_gota BOOL NOT NULL DEFAULT 0,
 		FOREIGN KEY (radio_id) REFERENCES inventory(item_id))";
 	$conn->exec($sql);
 	echo "Table station_list added!<br>";
@@ -176,6 +176,12 @@ try {
 	$sql="INSERT INTO users (call_sign, password, user_level) VALUES ('admin', '$pass', 'admin')";
 	$conn->exec($sql);
 	echo '<br> Account "admin" created with password "password".';
+	
+//Set default stations:
+	$sql = "INSERT INTO inventory (user_id, item_make, item_description) VALUES ('1', 'default', 'Default station for logging functionality. Please avoid using this and set radios as stations.')";
+	$conn->exec($sql);
+	$sql = "INSERT INTO station_list (radio_id) VALUES ('1')";
+	$conn->exec($sql);
 	
 //setup config values
 	$sql="INSERT INTO fd_config(category, config_name, small_string) VALUES ('fd_setup', 'fd_callsign', 'NOCALL'), ('fd_setup', 'fd_class', 'NONE'), ('fd_setup', 'fd_section', 'NONE'), ('fd_setup', 'club_name', NULL), ('gota', 'gota_callsign', NULL)";

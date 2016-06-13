@@ -4,6 +4,8 @@ $dbusername = "fdlogwrite";
 $dbpassword = "adminpassword";
 $dupeErr = $sectionErr = "";
 
+$uuid = $_SESSION['uuid'];
+
 $valid_sections = array('CT', 'EMA', 'ME', 'NH', 'RI', 'VT', 'WMA', 'ENY', 'NLI', 'NNJ', 'NNY', 'SNJ', 'WNY', 'DE', 'EPA', 'MDC', 'WPA', 'AL', 'GA', 'KY', 'NC', 'NFL', 'SC', 'SFL', 'WCF', 'TN', 'VA', 'PR', 'VI', 'AR', 'LA', 'MS', 'NM', 'NTX', 'OK', 'STX', 'WTX', 'EB', 'LAX', 'ORG', 'SB', 'SCV', 'SDG', 'SF', 'SJV', 'SV', 'PAC', 'AZ', 'EWA', 'ID', 'MT', 'NV', 'OR', 'UT', 'WWA', 'WY', 'AK', 'MI', 'OH', 'WV', 'IL', 'IN', 'WI', 'CO', 'IA', 'KS', 'MN', 'MO', 'NE', 'ND', 'SD', 'MAR', 'NL', 'QC', 'ONE', 'ONN', 'ONS', 'GTA', 'MB', 'SK', 'AB', 'BC', 'NT', 'DX');
 
 function test_input($data) {
@@ -35,12 +37,12 @@ if (!empty($_POST['band']) or !empty($_POST['mode'])) {
 			$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $dbusername, $dbpassword);
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-			$stmt = $conn->prepare("INSERT INTO active_stations (user_id, band, mode, station_id) VALUES (:uuid, :band, :mode, 2)");
+			$stmt = $conn->prepare("INSERT INTO active_stations (user_id, band, mode, station_id) VALUES (:uuid, :band, :mode, 1)");
 			$stmt->bindParam(':uuid', $_SESSION['uuid']);
 			$stmt->bindParam(':band', $_POST["band"]);
 			$stmt->bindParam(':mode', $_POST["mode"]);
 			$stmt->execute();
-			$stmt = $conn->prepare("SELECT session_id FROM active_stations ORDER BY session_id DESC LIMIT 1");
+			$stmt = $conn->prepare("SELECT session_id FROM active_stations WHERE user_id = '$uuid' ORDER BY session_id DESC LIMIT 1");
 			$stmt->execute();
 			$session_id = $stmt->fetch();
 			$_SESSION['session_id']= $session_id[0];
