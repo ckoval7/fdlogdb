@@ -14,7 +14,7 @@ function test_input($data) {
 	}
 if (isset($_POST["submit"])) {
 	$target_file = $target_dir.basename($_FILES["imageupload"]["name"]);
-	echo $target_file.'<br>'.$currentdir;
+	//echo $target_file.'<br>'.$currentdir;
 	$uploadOk = 1;
 	$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 	if (!empty($_FILES["imageupload"]["tmp_name"])) {
@@ -31,11 +31,11 @@ if (isset($_POST["submit"])) {
 					//echo "Sorry, image is too large!<br>";
 					$uploadOk=0;
 				} else {
-					if (file_exists($target_file)) {
+					if (file_exists($currentdir.$target_file)) {
 						$error="Error! Sorry, file already exists.";
 						$uploadOk = 0;
 					} else {
-						echo '<br>:D<br>';
+						//echo '<br>:D<br>';
 						$uploadOk = 1;
 					}
 				}

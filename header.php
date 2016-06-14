@@ -1,11 +1,12 @@
 <?php
 $servername = "localhost";
-$db_username = "fdlogread";
+/* $db_username = "fdlogread";
 $db_password = "password";
-$dbname = "fdlogdb";
+$dbname = "fdlogdb"; */
+include 'php/db_passwords.php';
 $fd_callsign = "";
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $db_username, $db_password);
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $rd_username, $rd_password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $conn->prepare("SELECT small_string FROM fd_config WHERE config_name = 'fd_callsign' LIMIT 1"); 
     $stmt->execute();

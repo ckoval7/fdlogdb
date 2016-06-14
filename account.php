@@ -2,13 +2,14 @@
 session_start();
 //include 'submitaccount.php';
 $passErr1 = "";
-$servername = "localhost";
+/* $servername = "localhost";
 $dbusername = "fdlogwrite";
-$dbpassword = "adminpassword";
+$dbpassword = "adminpassword"; */
+include 'php/db_passwords.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	try {
-		$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $dbusername, $dbpassword);
+		$conn = new PDO("mysql:host=$servername;dbname=$dbname", $wr_username, $wr_password);
 		// set the PDO error mode to exception
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		if (!empty($_POST['callsign'])) {

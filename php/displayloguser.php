@@ -1,9 +1,10 @@
 <?php
 include 'paginate.php';
-$servername = "localhost";
+include 'db_passwords.php';
+/* $servername = "localhost";
 $username = "fdlogread";
 $password = "password";
-$dbname = "fdlogdb";
+$dbname = "fdlogdb"; */
 $uuid = $_SESSION['uuid'];
 $_SESSION["key"] = "logid";
 $_SESSION["table"] = "logbook";
@@ -22,7 +23,7 @@ echo '</tr>';
 
 try {
 	$offset = getPage($table);
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $rd_username, $rd_password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 	$stmt = $conn->prepare("SELECT callsign, operating_class, section, band, mode, logid FROM logbook WHERE logger_id = '$uuid' ORDER BY logid DESC  LIMIT $offset, $limit");

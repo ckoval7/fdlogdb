@@ -1,9 +1,6 @@
 <?php
 session_start();
 include 'db_passwords.php';
-/* $servername = "localhost";
-$username = "fdlogadmin";
-$password = "adminpassword"; */
 $del_ids = $res_ids = $pass = "";
 $table = $_SESSION["table"];
 $key = $_SESSION["key"];
