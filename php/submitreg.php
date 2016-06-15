@@ -1,13 +1,7 @@
 <?php
 session_start();
-//Collect guestbook submission info
-
-/* $servername = "localhost";
-$username = "fdlogwrite";
-$dbpassword = "adminpassword"; */
 include 'db_passwords.php';
 
-//log in as fdlogwrite
 $firstnameErr = $lastnameErr = $callsignErr = $classErr = $passErr1 = $passErr2 = "";
 $first_name = $last_name = $callsign = $comments =  $license_class = "";
 $isReady = 0;

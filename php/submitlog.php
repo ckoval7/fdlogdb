@@ -1,8 +1,6 @@
 <?php
-$servername = "localhost";
-$dbusername = "fdlogwrite";
-$dbpassword = "adminpassword";
-$dupeErr = $sectionErr = "";
+include 'db_passwords.php';
+$dupeErr = $sectionErr = $view_exchange = "";
 
 $uuid = $_SESSION['uuid'];
 
@@ -34,7 +32,7 @@ if (!empty($_POST['band']) or !empty($_POST['mode'])) {
 			$_SESSION['natural_power'] = '';
 		}
 		try {
-			$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $dbusername, $dbpassword);
+			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $wr_username, $wr_password);
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 			$stmt = $conn->prepare("INSERT INTO active_stations (user_id, band, mode, station_id) VALUES (:uuid, :band, :mode, 1)");
@@ -54,6 +52,7 @@ if (!empty($_POST['band']) or !empty($_POST['mode'])) {
 }
 if (!empty($_POST['exchange'])) {
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		$view_exchange = $_POST['exchange'];
 		$exchange = explode(" ", $_POST['exchange'], 3);
 		if (!empty($exchange[0])) {$callsign = test_input($exchange[0]);} else {$callsign = '';}
 		if (!empty($exchange[1])) {$operating_class = test_input($exchange[1]);} else {$operating_class = '';}
@@ -62,7 +61,7 @@ if (!empty($_POST['exchange'])) {
 			$dbband = $_SESSION['dbband'];
 			$mode = $_SESSION['mode'];
 			$power = $_SESSION['power'];
-			$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $dbusername, $dbpassword);
+			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $wr_username, $wr_password);
 			// set the PDO error mode to exception
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$stmt = $conn->prepare("SELECT COUNT(*) FROM logbook WHERE callsign = :callsign and band = :band and mode = :mode");
@@ -91,6 +90,7 @@ if (!empty($_POST['exchange'])) {
 				
 				$stmt->execute();
 				$conn=null;
+				$view_exchange = "";
 			} else {
 				$dupeErr = "Incomplete exchange. Please enter call sign, class, and section.";
 			}

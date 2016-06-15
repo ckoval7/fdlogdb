@@ -1,14 +1,15 @@
 <?php
-$servername = "localhost";
+include 'db_passwords.php';
+/* $servername = "localhost";
 $username = "fdlogread";
 $password = "password";
-$dbname = "fdlogdb";
+$dbname = "fdlogdb"; */
 
 echo "<table style='border: solid 1px black;'>
 <tr><th>Call Sign</th><th>Class</th><th>Section</th><th>Band</th><th>Mode</th></tr>";
 
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $rd_username, $rd_password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 	$stmt = $conn->prepare("SELECT callsign, operating_class, section, band, mode FROM logbook ORDER BY logid DESC LIMIT 15");

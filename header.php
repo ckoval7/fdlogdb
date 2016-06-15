@@ -1,8 +1,4 @@
 <?php
-$servername = "localhost";
-/* $db_username = "fdlogread";
-$db_password = "password";
-$dbname = "fdlogdb"; */
 include 'php/db_passwords.php';
 $fd_callsign = "";
 try {

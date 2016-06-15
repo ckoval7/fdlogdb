@@ -3,9 +3,6 @@ $error="";
 $error2="";
 $target_dir = "/img/user-uploads/";
 $currentdir = getcwd();
-/*$servername = "localhost";
-$dbusername = "fdlogwrite";
-$dbpassword = "adminpassword";*/
 include 'db_passwords.php';
 function test_input($data) {
 	$data = trim($data);

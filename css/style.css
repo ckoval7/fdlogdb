@@ -347,6 +347,7 @@ fieldset {
 }
 
 #recent-images {
+	text-align:center;
 	margin-left: 5px;
 }
 
@@ -456,8 +457,15 @@ fieldset {
 	margin-left: 5px;
 }
 
-#home_images {
+.home_images img {
+	border-radius: 10px;
+	text-align:center;
+	vertical-align: middle;
+}
+
+.home_images {
 	display:inline-block;
+	/* padding:10px; */
 	margin: 10px;
 	float: center;
 	width: 200px;
@@ -465,8 +473,9 @@ fieldset {
 	line-height: 200px;
 	overflow-y: hidden;
 	overflow-x: hidden;
+	text-align:center;
 	vertical-align: middle;
-	border-radius: 10px;
+	/* border-radius: 10px; */
 }
 
 #home_images img {

@@ -55,7 +55,7 @@ function page_buttons($table) {
 	//Back Button
 	if (!empty($pages) && $pages > 1 && $page > 1) {
 		$page_back = $page - 1;
-		echo '<span id="back"><a href="'.$link.'?page='.$page_back.'">&lt; Previous</a></span>';
+		echo '<span id="back"><a href="'.$link.'?page=1">&lt;&lt; First&nbsp;&nbsp;</a><a href="'.$link.'?page='.$page_back.'">&lt; Previous</a></span>';
 	} else {
 		echo '<span id="back">&nbsp;</span>';
 	}
@@ -65,7 +65,7 @@ function page_buttons($table) {
 	if (!empty($pages) && $pages > 1 && $pages > $page) {
 			if (!empty($pages) && $pages > 1) {
 				$page_next = $page + 1;
-				echo '<span id="next"><a href="'.$link.'?page='.$page_next.'"> Next &gt; </a></span>';
+				echo '<span id="next"><a href="'.$link.'?page='.$page_next.'"> Next &gt; </a>&nbsp;<a href="'.$link.'?page='.$pages.'"> Last &gt;&gt; </a></span>';
 			}else {
 				$page_next = 2;
 				echo '<span id="next"><a href="'.$link.'?page='.$page_next.'"> Next &gt; </a></span>';

@@ -1,7 +1,8 @@
 <?php
-$servername = "localhost";
+include 'db_passwords.php';
+/* $servername = "localhost";
 $dbusername = "fdlogread";
-$dbpassword = "password";
+$dbpassword = "password"; */
 $usernameErr = $passErr1 = $passErr2 = "";
 $username = $password = $user_priv = "";
 $hash = "";
@@ -27,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	}
 	
 	try {
-		$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $dbusername, $dbpassword);
+		$conn = new PDO("mysql:host=$servername;dbname=$dbname", $rd_username, $rd_password);
 		// set the PDO error mode to exception
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$sql = $conn->prepare("SELECT COUNT(call_sign) FROM users WHERE call_sign = :username");
@@ -69,6 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	{
 		echo "Connection failed: " . $e->getMessage();
 	}
+	$conn=null;
 }
 
 ?>

@@ -1,10 +1,11 @@
 <?php
 session_start();
+include 'db_passwords.php';
 //Collect guestbook submission info
 
-$servername = "localhost";
+/* $servername = "localhost";
 $username = "fdlogwrite";
-$password = "adminpassword";
+$password = "adminpassword"; */
 
 //log in as fdlogwrite
 $firstnameErr = $lastnameErr = $callsignErr = "";
@@ -38,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	
 if ($isReady === 1) {	
 	try {
-		$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $username, $password);
+		$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $wr_username, $wr_password);
 		// set the PDO error mode to exception
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$comments = htmlspecialchars($_POST["comments"]);

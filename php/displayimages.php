@@ -1,8 +1,9 @@
 <?php
-$servername = "localhost";
+include 'db_passwords.php';
+/* $servername = "localhost";
 $rd_username = "fdlogread";
 $rd_password = "password";
-$dbname = "fdlogdb";
+$dbname = "fdlogdb"; */
 echo '<div class="row">';
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $rd_username, $rd_password);

@@ -1,10 +1,6 @@
 <?php 
 session_start();
-//include 'submitaccount.php';
 $passErr1 = "";
-/* $servername = "localhost";
-$dbusername = "fdlogwrite";
-$dbpassword = "adminpassword"; */
 include 'php/db_passwords.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -61,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			<div id="menu" class="col-2">
 				<?php include 'navbar.php'; ?>
 			</div>
-			<div id="header" class="col-10">
+			<div id="header2" class="col-10">
 				<?php include 'header.php'; ?>
 				<div id="content">
 					<?php

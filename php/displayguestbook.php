@@ -1,12 +1,13 @@
 <?php
 include 'paginate.php';
+include 'db_passwords.php';
 $_SESSION["key"] = "guest_id";
 $_SESSION["table"] = "guestbook";
 $_SESSION["page"] = "/guestbook.php";
-$servername = "localhost";
+/* $servername = "localhost";
 $dbusername = "fdlogread";
 $dbpassword = "password";
-$dbname = "fdlogdb";
+$dbname = "fdlogdb"; */
 $table = $_SESSION["table"];
 
 $pages = paginate($table);
@@ -23,7 +24,7 @@ echo '</tr>';
 
 try {
 	$offset = getPage($table);
-	$conn = new PDO("mysql:host=$servername;dbname=$dbname", $dbusername, $dbpassword);
+	$conn = new PDO("mysql:host=$servername;dbname=$dbname", $rd_username, $rd_password);
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 	$stmt = $conn->prepare("SELECT guest_id, first_name, last_name, callsign, DATE_FORMAT(sign_time, '%M %d, %Y, %H:%i') as timestamp FROM guestbook ORDER BY guest_id DESC LIMIT $offset, $limit"); 

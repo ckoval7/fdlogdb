@@ -1,22 +1,22 @@
 <?php
+include 'db_passwords.php';
 echo "<table style='border: solid 1px black;'>";
 echo '<form id="guestbook" enctype="multipart/form-data" action="/php/delete.php" method="post"><tr><th>Category</th><th>Brand</th><th>Model</th><th>Description</th>';
 if (!empty($_SESSION['priv'])) {
 		echo '<th><input type="submit" value="Delete" /></th>';
 }
 echo '</tr>';
-
-$servername = "localhost";
+/* $servername = "localhost";
 $username = "fdlogread";
 $password = "password";
-$dbname = "fdlogdb";
+$dbname = "fdlogdb"; */
 $uuid = $_SESSION['uuid'];
 $_SESSION["key"] = "item_id";
 $_SESSION["table"] = "inventory";
 $_SESSION["page"] = "/inventory.php";
 
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $rd_username, $rd_password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 	$stmt = $conn->prepare("SELECT item_make, item_model, item_description, item_type, item_id FROM inventory WHERE user_id = '$uuid' ORDER BY item_id DESC");
