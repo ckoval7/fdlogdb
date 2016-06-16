@@ -55,13 +55,13 @@ include 'php/submitlog.php';?>
 						<input type="submit" value="Begin Session" /><br>';
 				} else {
 					echo '
-						<h2>'.$_SESSION['band'].'m&nbsp;-&nbsp;'.$_SESSION['mode'].'</h2>
+						<h2>'.$_SESSION['band'].'&nbsp;-&nbsp;'.$_SESSION['mode'].'</h2>
 						Please enter the whole exchange on one line then press enter. For example:<br>
 						"w3uas 3a mdc"<br>
 						<b>Exchange:</b><br>
 						<input type="text" id="exchange" name="exchange" value="'.$view_exchange.'" autofocus="autofocus" onfocus="this.value = this.value;"/><span class="error">* '. $dupeErr.'</span><span class="error">'.$sectionErr.'</span><br>
 						<input type="submit" value="Submit" /><br><br>
-						<b>When you are done with '.$_SESSION['band'].'m&nbsp;'.$_SESSION['mode'].' please click <a href="/php/enterlog.php">here.</a></b>';
+						<b>When you are done with '.$_SESSION['band'].'&nbsp;'.$_SESSION['mode'].' please click <a href="/php/enterlog.php">here.</a></b>';
 				}
 				echo '</form>
 				<hr>';

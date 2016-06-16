@@ -89,6 +89,10 @@ tr:nth-child(odd) {
 	background:#C0C0C0;
 }
 
+input {
+	cursor:pointer;
+}
+
 fieldset {
 	border: solid 1px;
 	-moz-border-radius:8px;  
@@ -164,6 +168,20 @@ fieldset {
 		padding-top: 60px; /* Place content 60px from the top */
 		transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 	}
+	#frame {
+	display:inline-block;
+	background:white;
+	margin: 10px auto;
+	border-radius:10px;
+	}
+
+	#frame img {
+		max-width:80%;
+		margin: 25px;
+		box-shadow:0 0 25px #111;
+		-webkit-box-shadow:0 0 25px #111;
+		-moz-box-shadow:0 0 25px #111;
+	}
 }
 
 
@@ -196,6 +214,21 @@ fieldset {
 		max-width: 250px;
 		float:left;
 		height: 100%;
+	}
+	#frame {
+	display:inline-block;
+	background:white;
+	margin: 10px auto;
+	border-radius:10px;
+	max-width: 90%;
+	}
+
+	#frame img {
+		max-width:80%;
+		margin: 25px;
+		box-shadow:0 0 25px #111;
+		-webkit-box-shadow:0 0 25px #111;
+		-moz-box-shadow:0 0 25px #111;
 	}
 }
 
@@ -268,6 +301,21 @@ fieldset {
 .nav_item_admin:hover {
 }
 
+.bandmode {
+	padding:5px;
+	/* padding-top:5px;
+	padding-bottom:5px; 
+	margin:3px;*/
+	border:1px solid black;
+	/* cursor:pointer; */
+	width:95px;
+	text-align:center;
+}
+
+.bandmode label {
+	cursor:pointer;
+}
+
 .grid {
     margin: 0 auto;
 	padding: 0;
@@ -285,7 +333,9 @@ fieldset {
 .error {
 	color:red !important;
 }
-
+#sublog {
+	text-align:center;
+}
 #lightbox {
     position:fixed; /* keeps the lightbox window in the current viewport */
 	z-index: 1;
@@ -307,22 +357,6 @@ fieldset {
     font-size:14px;
 	font-weight:bold;
 	mix-blend-mode: difference;
-}
-
-#frame {
-	display:inline-block;
-	background:white;
-	margin: 0 auto;
-	border-radius:10px;
-	/*max-width: 90%;*/
-}
-
-#frame img {
-	max-width:80%;
-	margin: 25px;
-    box-shadow:0 0 25px #111;
-    -webkit-box-shadow:0 0 25px #111;
-    -moz-box-shadow:0 0 25px #111;
 }
 
 #outer_wrapper {
@@ -515,11 +549,10 @@ fieldset {
 #postfd input {
 	margin: 5px;
 }
-
+#uploads {
+	text-align:center;
+}
 .uploads {
-	/*display:flex;
-	flex-wrap:wrap;
-	align-content:space-around;*/
 	display:inline-block;
 	text-align:center;
 	margin: 10px;
@@ -532,6 +565,8 @@ fieldset {
 }
 
 .uploads img {
+	text-align:center;
+	margin: 0 auto;
 	max-height: 250px;
 	vertical-align: middle;
 }

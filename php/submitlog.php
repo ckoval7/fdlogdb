@@ -21,9 +21,9 @@ if (!empty($_POST['band']) or !empty($_POST['mode'])) {
 		} elseif (!empty($_POST["band"]) && $_POST["band"] == 247) {
 			$band = "Satellite";
 		} else{
-			$band = $_POST["band"];
+			$band = $_POST["band"].'m';
 		}
-		$_SESSION['band'] = $_POST['band'];
+		$_SESSION['band'] = $band;
 		$_SESSION['mode'] = $_POST["mode"];
 		$_SESSION['power'] = preg_replace('/\D/', '', $_POST["power"]);
 		if (!empty($_POST['natural_power'])) {
