@@ -248,6 +248,7 @@ fieldset {
 	  background: #2696BA;
 	  float:center;
 	  margin: 3px auto;
+	  cursor:pointer;
 	}
 
 .nav_item_users {
@@ -262,6 +263,7 @@ fieldset {
 	  background: #186C89;
 	  float:center;
 	  margin: 3px auto;
+	  cursor:pointer;
 	}
 	
 .closebtn {
@@ -333,9 +335,9 @@ fieldset {
 .error {
 	color:red !important;
 }
-#sublog {
+/*#sublog {
 	text-align:center;
-}
+}*/
 #lightbox {
     position:fixed; /* keeps the lightbox window in the current viewport */
 	z-index: 1;

@@ -1,9 +1,10 @@
 <?php
 // Start the session
 session_start();
-$servername = "localhost";
+include '../php/db_passwords.php';
+/*$servername = "localhost";
 $username = "fdlogwrite";
-$dbpassword = "adminpassword";
+$dbpassword = "adminpassword";*/
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $username, $dbpassword);
@@ -158,7 +159,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					<?php
 					if (!empty($_SESSION['priv']) and $_SESSION['priv'] === "admin") {
 						echo '
-						<form id="postfd" action='. $_SERVER["PHP_SELF"].' method="POST">
+						<form id="postfd" action='. $_SERVER["PHP_SELF"].' method="POST">';?>
 						Number of participants:<input type="number" style="width:55px;" name="participants"><br>
 						<fieldset>
 							<legend>Power Sources</legend>
@@ -194,7 +195,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						<span style="float: right">
 							<input type="submit" name="submit" value="Submit">
 						</span>
-						</form>';
+						</form><!--';-->
+						<?php
 						echo '<br>Formatted output to go here soon.';
 						echo '<div>
 						<ol>
@@ -207,7 +209,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<li>Power Sources Used:
 								<ul>';
 								foreach($power_out as $source) {
-									echo '<li>'.$source.'</li>';
+									switch($source) {
+										case "battery":
+											$source_formated = "Battery";
+											break;
+										case "commercial":
+											$source_formated = "Commercial Mains";
+											break;
+										case "generator":
+											$source_formated = "Generator";
+											break;
+										case "solar":
+											$source_formated = "Solar";
+											break;
+										default:
+											$source_formated ="Other. Please list on summary sheet";
+											break;			
+									}
+									echo '<li>'.$source_formated.'</li>';
 								}
 								echo'</ul></li><br>
 							<li>ARRL Section:	'.$setup_out['fd_section'].'</li>

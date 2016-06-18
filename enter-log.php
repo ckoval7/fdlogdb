@@ -1,5 +1,7 @@
 <?php session_start();
-include 'php/submitlog.php';?>
+include 'php/submitlog.php';
+$dupe_err="";
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,7 +61,30 @@ include 'php/submitlog.php';?>
 						Please enter the whole exchange on one line then press enter. For example:<br>
 						"w3uas 3a mdc"<br>
 						<b>Exchange:</b><br>
-						<input type="text" id="exchange" name="exchange" value="'.$view_exchange.'" autofocus="autofocus" onfocus="this.value = this.value;"/><span class="error">* '. $dupeErr.'</span><span class="error">'.$sectionErr.'</span><br>
+						<input type="text" list="callsigns" id="exchange" name="exchange" value="'.$view_exchange.'" autofocus="autofocus" onfocus="this.value = this.value;"/><span class="error">
+                        <datalist id="callsigns">';
+                        try {
+                            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $rd_username, $rd_password);
+                            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                            $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+                            $stmt = $conn->prepare("SELECT callsign, band, mode FROM logbook ORDER BY callsign");
+                            $stmt->execute();
+
+                            // set the resulting array to associative
+                            foreach($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
+                                if ($row['band'] == $_SESSION['dbband'] && $row['mode'] == $_SESSION['mode']) {
+                                    $dupe_err = " - DUPE";
+                                }
+                                echo '<option value ="'.$row['callsign'].$dupe_err.'">'."\n";
+                                $dupe_err = "";
+                            }
+                        }
+                        catch(PDOException $e) {
+                            echo "Error: " . $e->getMessage();
+                        }
+                        $conn = null;
+                    echo '</datalist>
+                    * '. $dupeErr.'</span><span class="error">'.$sectionErr.'</span><br>
 						<input type="submit" value="Submit" /><br><br>
 						<b>When you are done with '.$_SESSION['band'].'&nbsp;'.$_SESSION['mode'].' please click <a href="/php/enterlog.php">here.</a></b>';
 				}
