@@ -1,8 +1,8 @@
 <?php 
 session_start();
-$passErr1 = "";
+$passErr1 = $classErr = "";
 include 'php/db_passwords.php';
-
+$valid_classes= array('Novice', 'Technician', 'General', 'Advanced', 'Extra');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	try {
 		$conn = new PDO("mysql:host=$servername;dbname=$dbname", $wr_username, $wr_password);
@@ -14,11 +14,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$sql->bindParam(':uuid', $_SESSION['uuid']);
 			$sql->execute();
 		}
-		if (!empty($_POST['class'])) {
-			$sql = $conn->prepare("UPDATE users SET license_class=:class WHERE uuid = :uuid");
-			$sql->bindParam(':class', $_POST['class']);
-			$sql->bindParam(':uuid', $_SESSION['uuid']);
-			$sql->execute();
+		if (!empty($_POST['class']) && in_array($_POST["class"], $valid_classes)) {
+				$license_class = $_POST["class"];
+				$sql = $conn->prepare("UPDATE users SET license_class=:class WHERE uuid = :uuid");
+				$sql->bindParam(':class', $license_class);
+				$sql->bindParam(':uuid', $_SESSION['uuid']);
+				$sql->execute();
+		} else {
+			$classErr = "Invalid Class. Stop messing with the web form >:(";
 		}
 		if (!empty($_POST['password'])) {
 			$password1 = $_POST["password"];
@@ -75,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 												<option value="Advanced">Advanced</option>
 												<option value="Extra">Extra</option>
 											</select>
-											
+											<span class="error">'.$classErr.'</span><br>
 											<br><br>
 											<span>
 												<b>New password:</b> <br>
