@@ -70,7 +70,7 @@ if (!empty($_SESSION['priv']) and $_SESSION['priv'] === "admin") {
 						<b>Repeat Password:</b><br>
 						<input type="password" name="repeat_password" />
 						</span>
-					<span class="error">* '.$admin_passErr1.'</span><br>
+					<span class="error">'.$admin_passErr1.'</span><br>
 					<span class="error">'.$admin_passErr2.'</span><br>
 					<input type="submit" value="Submit" /><br>
 					

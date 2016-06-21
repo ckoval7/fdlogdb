@@ -7,7 +7,7 @@ $username = "fdlogwrite";
 $dbpassword = "adminpassword";*/
 
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $username, $dbpassword);
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $rd_username, $rd_password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 	//Field Day Setup Options
@@ -69,7 +69,7 @@ $conn = null;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if (!empty($_REQUEST['submit'])) {
 		try {
-			$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $username, $dbpassword);
+			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $wr_username, $wr_password);
 			// set the PDO error mode to exception
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			if (!empty($_POST["bonus"])) {
@@ -112,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		}
 	} elseif (!empty($_REQUEST['power_reset'])) {
 		try {
-			$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $username, $dbpassword);
+			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $wr_username, $wr_password);
 			// set the PDO error mode to exception
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$stmt = $conn->prepare("UPDATE fd_config SET number = '0' WHERE category = 'power'");
@@ -122,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		}
 	} elseif (!empty($_REQUEST['bonus_reset'])) {
 		try {
-			$conn = new PDO("mysql:host=$servername;dbname=fdlogdb", $username, $dbpassword);
+			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $wr_username, $wr_password);
 			// set the PDO error mode to exception
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$stmt = $conn->prepare("UPDATE fd_config SET number = '0' WHERE category = 'bonus'");

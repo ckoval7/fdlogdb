@@ -12,7 +12,7 @@ $isReady = 0;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$gota_callsign = test_input(strtoupper($_POST["gota_callsign"]));
 	$club_name = test_input($_POST["club_name"]);
-	if (empty($_POST["fd_callsign"]) or empty($_POST["fd_section"]) or empty($_POST["fd_class"]) or empty($_POST["admin_password"]) or ($_POST["repeat_password"] !== $_POST["admin_password"])) {
+	if (empty($_POST["fd_callsign"]) or empty($_POST["fd_section"]) or empty($_POST["fd_class"]) or ($_POST["repeat_password"] !== $_POST["admin_password"])) {
 		$isReady = 0;
 	} else {
 		$isReady = 1;
@@ -37,9 +37,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$fd_class = strtoupper(test_input($_POST["fd_class"]));
 		
 	}
-	if (empty($_POST["admin_password"] or $_POST["repeat_password"])) {
-		$admin_passErr1 = "Password required!";
-	} else {
+	if (!empty($_POST["admin_password"] or $_POST["repeat_password"])) {
+		/* $admin_passErr1 = "Password required!";
+	} else { */
 		$password1 = $_POST["admin_password"];
 		$password2 = $_POST["repeat_password"];
 		if ($password1 === $password2) {
@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		}else {
 			$admin_passErr2 = "Passwords do not match!";
 			}
-		}
+	}
 }
 function test_input($data) {
 $data = trim($data);

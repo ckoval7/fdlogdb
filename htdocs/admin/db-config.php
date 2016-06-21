@@ -175,7 +175,7 @@ try {
 	$pass = password_hash("password", PASSWORD_BCRYPT, $pass_options);
 	$sql="INSERT INTO users (call_sign, password, user_level) VALUES ('admin', '$pass', 'admin')";
 	$conn->exec($sql);
-	echo '<br> Account "admin" created with password "password".';
+	echo '<br> Account "admin" created with password "password".<br>';
 	
 //Set default stations:
 	$sql = "INSERT INTO inventory (user_id, item_make, item_description) VALUES ('1', 'default', 'Default station for logging functionality. Please avoid using this and set radios as stations.')";
