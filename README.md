@@ -28,9 +28,7 @@ Currently working:
 	
 Not working/to-do:
 
-	* Table of point values
 	* GOTA logging
 	* FD post processing
-	* Create a logo
 	* Come up with a name
 	* more to come!

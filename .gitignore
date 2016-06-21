@@ -3,6 +3,6 @@
 .buildpath
 .settings
 #stuff
-img/user-uploads/*
-admin/edit_users.php.old
-php/archive
+htdocs/img/user-uploads/*
+htdocs/admin/edit_users.php.old
+htdocs/php/archive

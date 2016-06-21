@@ -44,8 +44,7 @@
 					</form>
 					<hr>
 					<div class="row">
-						<?php 
-						//include 'php/displayguestbook.php'; 
+						<?php
 						include 'php/paginate.php';
 						include 'php/db_passwords.php';
 						$_SESSION["key"] = "guest_id";
