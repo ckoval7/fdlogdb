@@ -51,8 +51,8 @@ $dupe_err="";
 						</select>
 					</span><br>
 					<span>Power: 
-						<input type="text" name="power"><b>W</b>&nbsp;
-						<input type="checkbox" name="natural_power" value="natural_power">Natural Power<br>
+						<input type="text" name="power"><b>W</b><span class="error">*</span>&nbsp;
+						<input type="checkbox" name="natural_power" value="natural_power">Natural Power<span class="error">&nbsp;'. $pwrErr.' </span><br>
 					</span><br>
 						<input type="submit" value="Begin Session" /><br>';
 				} else {

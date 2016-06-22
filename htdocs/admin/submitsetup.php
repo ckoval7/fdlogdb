@@ -100,8 +100,10 @@ if ($isReady === 1) {
 		$stmt = $conn->prepare("UPDATE fd_config SET small_string='$club_name' WHERE config_name='club_name'");
 		$stmt->execute();
 		//Update Admin Password
-		$stmt = $conn->prepare("UPDATE users SET password='$password' WHERE uuid=1");
-		$stmt->execute();
+		if(!empty($password)) {
+			$stmt = $conn->prepare("UPDATE users SET password='$password' WHERE uuid=1");
+			$stmt->execute();
+		}
 	}
 
 	catch(PDOException $e)

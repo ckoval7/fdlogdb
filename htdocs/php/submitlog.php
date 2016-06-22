@@ -1,6 +1,7 @@
 <?php
 include 'db_passwords.php';
-$dupeErr = $sectionErr = $view_exchange = "";
+$dupeErr = $sectionErr = $pwrErr = $view_exchange = "";
+$isReady = 0;
 
 $uuid = $_SESSION['uuid'];
 
@@ -23,31 +24,41 @@ if (!empty($_POST['band']) or !empty($_POST['mode'])) {
 		} else{
 			$band = $_POST["band"].'m';
 		}
-		$_SESSION['band'] = $band;
-		$_SESSION['mode'] = $_POST["mode"];
 		$_SESSION['power'] = preg_replace('/\D/', '', $_POST["power"]);
+		if (!empty($_SESSION['power']) && $_SESSION['power'] > 1500) {
+			$pwrErr = "That exceeds the legal limit!";
+			$isReady = 0;
+		} elseif (empty($_SESSION['power'])) {
+			$pwrErr = "Please enter your transmitter's power";
+		} else {
+			$isReady = 1;
+			$_SESSION['band'] = $band;
+			$_SESSION['mode'] = $_POST["mode"];
+		}	
 		if (!empty($_POST['natural_power'])) {
 			$_SESSION['natural_power'] = 1;
 		} else {
 			$_SESSION['natural_power'] = '';
 		}
-		try {
-			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $wr_username, $wr_password);
-			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-			$stmt = $conn->prepare("INSERT INTO active_stations (user_id, band, mode, station_id) VALUES (:uuid, :band, :mode, 1)");
-			$stmt->bindParam(':uuid', $_SESSION['uuid']);
-			$stmt->bindParam(':band', $_POST["band"]);
-			$stmt->bindParam(':mode', $_POST["mode"]);
-			$stmt->execute();
-			$stmt = $conn->prepare("SELECT session_id FROM active_stations WHERE user_id = '$uuid' ORDER BY session_id DESC LIMIT 1");
-			$stmt->execute();
-			$session_id = $stmt->fetch();
-			$_SESSION['session_id']= $session_id[0];
-		} catch(PDOException $e) {
-			echo "Error: " . $e->getMessage();
-		}
-		$conn=null;
+		if ($isReady == 1) {
+			try {
+				$conn = new PDO("mysql:host=$servername;dbname=$dbname", $wr_username, $wr_password);
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+				$stmt = $conn->prepare("INSERT INTO active_stations (user_id, band, mode, station_id) VALUES (:uuid, :band, :mode, 1)");
+				$stmt->bindParam(':uuid', $_SESSION['uuid']);
+				$stmt->bindParam(':band', $_POST["band"]);
+				$stmt->bindParam(':mode', $_POST["mode"]);
+				$stmt->execute();
+				$stmt = $conn->prepare("SELECT session_id FROM active_stations WHERE user_id = '$uuid' ORDER BY session_id DESC LIMIT 1");
+				$stmt->execute();
+				$session_id = $stmt->fetch();
+				$_SESSION['session_id']= $session_id[0];
+			} catch(PDOException $e) {
+				echo "Error: " . $e->getMessage();
+			}
+			$conn=null;
+		}	
 	}
 }
 if (!empty($_POST['exchange'])) {

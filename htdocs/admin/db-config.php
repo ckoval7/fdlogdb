@@ -170,6 +170,24 @@ try {
 	$conn->exec($sql);
 	echo "Table images added!<br>";
 	
+//Create table GOTA Log:
+	/* $sql="CREATE TABLE IF NOT EXISTS gota_log(
+		logid INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		session_id BIGINT NOT NULL,
+		qso_time TIMESTAMP,
+		callsign VARCHAR(12),
+		section VARCHAR(3),
+		operating_class VARCHAR(4),
+		logger_id BIGINT,
+		band SMALLINT,
+		mode VARCHAR(10),
+		power SMALLINT,
+		natural_power BOOL,
+		FOREIGN KEY (logger_id) REFERENCES users(uuid),
+		FOREIGN KEY (session_id) REFERENCES active_stations(session_id))";
+	$conn->exec($sql);
+	echo "Table logbook added!<br>"; */
+	
 //Create admin user:
 	$pass_options = ['cost' => 12];
 	$pass = password_hash("password", PASSWORD_BCRYPT, $pass_options);

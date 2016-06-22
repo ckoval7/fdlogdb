@@ -5,6 +5,7 @@ include '../php/db_passwords.php';
 /*$servername = "localhost";
 $username = "fdlogwrite";
 $dbpassword = "adminpassword";*/
+$agency_pts = $sm_msg_pts = $education_pts = $elected_pts = $mesg_pts = $info_pts = $media_pts = $public_pts = $safety_pts = $social_pts = $w1aw_pts = $youth_pts = $emxmttrpoints = $natural_pts = $satellite_pts = 0;
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $rd_username, $rd_password);
@@ -18,13 +19,23 @@ try {
 	$stmt = $conn->prepare("SELECT config_name, number FROM fd_config WHERE category = 'bonus'");
     $stmt->execute();
 	$bonus_numbers = array_column($stmt->fetchAll(PDO::FETCH_ASSOC), 'number', 'config_name');
-	$stmt = $conn->prepare("SELECT config_name FROM fd_config WHERE category = 'bonus' and number = 1");
+	$stmt = $conn->prepare("SELECT config_name FROM fd_config WHERE category = 'bonus' and number >= 1");
     $stmt->execute();
 	$bonus_out = array_column($stmt->fetchAll(PDO::FETCH_ASSOC), 'config_name');
 	//Power Sources
 	$stmt = $conn->prepare("SELECT config_name, number FROM fd_config WHERE category = 'power' and number = 1");
     $stmt->execute();
 	$power_out = array_column($stmt->fetchAll(PDO::FETCH_ASSOC), 'config_name');
+	//Natural Power Contacts
+	$stmt = $conn->prepare("SELECT COUNT(*) FROM logbook WHERE natural_power = 1");
+    $stmt->execute();
+	$natural_qso = $stmt->fetch();
+	$natural_qso = $natural_qso[0];
+	//Satellite Contacts
+	$stmt = $conn->prepare("SELECT COUNT(*) FROM logbook WHERE band = 247");
+    $stmt->execute();
+	$satellite_qso = $stmt->fetch();
+	$satellite_qso = $satellite_qso[0];
 	//Total CW Contacts
 	$stmt = $conn->prepare("SELECT COUNT(*) FROM logbook WHERE mode = 'CW'");
     $stmt->execute();
@@ -240,19 +251,101 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<li> Claimed QSO Score:	'.$qso_score.'</li>
 							<li> Bonus Points:
 							<ul>';
-								foreach($bonus_out as $type) {
-									echo '<li>'.$type.'</li>';
+								if (!in_array('commercial', $power_out)) {
+									$numTransmitters = preg_replace('/\D/', '', $setup_out['fd_class']);
+									$emxmttrpoints = min($numTransmitters, 20) * 100;
+									echo '<li>'.$emxmttrpoints.' 100% Emergency Power ('.$numTransmitters.' xmttrs)</li>';
+								} else {
+									$emxmttrpoints = 0;
 								}
-								echo'</ul></li><br>
+								if(!empty($natural_qso) && $natural_qso > 4) {
+									$natural_pts = 100;
+									echo '<li>100 Natural power QSOs completed ('.$natural_qso.')</li>';
+								}
+								if(!empty($satellite_qso) && $satellite_qso > 0) {
+									$satellite_pts = 100;
+									echo '<li>100 Satellite QSO(s) completed ('.$satellite_qso.')</li>';
+								}
+								foreach($bonus_out as $type) {
+									//echo '<li>'.$type.'</li>';
+									switch($type) {
+										case "agency_official":
+											$agency_pts = 100;
+											$type_formated = "100 Site Visit by invited served agency official";
+											break;
+										case "arrl_sm_mesg":
+											$sm_msg_pts = 100;
+											$type_formated = "100 Message to ARRL SM/SEC";
+											break;
+										case "educational_activity":
+											$education_pts = 100;
+											$type_formated = "100 Educational Activity Bonus";
+											break;
+										case "elected_official":
+											$elected_pts = 100;
+											$type_formated = "100 Site Visit by invited elected official";
+											break;
+										case "formal_mesgs":
+											$mesg_pts = min($bonus_numbers['formal_mesgs'], 10) * 10;
+											$type_formated = $mesg_pts." NTS/ICS-213 messages handled (# ".$bonus_numbers['formal_mesgs'].")";
+											break;
+										case "info_booth":
+											$info_pts = 100;
+											$type_formated = "100 Information Booth";
+											break;
+										case "media":
+											$media_pts = 100;
+											$type_formated = "100 Media Publicity";
+											break;
+										case "public_place":
+											$public_pts = 100;
+											$type_formated = "100 Set-up in Public Place";
+											break;
+										case "safety_officer":
+											$safety_pts = 100;
+											$type_formated = "100 Safety Officer Bonus";
+											break;
+										case "social_media":
+											$social_pts = 100;
+											$type_formated = "100 Social Media Bonus";
+											break;
+										case "w1aw_mesg":
+											$w1aw_pts = 100;
+											$type_formated = "100 W1AW Field Day Message";
+											break;
+										case "youth_qso":
+											$youth_pts = min((20*$bonus_numbers['youth_qso']), 100);
+											$type_formated = $youth_pts." Youth Element achieved";
+											break;
+										default:
+											$type_formated = '';
+											break;			
+									}
+									echo '<li>'.$type_formated.'</li>';
+								}
+								$total_bonus = $satellite_pts + $natural_pts + $agency_pts + $sm_msg_pts + $education_pts + $elected_pts + $mesg_pts + $info_pts + $media_pts + $public_pts + $safety_pts + $social_pts + $w1aw_pts + $youth_pts + $emxmttrpoints;
+								$total_score = $total_bonus + $qso_score;
+								echo '<br><li>Total bonus points claimed: '.$total_bonus.'</li><br>
+								<li>Total Claimed Score: '.$total_score.'</li><br>';
+								echo'</ul></li>
+							<li>Submit your log via <a href="http://www.b4h.net/cabforms/">http://www.b4h.net/cabforms/</a> for a 50 point additional bonus!</li>
 							<li> I/We have observed all competition rules as well as all
 								regulations for amateur radio in my/our country. My/Our
 								report is correct and true to the best of my/our knowledge.
 								I/We agree to be bound by the decisions of the ARRL
-								Awards Committee.
+								Awards Committee.<br>
+								Submitted by:
 								<ul>
-								
+									<li>Date</li>
+									<li>Submitter\'s Callsign</li>
+									<li>Submitter or club\'s Address</li>
+									<li>Submitter\'s Email Address</li>
 								</ul>
-							</li><br>
+							</li>
+							<li>
+							Table here soon!
+							</li>
+							<br>
 						</ol>
 						</div>';
 					} else {
