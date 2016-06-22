@@ -171,22 +171,23 @@ try {
 	echo "Table images added!<br>";
 	
 //Create table GOTA Log:
-	/* $sql="CREATE TABLE IF NOT EXISTS gota_log(
+	$sql="CREATE TABLE IF NOT EXISTS gota_log(
 		logid INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		session_id BIGINT NOT NULL,
 		qso_time TIMESTAMP,
 		callsign VARCHAR(12),
 		section VARCHAR(3),
 		operating_class VARCHAR(4),
-		logger_id BIGINT,
+		coach_id BIGINT,
+		power SMALLINT,
 		band SMALLINT,
 		mode VARCHAR(10),
-		power SMALLINT,
-		natural_power BOOL,
-		FOREIGN KEY (logger_id) REFERENCES users(uuid),
-		FOREIGN KEY (session_id) REFERENCES active_stations(session_id))";
+		first_name VARCHAR(20),
+		last_name VARCHAR(20),
+		op_callsign VARCHAR(8),
+		FOREIGN KEY (coach_id) REFERENCES users(uuid))";
 	$conn->exec($sql);
-	echo "Table logbook added!<br>"; */
+	echo "Table gota_log added!<br>";
 	
 //Create admin user:
 	$pass_options = ['cost' => 12];

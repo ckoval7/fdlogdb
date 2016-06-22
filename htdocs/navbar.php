@@ -37,6 +37,7 @@ if ($priv === "user") {
 echo '
 			<li onclick="self.location.href=\'/view-log.php\';" class="nav_item"><a href="/view-log.php">FD Log</a></li>
 			<li onclick="self.location.href=\'/guestbook.php\';" class="nav_item"><a href="/guestbook.php">Guestbook</a></li>
+			<li onclick="self.location.href=\'/php/gotalog.php\';" class="nav_item"><a href="/php/gotalog.php">GOTA Log</a></li>
 			<br>
 
 ';
