@@ -2,9 +2,7 @@
 // Start the session
 session_start();
 include '../php/db_passwords.php';
-/*$servername = "localhost";
-$username = "fdlogwrite";
-$dbpassword = "adminpassword";*/
+//select first_name, last_name, COUNT(*) from gota_log group by last_name, first_name;
 $agency_pts = $sm_msg_pts = $education_pts = $elected_pts = $mesg_pts = $info_pts = $media_pts = $public_pts = $safety_pts = $social_pts = $w1aw_pts = $youth_pts = $emxmttrpoints = $natural_pts = $satellite_pts = 0;
 
 try {
@@ -208,10 +206,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						</span>
 						</form><!--';-->
 						<?php
+						if(!empty($setup_out['gota_callsign'])) {
+							$gota_call = "GOTA Station Call: ".$setup_out['gota_callsign'];
+						} else {
+							$gota_call = "";
+						}
 						echo '<br>Formatted output to go here soon.';
 						echo '<div>
 						<ol>
-							<li>Field Day Call:	'.$setup_out['fd_callsign'].'</li>
+							<li>Field Day Call:	'.$setup_out['fd_callsign'].'&nbsp;'.$gota_call.'</li>
 							<li>Club or Group Name:	'.$setup_out['club_name'].'</li>
 							<li>Number of Participants:	'.$bonus_numbers['participants'].'</li>
 							<li>Transmitter Class:	'.preg_replace('/\D/', '', $setup_out['fd_class']).'</li>
@@ -327,7 +330,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								$total_score = $total_bonus + $qso_score;
 								echo '<br><li>Total bonus points claimed: '.$total_bonus.'</li><br>
 								<li>Total Claimed Score: '.$total_score.'</li><br>';
-								echo'</ul></li>
+								?></ul></li>
 							<li>Submit your log via <a href="http://www.b4h.net/cabforms/">http://www.b4h.net/cabforms/</a> for a 50 point additional bonus!</li>
 							<li> I/We have observed all competition rules as well as all
 								regulations for amateur radio in my/our country. My/Our
@@ -343,11 +346,247 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								</ul>
 							</li>
 							<li>
-							Table here soon!
+							<?php
+                                $cw160qso = $cw80qso = $cw40qso = $cw20qso = $cw15qso = $cw10qso = $cw6qso = $cw2qso = $cw125qso = $cwsatqso = $cwgotaqso = $dig160qso = $dig80qso = $dig40qso = $dig20qso = $dig15qso = $dig10qso = $dig6qso = $dig2qso = $dig125qso = $digsatqso = $diggotaqso = $pho160qso = $pho80qso = $pho40qso = $pho20qso = $pho15qso = $pho10qso = $pho6qso = $pho2qso = $pho125qso = $phosatqso = $phogotaqso = $cw160pwr = $cw80pwr = $cw40pwr = $cw20pwr = $cw15pwr = $cw10pwr = $cw6pwr = $cw2pwr = $cw125pwr = $cwsatpwr = $cwgotapwr = $dig160pwr = $dig80pwr = $dig40pwr = $dig20pwr = $dig15pwr = $dig10pwr = $dig6pwr = $dig2pwr = $dig125pwr = $digsatpwr = $diggotapwr = $pho160pwr = $pho80pwr = $pho40pwr = $pho20pwr = $pho15pwr = $pho10pwr = $pho6pwr = $pho2pwr = $pho125pwr = $phosatpwr = $phogotapwr = 0;
+								try {
+									$conn = new PDO("mysql:host=$servername;dbname=$dbname", $rd_username, $rd_password);
+									$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+									$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+									$stmt = $conn->prepare("SELECT band, mode, COUNT(*) as qso, MAX(power) as power FROM logbook GROUP BY mode, band");
+									$stmt->execute();
+									// set the resulting array to associative
+									foreach($stmt->fetchAll() as $row) {
+										switch($row['band']) {
+                                            case 160:
+                                                switch($row['mode']) {
+                                                    case "Digital":
+                                                        $dig160qso = $row['qso'];
+                                                        $dig160pwr = $row['power'];
+                                                        break;
+                                                    case "CW":
+                                                        $cw160qso = $row['qso'];
+                                                        $cw160pwr = $row['power'];
+                                                        break;
+                                                    case "Phone":
+                                                        $pho160qso = $row['qso'];
+                                                        $pho160pwr = $row['power'];
+                                                        break;
+                                                }
+                                                break;
+                                            case 80:
+                                                switch($row['mode']) {
+                                                    case "Digital":
+                                                        $dig80qso = $row['qso'];
+                                                        $dig80pwr = $row['power'];
+                                                        break;
+                                                    case "CW":
+                                                        $cw80qso = $row['qso'];
+                                                        $cw80pwr = $row['power'];
+                                                        break;
+                                                    case "Phone":
+                                                        $pho80qso = $row['qso'];
+                                                        $pho80pwr = $row['power'];
+                                                        break;
+                                                }
+                                                break;
+                                            case 40:
+                                                switch($row['mode']) {
+                                                    case "Digital":
+                                                        $dig40qso = $row['qso'];
+                                                        $dig40pwr = $row['power'];
+                                                        break;
+                                                    case "CW":
+                                                        $cw40qso = $row['qso'];
+                                                        $cw40pwr = $row['power'];
+                                                        break;
+                                                    case "Phone":
+                                                        $pho40qso = $row['qso'];
+                                                        $pho40pwr = $row['power'];
+                                                        break;
+                                                }
+                                                break;
+                                            case 20:
+                                                switch($row['mode']) {
+                                                    case "Digital":
+                                                        $dig20qso = $row['qso'];
+                                                        $dig20pwr = $row['power'];
+                                                        break;
+                                                    case "CW":
+                                                        $cw20qso = $row['qso'];
+                                                        $cw20pwr = $row['power'];
+                                                        break;
+                                                    case "Phone":
+                                                        $pho20qso = $row['qso'];
+                                                        $pho20pwr = $row['power'];
+                                                        break;
+                                                }
+                                                break;
+                                            case 15:
+                                                switch($row['mode']) {
+                                                    case "Digital":
+                                                        $dig15qso = $row['qso'];
+                                                        $dig15pwr = $row['power'];
+                                                        break;
+                                                    case "CW":
+                                                        $cw15qso = $row['qso'];
+                                                        $cw15pwr = $row['power'];
+                                                        break;
+                                                    case "Phone":
+                                                        $pho15qso = $row['qso'];
+                                                        $pho15pwr = $row['power'];
+                                                        break;
+                                                }
+                                                break;
+                                            case 10:
+                                                switch($row['mode']) {
+                                                    case "Digital":
+                                                        $dig10qso = $row['qso'];
+                                                        $dig10pwr = $row['power'];
+                                                        break;
+                                                    case "CW":
+                                                        $cw10qso = $row['qso'];
+                                                        $cw10pwr = $row['power'];
+                                                        break;
+                                                    case "Phone":
+                                                        $pho10qso = $row['qso'];
+                                                        $pho10pwr = $row['power'];
+                                                        break;
+                                                }
+                                            case 6:
+                                                switch($row['mode']) {
+                                                    case "Digital":
+                                                        $dig6qso = $row['qso'];
+                                                        $dig6pwr = $row['power'];
+                                                        break;
+                                                    case "CW":
+                                                        $cw6qso = $row['qso'];
+                                                        $cw6pwr = $row['power'];
+                                                        break;
+                                                    case "Phone":
+                                                        $pho6qso = $row['qso'];
+                                                        $pho6pwr = $row['power'];
+                                                        break;
+                                                }
+                                                break;
+                                            case 2:
+                                                switch($row['mode']) {
+                                                    case "Digital":
+                                                        $dig2qso = $row['qso'];
+                                                        $dig2pwr = $row['power'];
+                                                        break;
+                                                    case "CW":
+                                                        $cw2qso = $row['qso'];
+                                                        $cw2pwr = $row['power'];
+                                                        break;
+                                                    case "Phone":
+                                                        $pho2qso = $row['qso'];
+                                                        $pho2pwr = $row['power'];
+                                                        break;
+                                                }
+                                                break;
+                                            case 125:
+                                                switch($row['mode']) {
+                                                    case "Digital":
+                                                        $dig125qso = $row['qso'];
+                                                        $dig125pwr = $row['power'];
+                                                        break;
+                                                    case "CW":
+                                                        $cw125qso = $row['qso'];
+                                                        $cw125pwr = $row['power'];
+                                                        break;
+                                                    case "Phone":
+                                                        $pho125qso = $row['qso'];
+                                                        $pho125pwr = $row['power'];
+                                                        break;
+                                                }
+                                                break;
+                                            case 247:
+                                                switch($row['mode']) {
+                                                    case "Digital":
+                                                        $digsatqso = $row['qso'];
+                                                        $digsatpwr = $row['power'];
+                                                        break;
+                                                    case "CW":
+                                                        $cwsatqso = $row['qso'];
+                                                        $cwsatpwr = $row['power'];
+                                                        break;
+                                                    case "Phone":
+                                                        $phosatqso = $row['qso'];
+                                                        $phosatpwr = $row['power'];
+                                                        break;
+                                                }
+                                                break;
+                                            default:
+                                                echo '?????';
+                                                break;
+                                        }
+                                        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $rd_username, $rd_password);
+                                        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                        $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+                                        $stmt = $conn->prepare("SELECT mode, COUNT(*) as qso, MAX(power) as power FROM gota_log GROUP BY mode");
+                                        $stmt->execute();
+                                        // set the resulting array to associative
+                                        foreach($stmt->fetchAll() as $row) {
+                                            switch($row['mode']) {
+                                                case "Digital":
+                                                    $diggotaqso = $row['qso'];
+                                                    $diggotapwr = $row['power'];
+                                                    break;
+                                                case "CW":
+                                                    $cwgotaqso = $row['qso'];
+                                                    $cwgotapwr = $row['power'];
+                                                    break;
+                                                case "Phone":
+                                                    $phogotaqso = $row['qso'];
+                                                    $phogotapwr = $row['power'];
+                                                    break;
+                                            }
+                                        }
+                                        $total_cw_qso = $cw160qso + $cw80qso + $cw40qso + $cw20qso + $cw15qso + $cw10qso + $cw6qso + $cw2qso + $cw125qso + $cwsatqso;
+                                        $total_dig_qso = $dig160qso + $dig80qso + $dig40qso + $dig20qso + $dig15qso + $dig10qso + $dig6qso + $dig2qso + $dig125qso + $digsatqso;
+                                        $total_pho_qso = $pho160qso + $pho80qso + $pho40qso + $pho20qso + $pho15qso + $pho10qso + $pho6qso + $pho2qso + $pho125qso + $phosatqso;
+                                        
+									}
+								}
+								catch(PDOException $e) {
+									echo "Error: " . $e->getMessage();
+								}
+								$conn = null;
+							?>
+							<table style='border: solid 1px black;'>
+								<col>
+								<colgroup span="2"></colgroup>
+								<colgroup span="2"></colgroup>
+								<tr><td rowspan="2"></td><th colspan="2" scope="colgroup">CW</th><th colspan="2" scope="colgroup">Digital</th><th colspan="2" scope="colgroup">Phone</th></tr>
+								<tr><th scope="col">QSO</th><th scope="col">Power</th><th scope="col">QSO</th><th scope="col">Power</th><th scope="col">QSO</th><th scope="col">Power</th></tr>
+								<tr><th scope="row">160M</th><td><?php echo $cw160qso; ?></td><td><?php echo $cw160pwr; ?></td><td><?php echo $dig160qso; ?></td><td><?php echo $dig160pwr; ?></td><td><?php echo $pho160qso; ?></td><td><?php echo $pho160pwr; ?></td></tr>
+                                
+								<tr><th scope="row">80M</th><td><?php echo $cw80qso; ?></td><td><?php  echo $cw80pwr; ?></td><td><?php echo $dig80qso; ?></td><td><?php echo $dig80pwr; ?></td><td><?php echo $pho80qso; ?></td><td><?php echo $pho80pwr; ?></td></tr>
+                                
+								<tr><th scope="row">40M</th><td><?php echo $cw40qso; ?></td><td><?php echo $cw40pwr; ?></td><td><?php echo $dig40qso; ?></td><td><?php echo $dig40pwr; ?></td><td><?php echo $pho40qso; ?></td><td><?php echo $pho40pwr; ?></td></tr>
+                                
+								<tr><th scope="row">20M</th><td><?php echo $cw20qso; ?></td><td><?php echo $cw20pwr; ?></td><td><?php echo $dig20qso; ?></td><td><?php echo $dig20pwr; ?></td><td><?php echo $pho20qso; ?></td><td><?php echo $pho20pwr; ?></td></tr>
+                                
+                                <tr><th scope="row">15M</th><td><?php echo $cw15qso; ?></td><td><?php echo $cw15pwr; ?></td><td><?php echo $dig15qso; ?></td><td><?php echo $dig15pwr; ?></td><td><?php echo $pho15qso; ?></td><td><?php echo $pho15pwr; ?></td></tr>
+                                
+								<tr><th scope="row">10M</th><td><?php echo $cw10qso; ?></td><td><?php echo $cw10pwr; ?></td><td><?php echo $dig10qso; ?></td><td><?php echo $dig10pwr; ?></td><td><?php echo $pho10qso; ?></td><td><?php echo $pho10pwr; ?></td></tr>
+                                
+								<tr><th scope="row">6M</th><td><?php echo $cw6qso; ?></td><td><?php echo $cw6pwr; ?></td><td><?php echo $dig6qso; ?></td><td><?php echo $dig6pwr; ?></td><td><?php echo $pho6qso; ?></td><td><?php echo $pho6pwr; ?></td></tr>
+                                
+								<tr><th scope="row">2M</th><td><?php echo $cw2qso; ?></td><td><?php echo $cw2pwr; ?></td><td><?php echo $dig2qso; ?></td><td><?php echo $dig2pwr; ?></td><td><?php echo $pho2qso; ?></td><td><?php echo $pho2pwr; ?></td></tr>
+                                
+								<tr><th scope="row">1.25M</th><td><?php echo $cw125qso; ?></td><td><?php echo $cw125pwr; ?></td><td><?php echo $dig125qso; ?></td><td><?php echo $dig125pwr; ?></td><td><?php echo $pho125qso; ?></td><td><?php echo $pho125pwr; ?></td></tr>
+                                
+								<tr><th scope="row">Satellite</th><td><?php echo $cwsatqso; ?></td><td><?php echo $cwsatpwr; ?></td><td><?php echo $digsatqso; ?></td><td><?php echo $digsatpwr; ?></td><td><?php echo $phosatqso; ?></td><td><?php echo $phosatpwr; ?></td></tr>
+    
+								<tr><th scope="row">GOTA</th><td><?php echo $cwgotaqso; ?></td><td><?php echo $cwgotapwr; ?></td><td><?php echo $diggotaqso; ?></td><td><?php echo $diggotapwr; ?></td><td><?php echo $phogotaqso; ?></td><td><?php echo $phogotapwr; ?></td></tr>
+    
+								<tr><th scope="row">Totals</th><td><?php echo $total_cw_qso; ?></td><td>CW</td><td><?php echo $total_dig_qso; ?></td><td>Digital</td><td><?php echo $total_pho_qso; ?></td><td>Phone</td></tr>
+								</table>								
 							</li>
 							<br>
 						</ol>
-						</div>';
+						</div><?php
 					} else {
 						echo '<h2>Admins only please!</h2>';
 					}?>

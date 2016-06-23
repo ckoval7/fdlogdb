@@ -13,6 +13,22 @@ function test_input($data) {
 	$data = strtoupper($data);
 	return $data;
 	}
+try {
+	$conn = new PDO("mysql:host=$servername;dbname=$dbname", $rd_username, $rd_password);
+	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+	$stmt = $conn->prepare("SELECT COUNT(*) FROM gota_log");
+	$stmt->execute();
+	$contacts = $stmt->fetch();
+	if($contacts[0] >= 500) {
+		$disble = "disabled";
+	} else {
+		$disble = "";
+	}
+} catch(PDOException $e) {
+	echo "Error: " . $e->getMessage();
+}
+$conn=null;
 
 if (!empty($_POST['band']) or !empty($_POST['mode']) or !empty($_POST["first"]) or !empty($_POST["last"])) {
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -100,6 +116,8 @@ if (!empty($_POST['exchange'])) {
 				$sectionErr = "That is not a valid section!";
 			} elseif (!preg_match('/\d{1,2}+[abcdefABCDEF]/', $operating_class)) {
 				$sectionErr = "That is not a valid class!";
+			} elseif($contacts[0] >= 500) {
+				$sectionErr = "The GOTA station allows for a maximum of 500 contacts.";
 			} elseif (isset($callsign) and isset($operating_class)and isset($section)) {
 				$stmt = $conn->prepare("INSERT INTO gota_log(coach_id, callsign, operating_class, section, band, mode, power, first_name, last_name, op_callsign) VALUES (:coach_id, :callsign, :opclass, :section, :band, :mode, :power, :first, :last, :operator)");
 				$stmt->bindParam(':coach_id', $_SESSION['uuid']);
@@ -186,45 +204,34 @@ $dupe_err="";
 					</span><br>
 						<input type="submit" value="Begin Session" /><br><?php
 				} else {
-					try {
-						$conn = new PDO("mysql:host=$servername;dbname=$dbname", $rd_username, $rd_password);
-                        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                        $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-						$stmt = $conn->prepare("SELECT COUNT(*) FROM gota_log");
-						$stmt->execute();
-						$contacts = $stmt->fetch();
-					} catch(PDOException $e) {
-						echo "Error: " . $e->getMessage();
-					}
-					$conn=null;
 					echo '
 						<h2>'.$_SESSION['gota_band'].'&nbsp;-&nbsp;'.$_SESSION['gota_mode'].' - GOTA</h2>
 						<h4>'.$contacts[0].'/500 GOTA contacts Logged</h4>
 						Please enter the whole exchange on one line then press enter. For example:<br>
 						"w3uas 3a mdc"<br>
 						<b>Exchange:</b><br>
-						<input type="text" list="callsigns" id="exchange" name="exchange" value="'.$view_exchange.'" autofocus="autofocus" onfocus="this.value = this.value;"/><span class="error">
+						<input '.$disble.' type="text" list="callsigns" id="exchange" name="exchange" value="'.$view_exchange.'" autofocus="autofocus" onfocus="this.value = this.value;"/><span class="error">
                         <datalist id="callsigns">';
-                        try {
-                            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $rd_username, $rd_password);
-                            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                            $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-                            $stmt = $conn->prepare("SELECT callsign, band, mode FROM gota-log ORDER BY callsign");
-                            $stmt->execute();
+						try {
+							$conn = new PDO("mysql:host=$servername;dbname=$dbname", $rd_username, $rd_password);
+							$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+							$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+							$stmt = $conn->prepare("SELECT callsign, band, mode FROM gota-log ORDER BY callsign");
+							$stmt->execute();
 
-                            // set the resulting array to associative
-                            foreach($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
-                                if ($row['band'] == $_SESSION['gota_dbband'] && $row['mode'] == $_SESSION['gota_mode']) {
-                                    $dupe_err = " - DUPE";
-                                }
-                                echo '<option value ="'.$row['callsign'].$dupe_err.'">'."\n";
-                                $dupe_err = "";
-                            }
-                        }
-                        catch(PDOException $e) {
-                            echo "Error: " . $e->getMessage();
-                        }
-                        $conn = null;
+							// set the resulting array to associative
+							foreach($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
+								if ($row['band'] == $_SESSION['gota_dbband'] && $row['mode'] == $_SESSION['gota_mode']) {
+									$dupe_err = " - DUPE";
+								}
+								echo '<option value ="'.$row['callsign'].$dupe_err.'">'."\n";
+								$dupe_err = "";
+							}
+						}
+						catch(PDOException $e) {
+							echo "Error: " . $e->getMessage();
+						}
+						$conn = null;
                     echo '</datalist>
                     * '. $dupeErr.'</span><span class="error">'.$sectionErr.'</span><br>
 						<input type="submit" value="Submit" /><br><br>
