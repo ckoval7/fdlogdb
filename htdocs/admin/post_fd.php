@@ -3,7 +3,7 @@
 session_start();
 include '../php/db_passwords.php';
 //select first_name, last_name, COUNT(*) from gota_log group by last_name, first_name;
-$agency_pts = $sm_msg_pts = $education_pts = $elected_pts = $mesg_pts = $info_pts = $media_pts = $public_pts = $safety_pts = $social_pts = $w1aw_pts = $youth_pts = $emxmttrpoints = $natural_pts = $satellite_pts = 0;
+$total_cw_qso = $total_dig_qso = $total_pho_qso = $agency_pts = $sm_msg_pts = $education_pts = $elected_pts = $mesg_pts = $info_pts = $media_pts = $public_pts = $safety_pts = $social_pts = $w1aw_pts = $youth_pts = $emxmttrpoints = $natural_pts = $satellite_pts = 0;
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $rd_username, $rd_password);
@@ -38,19 +38,28 @@ try {
 	$stmt = $conn->prepare("SELECT COUNT(*) FROM logbook WHERE mode = 'CW'");
     $stmt->execute();
 	$cw_qso = $stmt->fetch();
-	$cw_qso = $cw_qso[0];
+	$stmt = $conn->prepare("SELECT COUNT(*) FROM gota_log WHERE mode = 'CW'");
+    $stmt->execute();
+	$gota_cw_qso = $stmt->fetch();
+	$cw_qso = $cw_qso[0] + $gota_cw_qso[0];
 	$cw_points = $cw_qso * 2;
 	//Total Digital Contacts
 	$stmt = $conn->prepare("SELECT COUNT(*) FROM logbook WHERE mode = 'Digital'");
     $stmt->execute();
 	$dig_qso = $stmt->fetch();
-	$dig_qso = $dig_qso[0];
+	$stmt = $conn->prepare("SELECT COUNT(*) FROM gota_log WHERE mode = 'Digital'");
+    $stmt->execute();
+	$gota_dig_qso = $stmt->fetch();
+	$dig_qso = $dig_qso[0] + $gota_dig_qso[0];
 	$dig_points = $dig_qso * 2;
 	//Total Voice Contacts
 	$stmt = $conn->prepare("SELECT COUNT(*) FROM logbook WHERE mode = 'Phone'");
     $stmt->execute();
 	$pho_qso = $stmt->fetch();
-	$pho_qso = $pho_qso[0];
+	$stmt = $conn->prepare("SELECT COUNT(*) FROM gota_log WHERE mode = 'Phone'");
+    $stmt->execute();
+	$gota_pho_qso = $stmt->fetch();
+	$pho_qso = $pho_qso[0] + $gota_pho_qso[0];
 	$pho_points = $pho_qso;
 	//Total QSO Points
 	$total_qso_pts= $cw_points + $dig_points + $pho_points;
@@ -340,9 +349,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								Submitted by:
 								<ul>
 									<li>Date</li>
-									<li>Submitter\'s Callsign</li>
-									<li>Submitter or club\'s Address</li>
-									<li>Submitter\'s Email Address</li>
+									<li>Submitter's Callsign</li>
+									<li>Submitter or club's Address</li>
+									<li>Submitter's Email Address</li>
 								</ul>
 							</li>
 							<li>
@@ -542,9 +551,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                     break;
                                             }
                                         }
-                                        $total_cw_qso = $cw160qso + $cw80qso + $cw40qso + $cw20qso + $cw15qso + $cw10qso + $cw6qso + $cw2qso + $cw125qso + $cwsatqso;
-                                        $total_dig_qso = $dig160qso + $dig80qso + $dig40qso + $dig20qso + $dig15qso + $dig10qso + $dig6qso + $dig2qso + $dig125qso + $digsatqso;
-                                        $total_pho_qso = $pho160qso + $pho80qso + $pho40qso + $pho20qso + $pho15qso + $pho10qso + $pho6qso + $pho2qso + $pho125qso + $phosatqso;
+                                        $total_cw_qso = $cw160qso + $cw80qso + $cw40qso + $cw20qso + $cw15qso + $cw10qso + $cw6qso + $cw2qso + $cw125qso + $cwsatqso + $cwgotaqso;
+                                        $total_dig_qso = $dig160qso + $dig80qso + $dig40qso + $dig20qso + $dig15qso + $dig10qso + $dig6qso + $dig2qso + $dig125qso + $digsatqso + $diggotaqso;
+                                        $total_pho_qso = $pho160qso + $pho80qso + $pho40qso + $pho20qso + $pho15qso + $pho10qso + $pho6qso + $pho2qso + $pho125qso + $phosatqso + $phogotaqso;
                                         
 									}
 								}
