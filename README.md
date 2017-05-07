@@ -25,10 +25,10 @@ Currently working:
 	- List of acceptable sections
 	- Image display
 	- regex to check class
-	
+	- GOTA Logging
+	- FD post processing
+
 Not working/to-do:
 
-	* GOTA logging
-	* FD post processing
 	* Come up with a name
 	* more to come!
