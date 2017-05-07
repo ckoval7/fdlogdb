@@ -3,14 +3,16 @@ $error="";
 $error2="";
 $target_dir = "/img/user-uploads/";
 $currentdir = getcwd();
+$datestamp = date("U");
 include 'db_passwords.php';
+
 function test_input($data) {
 	$data = trim($data);
 	$data = htmlspecialchars($data);
 	return $data;
 	}
 if (isset($_POST["submit"])) {
-	$target_file = $target_dir.basename($_FILES["imageupload"]["name"]);
+	$target_file = $target_dir.$datestamp."_".basename($_FILES["imageupload"]["name"]);
 	//echo $target_file.'<br>'.$currentdir;
 	$uploadOk = 1;
 	$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -23,7 +25,7 @@ if (isset($_POST["submit"])) {
 				$uploadOk = 0;
 			} else {*/
 				//echo "File is an image - ".$check["mime"].".<br>";
-				if ($_FILES["imageupload"]["size"] > 8192000) {
+				if ($_FILES["imageupload"]["size"] > (8192000*2)) {
 					$error="Error! Sorry, image is too large!";
 					//echo "Sorry, image is too large!<br>";
 					$uploadOk=0;
@@ -45,7 +47,7 @@ if (isset($_POST["submit"])) {
 			$error2="Error! Image upload failed.";
 		} else {
 			if (move_uploaded_file($_FILES["imageupload"]["tmp_name"],$currentdir . $target_file)) {
-				$error2="The file ".basename($_FILES["imageupload"]["name"])." has been uploaded. ";
+				$error2="The file ".$datestamp."_".basename($_FILES["imageupload"]["name"])." has been uploaded. ";
 				$description = $_POST['description'];
 				$description = test_input($description);
 				try {

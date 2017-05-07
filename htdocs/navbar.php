@@ -37,13 +37,13 @@ if ($priv === "user") {
 echo '
 			<li onclick="self.location.href=\'/view-log.php\';" class="nav_item"><a href="/view-log.php">FD Log</a></li>
 			<li onclick="self.location.href=\'/guestbook.php\';" class="nav_item"><a href="/guestbook.php">Guestbook</a></li>
-			<li onclick="self.location.href=\'/php/gotalog.php\';" class="nav_item"><a href="/php/gotalog.php">GOTA Log</a></li>
 			<br>
 
 ';
 
 if ($priv === "user") {
   echo '
+			<li onclick="self.location.href=\'/php/gotalog.php\';" class="nav_item"><a href="/php/gotalog.php">GOTA Log</a></li>
 			<li onclick="self.location.href=\'/images.php\';" class="nav_item"><a href="/images.php">Images</a></li>
 			<li onclick="self.location.href=\'/account.php\';" class="nav_item"><a href="/account.php">My Account</a></li>
 			<li onclick="self.location.href=\'/inventory.php\';" class="nav_item"><a href="/inventory.php">My Inventory</a></li>
