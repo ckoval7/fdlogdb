@@ -18,7 +18,7 @@ Currently working:
 
 	- User accounts
 	- non-GOTA contact logging
-	- Image Upload (no display)
+	- Image Upload
 	- Guestbook
 	- The ability to delete contacts from the GUI
 	- Inventory
@@ -31,4 +31,5 @@ Currently working:
 Not working/to-do:
 
 	* Come up with a name
+	* US Map showing states worked
 	* more to come!

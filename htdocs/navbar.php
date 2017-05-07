@@ -60,7 +60,7 @@ if ($priv === "admin"){
 }
 echo '
 				<br>
-				<li onclick="window.open(\'/files/2016 Rules.pdf\',\'_blank\');" class="nav_item"><a target="_blank" href="/files/2016 Rules.pdf">FD 2016 Rules</a></li>
+				<li onclick="window.open(\'/files/2017 Rules.pdf\',\'_blank\');" class="nav_item"><a target="_blank" href="/files/2017 Rules.pdf">FD 2017 Rules</a></li>
 			</ul>
 		 </nav>
 	  </div>';
