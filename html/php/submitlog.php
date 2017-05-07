@@ -38,7 +38,7 @@ if (!empty($_POST['band']) or !empty($_POST['mode'])) {
 		if (!empty($_POST['natural_power'])) {
 			$_SESSION['natural_power'] = 1;
 		} else {
-			$_SESSION['natural_power'] = '';
+			$_SESSION['natural_power'] = '0';
 		}
 		if ($isReady == 1) {
 			try {

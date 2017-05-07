@@ -3,6 +3,7 @@ include 'php/db_passwords.php';
 $dupeErr = $sectionErr = $pwrErr = $view_exchange = $firstnameErr = $lastnameErr = $callsignErr = $first_name = $last_name = $op_callsign = "";
 $isReady = 0;
 
+$session_id = 1;
 $uuid = $_SESSION['uuid'];
 
 $valid_sections = array('CT', 'EMA', 'ME', 'NH', 'RI', 'VT', 'WMA', 'ENY', 'NLI', 'NNJ', 'NNY', 'SNJ', 'WNY', 'DE', 'EPA', 'MDC', 'WPA', 'AL', 'GA', 'KY', 'NC', 'NFL', 'SC', 'SFL', 'WCF', 'TN', 'VA', 'PR', 'VI', 'AR', 'LA', 'MS', 'NM', 'NTX', 'OK', 'STX', 'WTX', 'EB', 'LAX', 'ORG', 'SB', 'SCV', 'SDG', 'SF', 'SJV', 'SV', 'PAC', 'AZ', 'EWA', 'ID', 'MT', 'NV', 'OR', 'UT', 'WWA', 'WY', 'AK', 'MI', 'OH', 'WV', 'IL', 'IN', 'WI', 'CO', 'IA', 'KS', 'MN', 'MO', 'NE', 'ND', 'SD', 'MAR', 'NL', 'QC', 'ONE', 'ONN', 'ONS', 'GTA', 'MB', 'SK', 'AB', 'BC', 'NT', 'DX');
@@ -119,7 +120,7 @@ if (!empty($_POST['exchange'])) {
 			} elseif($contacts[0] >= 500) {
 				$sectionErr = "The GOTA station allows for a maximum of 500 contacts.";
 			} elseif (isset($callsign) and isset($operating_class)and isset($section)) {
-				$stmt = $conn->prepare("INSERT INTO gota_log(coach_id, callsign, operating_class, section, band, mode, power, first_name, last_name, op_callsign) VALUES (:coach_id, :callsign, :opclass, :section, :band, :mode, :power, :first, :last, :operator)");
+				$stmt = $conn->prepare("INSERT INTO gota_log(coach_id, callsign, operating_class, section, band, mode, power, first_name, last_name, op_callsign, session_id) VALUES (:coach_id, :callsign, :opclass, :section, :band, :mode, :power, :first, :last, :operator, :session_id)");
 				$stmt->bindParam(':coach_id', $_SESSION['uuid']);
 				$stmt->bindParam(':callsign', $callsign);
 				$stmt->bindParam(':opclass', $operating_class);
@@ -130,6 +131,7 @@ if (!empty($_POST['exchange'])) {
 				$stmt->bindParam(':first', $_SESSION['gota_first_name']);
 				$stmt->bindParam(':last', $_SESSION['gota_last_name']);
 				$stmt->bindParam(':operator', $_SESSION['op_callsign']);
+				$stmt->bindParam(':session_id', $session_id);
 				
 				$stmt->execute();
 				$conn=null;
